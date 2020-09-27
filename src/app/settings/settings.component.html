@@ -1,0 +1,55 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-8">
+        <!-- Header -->
+        <div class="header mt-md-5">
+          <div class="header-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <!-- Pretitle -->
+                <h6 class="header-pretitle">Overview</h6>
+
+                <!-- Title -->
+                <h1 class="header-title">Account</h1>
+              </div>
+            </div>
+
+            <!-- Nav -->
+            <div class="row align-items-center">
+              <div class="col">
+                <tabset #statusTabs>
+                  <tab
+                    heading="general"
+                    (selectTab)="onSelectTab($event)"
+                  ></tab>
+                  <tab
+                    heading="billing"
+                    (selectTab)="onSelectTab($event)"
+                  ></tab>
+                  <tab
+                    heading="members"
+                    (selectTab)="onSelectTab($event)"
+                  ></tab>
+                  <tab
+                    heading="security"
+                    (selectTab)="onSelectTab($event)"
+                  ></tab>
+                  <tab
+                    heading="notifications"
+                    (selectTab)="onSelectTab($event)"
+                  ></tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <router-outlet></router-outlet>
+
+        <br />
+      </div>
+    </div>
+    <!-- / .row -->
+  </div>
+</div>

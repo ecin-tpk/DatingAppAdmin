@@ -1,0 +1,16 @@
+::ng-deep ul.nav-tabs a.nav-link span:first-child{
+  margin-right: 5px;
+}
+
+::ng-deep .custom-flush .ng-select-container {
+  padding-left: 0;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  resize: none;
+}
+
+::ng-deep .custom-flush .ng-select-container:hover {
+  box-shadow: none;
+}
+
+

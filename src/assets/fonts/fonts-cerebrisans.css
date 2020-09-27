@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Cerebri Sans";
+  src: url(./cerebrisans/cerebrisans-regular.eot);
+  src: url(./cerebrisans/cerebrisans-regular.eot?#iefix)
+      format("embedded-opentype"),
+    url(./cerebrisans/cerebrisans-regular.woff) format("woff"),
+    url(./cerebrisans/cerebrisans-regular.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cerebri Sans";
+  src: url(./cerebrisans/cerebrisans-medium.eot);
+  src: url(./cerebrisans/cerebrisans-medium.eot?#iefix)
+      format("embedded-opentype"),
+    url(./cerebrisans/cerebrisans-medium.woff) format("woff"),
+    url(./cerebrisans/cerebrisans-medium.ttf) format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cerebri Sans";
+  src: url(./cerebrisans/cerebrisans-semibold.eot);
+  src: url(./cerebrisans/cerebrisans-semibold.eot?#iefix)
+      format("embedded-opentype"),
+    url(./cerebrisans/cerebrisans-semibold.woff) format("woff"),
+    url(./cerebrisans/cerebrisans-semibold.ttf) format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}

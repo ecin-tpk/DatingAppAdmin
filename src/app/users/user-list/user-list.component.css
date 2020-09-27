@@ -1,0 +1,117 @@
+a {
+  cursor: pointer;
+}
+
+.sort::after {
+  content: url("data:image/svg+xml;utf8,<svg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M3 0L6 4H0L3 0ZM3 10L0 6H6L3 10Z' fill='%2395AAC9'/></svg>");
+  margin-left: 0.25rem;
+}
+
+.card-footer {
+  padding: 0;
+}
+
+.custom {
+  font-size: 0.8125rem;
+  width: 100%;
+}
+
+.custom .ng-select-container {
+  z-index: 1051;
+}
+
+::ng-deep .ng-option.ng-option-disabled {
+  font-size: 0.8125rem;
+}
+
+pagination {
+  position: absolute;
+  width: 100%;
+}
+
+::ng-deep pagination ul {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+::ng-deep pagination .page-link {
+  padding: 1.25rem 0.75rem !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  border: none;
+  color: #95aac9;
+}
+
+::ng-deep .page-item.active .page-link {
+  color: #12263f;
+  border-bottom: 1px solid #2c7be5;
+}
+
+pager {
+  width: auto;
+}
+
+::ng-deep .btn-pager {
+  padding: 1.25rem 1.5rem;
+}
+
+::ng-deep pager ul {
+  margin: 0;
+}
+
+::ng-deep pager li.btn {
+  padding: 0;
+}
+
+::ng-deep pager ul {
+  list-style: none;
+}
+
+::ng-deep li.btn-pager {
+  cursor: pointer;
+  z-index: 999;
+}
+
+::ng-deep pager li.btn-pager:first-child {
+  border-right: 1px solid #e3ebf6;
+}
+
+::ng-deep pager li:first-child a::before {
+  content: "\e910";
+  font-family: Feather;
+  -webkit-font-smoothing: antialiased;
+  margin-right: 0.1875rem;
+}
+
+::ng-deep pager a:hover {
+  color: #12263f;
+}
+
+::ng-deep pager li.btn-pager:last-child {
+  border-left: 1px solid #e3ebf6;
+}
+
+::ng-deep pager li:last-child a::after {
+  content: "\e912";
+  font-family: Feather;
+  -webkit-font-smoothing: antialiased;
+  margin-left: 0.1875rem;
+}
+
+::ng-deep pager ul {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding-inline-start: 0;
+}
+
+::ng-deep pager li {
+  line-height: 1.25;
+}
+
+::ng-deep pager a {
+  color: #95aac9;
+  line-height: 1.25;
+}

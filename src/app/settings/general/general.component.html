@@ -1,0 +1,232 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Avatar -->
+  <div class="row justify-content-between align-items-center">
+    <div class="col">
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <div class="avatar">
+            <img
+              class="avatar-img rounded-circle"
+              src="{{ user.photoUrl }}"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="col ml-n2">
+          <!-- Heading -->
+          <h4 class="mb-1">Your avatar</h4>
+
+          <!-- Text -->
+          <small class="text-muted">
+            PNG or JPG no bigger than 1000px wide and tall.
+          </small>
+        </div>
+      </div>
+      <!-- / .row -->
+    </div>
+    <div class="col-auto">
+      <button
+        class="btn btn-sm btn-primary"
+        type="button"
+        (click)="openUploadModal()"
+      >
+        Upload
+      </button>
+    </div>
+  </div>
+
+  <hr class="my-5" />
+
+  <div class="row">
+    <!-- Name -->
+    <div class="col-12">
+      <div class="form-group">
+        <label for="name"> Name </label>
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          formControlName="name"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="submitted && f.name.errors">
+          <div *ngIf="submitted && f.name.errors.required">
+            Name is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email address -->
+    <div class="col-12">
+      <div class="form-group">
+        <label class="mb-1" for="email"> Email address </label>
+        <small class="form-text text-muted">
+          This email will be used to receive important messages about
+          authentication, so choose it carefully.
+        </small>
+        <input
+          class="form-control"
+          id="email"
+          type="email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="submitted && f.email.errors">
+          <div *ngIf="submitted && f.email.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="submitted && f.email.errors.email">
+            Please enter a valid email address.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="phone"> Phone </label>
+        <input
+          class="form-control mb-3"
+          id="phone"
+          type="text"
+          placeholder="___ ___ ____"
+          formControlName="phone"
+          mask="000 000 0000"
+          [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="submitted && f.phone.errors">
+          <div *ngIf="submitted && f.phone.errors.required">
+            Phone is required.
+          </div>
+          <div *ngIf="submitted && f.phone.errors.mask">
+            Please enter a valid phone number.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Birthday -->
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="dateOfBirth">
+          Birthday
+        </label>
+        <input
+          class="form-control"
+          id="dateOfBirth"
+          type="text"
+          formControlName="dateOfBirth"
+          bsDatepicker
+          [bsConfig]="{ showWeekNumbers: false }"
+          [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="submitted && f.dateOfBirth.errors">
+          <div *ngIf="submitted && f.dateOfBirth.errors.required">
+            Date of birth is required.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <button class="btn btn-primary" type="submit" [disabled]="loading">
+    <span
+      class="spinner-border spinner-border-sm mr-1"
+      role="status"
+      *ngIf="loading"
+    ></span>
+    Save changes
+  </button>
+
+  <hr class="my-5" />
+
+  <!-- Switches -->
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label class="mb-1"> Public profile </label>
+
+        <small class="form-text text-muted">
+          Making your profile public means that anyone on the Dashkit network
+          will be able to find you.
+        </small>
+
+        <div class="row">
+          <div class="col-auto">
+            <!-- Switch -->
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="switchOne"
+              />
+              <label class="custom-control-label" for="switchOne"></label>
+            </div>
+          </div>
+          <div class="col ml-n2">
+            <!-- Help text -->
+            <small class="text-muted">
+              You're currently invisible
+            </small>
+          </div>
+        </div>
+        <!-- / .row -->
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- Allow for additional Bookings -->
+      <div class="form-group">
+        <!-- Label -->
+        <label class="mb-1"> Allow for additional Bookings </label>
+
+        <!-- Form text -->
+        <small class="form-text text-muted">
+          If you are available for hire outside of the current situation, you
+          can encourage others to hire you.
+        </small>
+
+        <div class="row">
+          <div class="col-auto">
+            <!-- Switch -->
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="switchTwo"
+                checked
+              />
+              <label class="custom-control-label" for="switchTwo"></label>
+            </div>
+          </div>
+          <div class="col ml-n2">
+            <!-- Help text -->
+            <small class="text-muted">
+              You're currently available
+            </small>
+          </div>
+        </div>
+        <!-- / .row -->
+      </div>
+    </div>
+  </div>
+
+  <hr class="mt-4 mb-5" />
+
+  <!-- Delete account -->
+  <div class="row justify-content-between">
+    <div class="col-12 col-md-6">
+      <h4>Delete your account</h4>
+      <p class="small text-muted mb-md-0">
+        Please note, deleting your account is a permanent action and will no be
+        recoverable once completed.
+      </p>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-danger" type="button">Delete</button>
+    </div>
+  </div>
+</form>
+<br />

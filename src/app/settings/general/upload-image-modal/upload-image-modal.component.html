@@ -1,0 +1,112 @@
+<div class="modal-body bg-lighter" style="border-radius: 0.5rem;">
+  <!-- Header -->
+  <div class="row">
+    <div class="col">
+      <!-- Prettitle -->
+      <h6 class="text-uppercase text-muted mb-3">
+        <a class="text-reset">Update avatar</a>
+      </h6>
+
+      <!-- Title -->
+      <h2 class="mb-2">
+        Upload new avatar!
+      </h2>
+
+      <!-- Subtitle -->
+      <textarea
+        class="form-control form-control-flush form-control-auto"
+        data-toggle="autosize"
+        rows="1"
+        placeholder="Add a description..."
+        style="overflow: hidden; overflow-wrap: break-word; height: 24px;"
+      ></textarea>
+    </div>
+    <div class="col-auto">
+      <!-- Close -->
+      <button type="button" class="close" (click)="bsModalRef.hide()">
+        <span>
+          ×
+        </span>
+      </button>
+    </div>
+  </div>
+  <!-- / .row -->
+
+  <!-- Divider -->
+  <hr class="my-4" />
+
+  <!-- Buttons -->
+  <div class="mb-4">
+    <div class="row">
+      <div class="col">
+        <!-- Button -->
+        <a href="#!" class="btn btn-sm btn-white">
+          Add Reaction
+        </a>
+      </div>
+      <div class="col-auto">
+        <!-- Button -->
+        <a class="btn btn-sm btn-white">
+          <i class="fe fe-upload mr-2"></i>
+          Upload
+        </a>
+      </div>
+    </div>
+    <!-- / .row -->
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="card-body">
+      <div class="dropzone dropzone-multiple dz-clickable">
+        <ul
+          class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"
+        ></ul>
+
+        <div class="dz-default dz-message">
+          <button class="dz-button" type="button">
+            Drop files here to upload
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="card-body">
+      <div class="avatar-container">
+        <div class="avatar-item">
+          <img
+            width="100%"
+            src="../assets/img/avatars/profiles/avatar-2.jpg"
+            class="rounded-circle"
+            alt="..."
+          />
+        </div><div class="avatar-item">
+          <img
+            width="100%"
+            src="../assets/img/avatars/profiles/avatar-2.jpg"
+            class="rounded-circle"
+            alt="..."
+          />
+        </div><div class="avatar-item">
+          <img
+            width="100%"
+            src="../assets/img/avatars/profiles/avatar-2.jpg"
+            class="rounded-circle"
+            alt="..."
+          />
+        </div><div class="avatar-item">
+          <img
+            width="100%"
+            src="../assets/img/avatars/profiles/avatar-2.jpg"
+            class="rounded-circle"
+            alt="..."
+          />
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

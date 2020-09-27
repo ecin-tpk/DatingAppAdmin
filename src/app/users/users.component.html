@@ -1,0 +1,94 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <!-- Header -->
+        <div class="header">
+          <div class="header-body">
+            <div class="row align-items-center">
+              <!-- Title -->
+              <div class="col">
+                <h6 class="header-pretitle">
+                  Overview
+                </h6>
+                <h1 class="header-title text-truncate">
+                  Users
+                </h1>
+              </div>
+
+              <!-- View layout -->
+              <div class="col-auto">
+                <div class="nav btn-group d-inline-flex" role="tablist">
+                  <button
+                    class="btn btn-white active"
+                    id="contactsListTab"
+                    data-toggle="tab"
+                    data-target="#contactsListPane"
+                    role="tab"
+                    aria-controls="contactsListPane"
+                    aria-selected="true"
+                  >
+                    <span class="fe fe-list"></span>
+                  </button>
+                  <button
+                    class="btn btn-white"
+                    id="contactsCardsTab"
+                    data-toggle="tab"
+                    data-target="#contactsCardsPane"
+                    role="tab"
+                    aria-controls="contactsCardsPane"
+                    aria-selected="false"
+                  >
+                    <span class="fe fe-grid"></span>
+                  </button>
+                </div>
+
+                <!-- Buttons -->
+                <a class="btn btn-primary ml-2">
+                  Add contact
+                </a>
+              </div>
+            </div>
+
+            <!-- Nav -->
+            <div class="row align-items-center">
+              <div class="col">
+                <tabset #userStatusTabs>
+                  <tab heading="active" (selectTab)="onSelectStatus($event)">
+                    <ng-template tabHeading>
+                      <span
+                        class="badge badge-tab badge-pill badge-soft-secondary"
+                        >{{ statusCounts[0] }}</span
+                      >
+                    </ng-template>
+                  </tab>
+                  <tab heading="disabled" (selectTab)="onSelectStatus($event)">
+                    <ng-template tabHeading>
+                      <span
+                        class="badge badge-tab badge-pill badge-soft-secondary"
+                        >{{ statusCounts[1] }}</span
+                      >
+                    </ng-template>
+                  </tab>
+                  <tab heading="deleted" (selectTab)="onSelectStatus($event)">
+                    <ng-template tabHeading>
+                      <span
+                        class="badge badge-tab badge-pill badge-soft-secondary"
+                        >{{ statusCounts[2] }}</span
+                      >
+                    </ng-template>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="tab-content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

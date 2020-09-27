@@ -1,0 +1,356 @@
+<nav
+  class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light"
+  id="sidebar"
+>
+  <div class="container-fluid">
+    <!-- Hamburger toggler -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      aria-controls="nav"
+      aria-label="Toggle navigation"
+      [attr.aria-expanded]="!collapses.nav"
+      (click)="toggleCollapse(navToggler)"
+      #navToggler
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="">
+      <img
+        class="navbar-brand-img mx-auto"
+        src="../../../assets/img/logo.svg"
+        alt=""
+      />
+    </a>
+
+    <!-- User avatar (xs) -->
+    <div class="navbar-user d-md-none">
+      <div class="dropdown" dropdown>
+        <!-- Toggler -->
+        <a
+          class="dropdown-toggle"
+          id="sidebarIcon"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          dropdownToggle
+        >
+          <div class="avatar avatar-sm avatar-online">
+            <img
+              src="{{ avatarUrl }}"
+              class="avatar-img rounded-circle"
+              alt=""
+            />
+          </div>
+        </a>
+
+        <!-- Menu -->
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="sidebarIcon"
+          *dropdownMenu
+        >
+          <a class="dropdown-item">Profile</a>
+          <a class="dropdown-item" routerLink="/account/settings/general">Settings</a>
+          <hr class="dropdown-divider" />
+          <a class="dropdown-item" (click)="logout()">Sign out</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav collapse -->
+    <div
+      class="collapse navbar-collapse"
+      id="nav"
+      [collapse]="collapses.nav"
+      [isAnimated]="true"
+    >
+      <!-- Search -->
+      <form class="mt-4 mb-3 d-md-none">
+        <div class="input-group input-group-rounded input-group-merge">
+          <input
+            type="search"
+            class="form-control form-control-rounded form-control-prepended"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fe fe-search"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Navigation -->
+      <ul class="navbar-nav">
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            role="button"
+            aria-expanded="true"
+            aria-controls="sidebarDashboards"
+            routerLink="/"
+            routerLinkActive="active"
+          >
+            <i class="fe fe-home"></i> Dashboard
+          </a>
+        </li>
+
+        <!-- Widgets -->
+        <li class="nav-item">
+          <a class="nav-link" href=""> <i class="fe fe-grid"></i> Widgets </a>
+        </li>
+
+        <!-- Users -->
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            role="button"
+            aria-controls="users"
+            routerLink="/users/active"
+            [attr.aria-expanded]="!collapses.users"
+            (click)="toggleCollapse($event.target)"
+          >
+            <i class="fe fe-users"></i>
+            Users
+          </a>
+          <div
+            class="collapse"
+            id="sidebarAuth"
+            [collapse]="collapses.users"
+            [isAnimated]="true"
+          >
+            <ul class="nav nav-sm flex-column">
+              <!-- Active -->
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  data-toggle="collapse"
+                  role="button"
+                  aria-controls="active"
+                  routerLink="/users/active"
+                  routerLinkActive="active"
+                  [attr.aria-expanded]="!collapses.active"
+                  (click)="toggleCollapse($event.target)"
+                >
+                  Active
+                </a>
+                <div
+                  class="collapse"
+                  [collapse]="collapses.active"
+                  [isAnimated]="true"
+                >
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        Male
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        Female
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <!-- Disabled -->
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  data-toggle="collapse"
+                  role="button"
+                  aria-controls="inactive"
+                  routerLink="/users/disabled"
+                  routerLinkActive="active"
+                  [attr.aria-expanded]="!collapses.inactive"
+                  (click)="toggleCollapse($event.target)"
+                >
+                  Disabled
+                </a>
+                <div
+                  class="collapse"
+                  [collapse]="collapses.inactive"
+                  [isAnimated]="true"
+                >
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        Male
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        Female
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <!-- Deleted -->
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  data-toggle="collapse"
+                  role="button"
+                  aria-controls="deleted"
+                  routerLink="/users/deleted"
+                  routerLinkActive="active"
+                  [attr.aria-expanded]="!collapses.deleted"
+                  (click)="toggleCollapse($event.target)"
+                >
+                  Deleted
+                </a>
+                <div
+                  class="collapse"
+                  [collapse]="collapses.deleted"
+                  [isAnimated]="true"
+                >
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        Male
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        Female
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Notifications toggler (s) -->
+        <li class="nav-item d-md-none">
+          <a
+            class="nav-link"
+            data-toggle="activity"
+            (click)="openModal($event.target)"
+          >
+            <span class="fe fe-bell"></span> Notifications
+          </a>
+        </li>
+      </ul>
+
+      <!-- Divider -->
+      <hr class="navbar-divider my-3" />
+
+      <!-- Heading -->
+      <h6 class="navbar-heading">
+        Documentation
+      </h6>
+
+      <!-- Navigation -->
+      <ul class="navbar-nav mb-md-4">
+        <!-- Basics -->
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="sidebarBasics"
+          >
+            <i class="fe fe-clipboard"></i> Basics
+          </a>
+        </li>
+
+        <!-- Components -->
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="sidebarComponents"
+          >
+            <i class="fe fe-book-open"></i> Components
+          </a>
+        </li>
+
+        <!-- Changelog -->
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="fe fe-git-branch"></i> Changelog
+            <span class="badge badge-primary ml-auto">v1.6.1</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Push content down -->
+      <div class="mt-auto"></div>
+
+      <!-- Customize -->
+      <div
+        id="popoverDemo"
+        data-toggle="popover"
+        data-trigger="manual"
+        title="Make Dashkit Your Own!"
+        data-content="Switch the demo to Dark Mode or adjust the navigation layout, icons, and colors!"
+      >
+        <a class="btn btn-block btn-primary mb-4" data-toggle="modal">
+          <i class="fe fe-sliders mr-2"></i> Customize
+        </a>
+      </div>
+
+      <!-- User (md) -->
+      <div class="navbar-user d-none d-md-flex" id="sidebarUser">
+        <!-- Notification toggler (md) -->
+        <a class="navbar-user-link" (click)="openModal($event.target)">
+          <span class="icon">
+            <i class="fe fe-bell" data-toggle="activity"></i>
+          </span>
+        </a>
+
+        <!-- Avatar dropup -->
+        <div class="dropup">
+          <!-- Toggler -->
+          <a
+            id="sidebarIconCopy"
+            class="dropdown-toggle"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <div class="avatar avatar-sm avatar-online">
+              <img
+                class="avatar-img rounded-circle"
+                src="{{ avatarUrl }}"
+                alt=""
+              />
+            </div>
+          </a>
+
+          <!-- Menu -->
+          <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
+            <a class="dropdown-item">Profile</a>
+            <a class="dropdown-item" routerLink="/account/settings/general"
+              >Settings</a
+            >
+            <hr class="dropdown-divider" />
+            <a class="dropdown-item" (click)="logout()">Sign out</a>
+          </div>
+        </div>
+
+        <!-- Icon -->
+        <a class="navbar-user-link">
+          <span class="icon" (click)="openModal($event.target)">
+            <i class="fe fe-search" data-toggle="search"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
