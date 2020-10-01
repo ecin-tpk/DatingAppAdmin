@@ -11,6 +11,7 @@ import { MembersComponent } from './members/members.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SecurityComponent } from './security/security.component';
 import { UploadImageModalComponent } from './general/upload-image-modal/upload-image-modal.component';
+import {AlertModule} from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UploadImageModalComponent } from './general/upload-image-modal/upload-i
     ReactiveFormsModule,
     FormsModule,
     SettingsRoutingModule,
+    AlertModule.forRoot(),
     TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
     NgxMaskModule.forRoot(),

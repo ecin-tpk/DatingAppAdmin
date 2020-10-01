@@ -14,14 +14,11 @@ import { AuthService } from './auth.service';
 export class UserService {
   private userSubject: BehaviorSubject<User>;
 
-  usersChanged = new Subject<User[]>();
-  paginationChanged = new Subject<Pagination>();
-  statusCountsChanged = new Subject<number[]>();
+  usersSubject = new Subject<User[]>();
+  paginationSubject = new Subject<Pagination>();
+  statusCountsSubject = new Subject<number[]>();
 
-  constructor(
-    private http: HttpClient,
-    private accountService: AuthService
-  ) {
+  constructor(private http: HttpClient, private accountService: AuthService) {
     this.accountService.user.subscribe((user) => {
       this.userSubject = new BehaviorSubject<User>(user);
     });
@@ -36,8 +33,8 @@ export class UserService {
         params,
       })
       .subscribe((response) => {
-        this.usersChanged.next(response.body);
-        this.paginationChanged.next(
+        this.usersSubject.next(response.body);
+        this.paginationSubject.next(
           JSON.parse(response.headers.get('Pagination'))
         );
       });
@@ -48,8 +45,15 @@ export class UserService {
   }
 
   update(id, params) {
+    if (params.dateOfBirth) {
+      params.dateOfBirth = this.getDateOnly(params.dateOfBirth);
+    }
+
     return this.http.put(`${environment.apiUrl}/users/${id}`, params).pipe(
       map((user: User) => {
+        // Next new counts
+        this.getStatusCounts();
+
         // Update the current account if it was updated
         if (user.id === this.userSubject.value.id) {
           // Publish updated account to subscribers
@@ -63,12 +67,13 @@ export class UserService {
 
   getStatusCounts() {
     return this.http
-      .get<number[]>(environment.apiUrl + 'users/status')
+      .get<number[]>(`${environment.apiUrl}/admin/users/status`)
       .subscribe((statusCounts) => {
-        this.statusCountsChanged.next(statusCounts);
+        this.statusCountsSubject.next(statusCounts);
       });
   }
 
+  // Helper methods
   requestParams(pageNumber?, pageSize?, userParams?) {
     let params = new HttpParams();
 
@@ -77,7 +82,7 @@ export class UserService {
       params = params.append('pageSize', pageSize);
     }
     if (userParams != null) {
-      params = params.append('knownAs', userParams.knownAs);
+      params = params.append('name', userParams.name);
       params = params.append('gender', userParams.gender);
       params = params.append('minAge', userParams.minAge);
       params = params.append('maxAge', userParams.maxAge);
@@ -87,5 +92,11 @@ export class UserService {
     }
 
     return params;
+  }
+
+  getDateOnly(date) {
+    return (
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    );
   }
 }

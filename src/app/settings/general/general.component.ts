@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UploadImageModalComponent } from './upload-image-modal/upload-image-modal.component';
 import { User } from '../../_models';
+import { AlertComponent } from 'ngx-bootstrap/alert';
 
 @Component({
   selector: 'app-general',
@@ -15,6 +16,7 @@ import { User } from '../../_models';
   styleUrls: ['./general.component.css'],
 })
 export class GeneralComponent implements OnInit {
+  alerts: any[] = [];
   tabId = new Subject<number>();
 
   // TODO: Fix user form not updating
@@ -66,11 +68,21 @@ export class GeneralComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          console.log('success');
+          this.alerts = [];
+          this.alerts.push({
+            type: 'success',
+            msg: 'Update success',
+            dismissible: true,
+            timeout: 5000,
+          });
           this.loading = false;
         },
         error: (err) => {
-          console.log(err);
+          this.alerts.push({
+            type: 'danger',
+            msg: err,
+            dismissible: true,
+          });
           this.loading = false;
         },
       });
@@ -79,5 +91,9 @@ export class GeneralComponent implements OnInit {
   openUploadModal() {
     this.bsModalRef = this.modalService.show(UploadImageModalComponent);
     this.bsModalRef.content.closeBtnName = 'Close';
+  }
+
+  onClosed(dismissedAlert: AlertComponent): void {
+    this.alerts = this.alerts.filter((alert) => alert !== dismissedAlert);
   }
 }

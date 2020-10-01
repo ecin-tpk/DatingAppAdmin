@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 
-import { UserService } from '../_services/user.service';
+import { UserService } from '../_services';
 
 @Component({
   selector: 'app-users',
@@ -19,21 +19,21 @@ export class UsersComponent implements OnInit {
   constructor(private usersService: UserService, private router: Router) {}
 
   ngOnInit() {
-    // // Select corresponding tab
-    // let tabHeading = this.router.url.split('/').pop();
-    // this.selectTab(tabHeading);
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     tabHeading = event.url.split('/').pop();
-    //     this.selectTab(tabHeading);
-    //   }
-    // });
-    //
-    // this.usersService.getStatusCounts();
-    //
-    // this.usersService.statusCountsChanged.subscribe((statusCounts) => {
-    //   this.statusCounts = statusCounts;
-    // });
+    // Select corresponding tab
+    let tabHeading = this.router.url.split('/').pop();
+    this.selectTab(tabHeading);
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        tabHeading = event.url.split('/').pop();
+        this.selectTab(tabHeading);
+      }
+    });
+
+    this.usersService.getStatusCounts();
+
+    this.usersService.statusCountsSubject.subscribe((statusCounts) => {
+      this.statusCounts = statusCounts;
+    });
   }
 
   onSelectStatus(data: TabDirective) {

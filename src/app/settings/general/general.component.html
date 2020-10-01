@@ -1,3 +1,10 @@
+<!-- Alerts -->
+<div *ngFor="let alert of alerts">
+  <alert [dismissOnTimeout]="alert.timeout" [dismissible]="alert.dismissible" [type]="alert.type" (onClosed)="onClosed(alert)">{{
+    alert.msg
+  }}</alert>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <!-- Avatar -->
   <div class="row justify-content-between align-items-center">

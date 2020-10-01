@@ -1,3 +1,10 @@
+<!-- Alerts -->
+<div *ngFor="let alert of alerts">
+  <alert [dismissOnTimeout]="alert.timeout" [dismissible]="alert.dismissible" [type]="alert.type" (onClosed)="onClosed(alert)">{{
+    alert.msg
+    }}</alert>
+</div>
+
 <div class="row justify-content-between align-items-center mb-5">
   <div class="col-12 col-md-9 col-xl-7">
     <!-- Heading -->
@@ -204,6 +211,9 @@
         <div class="invalid-feedback" *ngIf="submitted && f.newPassword.errors">
           <div *ngIf="submitted && f.newPassword.errors.required">
             New password is required.
+          </div>
+          <div *ngIf="submitted && f.newPassword.errors.minlength">
+            Password must be at least 6 characters.
           </div>
         </div>
       </div>

@@ -47,7 +47,7 @@ export class UserParams {
     return this._name;
   }
 
-  set knownAs(value: string) {
+  set name(value: string) {
     if (this._name !== value) {
       this._hasChanged = true;
     }

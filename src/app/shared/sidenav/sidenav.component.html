@@ -53,7 +53,9 @@
           *dropdownMenu
         >
           <a class="dropdown-item">Profile</a>
-          <a class="dropdown-item" routerLink="/account/settings/general">Settings</a>
+          <a class="dropdown-item" routerLink="/account/settings/general"
+            >Settings</a
+          >
           <hr class="dropdown-divider" />
           <a class="dropdown-item" (click)="logout()">Sign out</a>
         </div>
@@ -95,6 +97,7 @@
             aria-controls="sidebarDashboards"
             routerLink="/"
             routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
             <i class="fe fe-home"></i> Dashboard
           </a>
@@ -112,8 +115,6 @@
             data-toggle="collapse"
             role="button"
             aria-controls="users"
-            routerLink="/users/active"
-            [attr.aria-expanded]="!collapses.users"
             (click)="toggleCollapse($event.target)"
           >
             <i class="fe fe-users"></i>
@@ -130,102 +131,36 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  data-toggle="collapse"
                   role="button"
-                  aria-controls="active"
                   routerLink="/users/active"
                   routerLinkActive="active"
-                  [attr.aria-expanded]="!collapses.active"
-                  (click)="toggleCollapse($event.target)"
                 >
                   Active
                 </a>
-                <div
-                  class="collapse"
-                  [collapse]="collapses.active"
-                  [isAnimated]="true"
-                >
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        Male
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        Female
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </li>
 
               <!-- Disabled -->
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  data-toggle="collapse"
                   role="button"
-                  aria-controls="inactive"
                   routerLink="/users/disabled"
                   routerLinkActive="active"
-                  [attr.aria-expanded]="!collapses.inactive"
-                  (click)="toggleCollapse($event.target)"
                 >
                   Disabled
                 </a>
-                <div
-                  class="collapse"
-                  [collapse]="collapses.inactive"
-                  [isAnimated]="true"
-                >
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        Male
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        Female
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </li>
 
               <!-- Deleted -->
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  data-toggle="collapse"
                   role="button"
-                  aria-controls="deleted"
                   routerLink="/users/deleted"
                   routerLinkActive="active"
-                  [attr.aria-expanded]="!collapses.deleted"
-                  (click)="toggleCollapse($event.target)"
                 >
                   Deleted
                 </a>
-                <div
-                  class="collapse"
-                  [collapse]="collapses.deleted"
-                  [isAnimated]="true"
-                >
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        Male
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        Female
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </li>
             </ul>
           </div>

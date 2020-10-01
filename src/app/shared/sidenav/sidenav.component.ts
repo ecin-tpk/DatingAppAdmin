@@ -19,9 +19,6 @@ export class SidenavComponent implements OnInit {
   collapses = {
     nav: true,
     users: true,
-    active: true,
-    inactive: true,
-    deleted: true,
   };
 
   constructor(

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MustMatch } from '../../_helpers/must-match.validator';
+import { MustMatch } from '../../_helpers';
 import { AuthService, UserService } from '../../_services';
 import { first } from 'rxjs/operators';
+import { AlertComponent } from 'ngx-bootstrap/alert';
 
 @Component({
   selector: 'app-security',
@@ -10,6 +11,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./security.component.css'],
 })
 export class SecurityComponent implements OnInit {
+  alerts: any[] = [];
+
   user = this.accountService.userValue;
   form: FormGroup;
   loading = false;
@@ -33,7 +36,7 @@ export class SecurityComponent implements OnInit {
     this.form = this.formBuilder.group(
       {
         currentPassword: ['', Validators.required],
-        newPassword: ['', Validators.required],
+        newPassword: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
       },
       { validator: MustMatch('newPassword', 'confirmPassword') }
@@ -54,19 +57,27 @@ export class SecurityComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          console.log('success');
+          this.alerts = [];
+          this.alerts.push({
+            type: 'success',
+            msg: 'Update password success',
+            dismissible: true,
+            timeout: 5000,
+          });
           this.loading = false;
         },
         error: (err) => {
-          console.log('error');
+          this.alerts.push({
+            type: 'danger',
+            msg: err,
+            dismissible: true,
+          });
           this.loading = false;
         },
       });
   }
 
-  resetForm() {
-    this.f.currentPassword.setErrors(null);
-    this.f.newPassword.setErrors(null);
-    this.f.confirmPassword.setErrors(null);
+  onClosed(dismissedAlert: AlertComponent): void {
+    this.alerts = this.alerts.filter((alert) => alert !== dismissedAlert);
   }
 }

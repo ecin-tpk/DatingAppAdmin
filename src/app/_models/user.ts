@@ -1,10 +1,10 @@
 import { Role } from './role';
-import {Photo} from './photo';
+import { Photo } from './photo';
 
 export interface User {
   id: string;
   email: string;
-  isVerified: boolean;
+  isVerified: string;
   name: string;
   phone?: string;
   gender: string;
@@ -25,7 +25,7 @@ export interface User {
 }
 
 export const Genders = [
-  { gender: 'any', text: 'Any' },
+  { gender: '', text: 'Any' },
   { gender: 'male', text: 'Male' },
   { gender: 'female', text: 'Female' },
 ];

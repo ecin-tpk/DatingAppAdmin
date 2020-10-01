@@ -1,16 +1,8 @@
 <!-- Users list -->
-<div
-  class="tab-pane fade show active"
-  role="tabpanel"
-  aria-labelledby="usersListTab"
-  *ngIf="(users && users.length > 0) || isFiltered || knownAs !== ''"
->
+<div class="tab-pane fade show active">
   <div class="card">
     <!-- Search and filter -->
-    <div
-      class="card-header"
-      *ngIf="(users && users.length > 0) || isFiltered || knownAs !== ''"
-    >
+    <div class="card-header">
       <div class="row align-items-center">
         <!-- Search -->
         <div class="col">
@@ -24,10 +16,10 @@
               <input
                 class="list-search form-control"
                 type="search"
-                placeholder="Search by name"
-                name="knownAs"
+                placeholder="Search"
+                name="name"
                 (keyup)="search()"
-                [(ngModel)]="knownAs"
+                [(ngModel)]="name"
               />
             </div>
           </form>
@@ -54,8 +46,8 @@
             class="dropdown"
             dropdown
             [insideClick]="true"
-            (onHidden)="closeFilters()"
-            #filtersForm="bs-dropdown"
+            (onHidden)="onHidden()"
+            #dropdown="bs-dropdown"
           >
             <!-- Toggle -->
             <button
@@ -83,7 +75,9 @@
 
                 <!-- Clear filter -->
                 <button
-                  class="btn btn-sm btn-link text-reset"
+                  class="btn btn-sm btn-link text-reset d-none"
+                  role="button"
+                  [ngClass]="{ 'd-block': filtersCount > 0 }"
                   (click)="clearFilters()"
                 >
                   <small>Clear filters</small>
@@ -107,7 +101,7 @@
                           [searchable]="false"
                           [closeOnSelect]="false"
                           [clearable]="false"
-                          (change)="filtersChanged()"
+                          (change)="onFilterChanged()"
                           [(ngModel)]="this.userParams.gender"
                         >
                         </ng-select>
@@ -131,7 +125,7 @@
                           [searchable]="false"
                           [closeOnSelect]="false"
                           [clearable]="false"
-                          (change)="filtersChanged()"
+                          (change)="onFilterChanged()"
                           [(ngModel)]="this.userParams.verification"
                         >
                         </ng-select>
@@ -143,7 +137,7 @@
                 <button
                   class="btn btn-block btn-primary"
                   type="submit"
-                  (click)="onSubmitFilterForm(filtersForm)"
+                  (click)="onSubmit(dropdown)"
                 >
                   Apply filter
                 </button>
@@ -155,7 +149,7 @@
     </div>
 
     <!-- Table -->
-    <div class="table-responsive" *ngIf="users && users.length > 0">
+    <div class="table-responsive">
       <table class="table table-sm table-hover table-nowrap card-table">
         <thead>
           <tr>
@@ -203,7 +197,7 @@
 
             <!-- Verification -->
             <th>
-              <a class="sort text-muted" (click)="sortUsers('verfication')"
+              <a class="sort text-muted" (click)="sortUsers('verification')"
                 >Verification</a
               >
             </th>
@@ -238,7 +232,7 @@
                   alt=""
                 />
               </div>
-              <a class="text-reset">{{ user.knownAs }}</a>
+              <a class="text-reset">{{ user.name }}</a>
             </td>
 
             <!-- Gender -->
@@ -248,7 +242,7 @@
 
             <!-- Age -->
             <td>
-              <span>{{ user.age }}</span>
+              <span>{{ user.dateOfBirth | age }}</span>
             </td>
 
             <!-- Email -->
@@ -261,49 +255,50 @@
               <a class="text-reset" href="tel:"> {{ user.phone }}</a>
             </td>
 
-            <!-- Verification -->
+            <!-- Verified-->
             <td>
               <!-- Badge -->
-              <span class="badge badge-soft-danger" *ngIf="!user.verified"
+              <span class="badge badge-soft-danger" *ngIf="!user.isVerified"
                 >Unverified</span
               >
-              <span class="badge badge-soft-success" *ngIf="user.verified"
+              <span class="badge badge-soft-success" *ngIf="user.isVerified"
                 >Verified</span
               >
             </td>
 
             <!-- Linked account -->
             <td>
-              <span>
-                <a class="item-company text-reset">Instagram</a>,
-                <a class="item-company text-reset">Facebook</a>,
-                <a class="item-company text-reset">Twitter</a>
-              </span>
+              <span> </span>
             </td>
             <td class="text-right">
               <!-- Dropdown -->
-              <div class="dropdown">
-                <a
-                  class="dropdown-ellipses dropdown-toggle"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
+              <div
+                class="dropdown"
+                dropdown
+                container="body"
+                placement="bottom right"
+              >
+                <a class="dropdown-ellipses" role="button" dropdownToggle>
                   <i class="fe fe-more-vertical"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item">
-                    Action
-                  </a>
-                  <a class="dropdown-item">
-                    Another action
-                  </a>
-                  <a class="dropdown-item">
-                    Something else here
-                  </a>
+                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                  <a
+                    class="dropdown-item"
+                    (click)="updateStatus(user.id, action)"
+                    *ngFor="let action of actions"
+                    >{{ action }}</a
+                  >
+                  <hr class="dropdown-divider" />
+                  <a class="dropdown-item">View profile</a>
                 </div>
               </div>
+            </td>
+          </tr>
+
+          <!-- Loading spinner -->
+          <tr *ngIf="!users">
+            <td class="text-center" colspan="9">
+              <span class="spinner-border"></span>
             </td>
           </tr>
         </tbody>
@@ -376,23 +371,5 @@
         </button>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- No data -->
-<div class="card card-inactive" *ngIf="users && users.length === 0">
-  <div class="card-body text-center">
-    <img
-      src="../../../assets/img/illustrations/no-data.svg"
-      alt=""
-      class="img-fluid"
-      style="max-width: 182px;"
-    />
-
-    <h1>
-      No data yet.
-    </h1>
-
-    <p class="text-muted">Users that is {{ userStatus }} will appear here.</p>
   </div>
 </div>
