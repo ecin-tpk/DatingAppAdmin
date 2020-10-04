@@ -19,8 +19,7 @@ export class GeneralComponent implements OnInit {
   alerts: any[] = [];
   tabId = new Subject<number>();
 
-  // TODO: Fix user form not updating
-  user = this.authService.userValue;
+  user: User;
 
   form: FormGroup;
   loading = false;
@@ -42,6 +41,9 @@ export class GeneralComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.userSubject.subscribe((user) => {
+      this.user = user;
+    });
     this.initForm();
   }
 

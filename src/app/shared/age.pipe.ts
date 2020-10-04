@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class AgePipe implements PipeTransform {
   transform(value: any) {
     const timeDiff = Math.abs(Date.now() - new Date(value).getTime());
-    const age = Math.floor(timeDiff / (3600 * 24 * 1000) / 365.25);
-    return age;
+    return Math.floor(timeDiff / (3600 * 24 * 1000) / 365.25);
   }
 }

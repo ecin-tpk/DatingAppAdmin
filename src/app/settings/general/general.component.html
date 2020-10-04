@@ -1,8 +1,12 @@
 <!-- Alerts -->
 <div *ngFor="let alert of alerts">
-  <alert [dismissOnTimeout]="alert.timeout" [dismissible]="alert.dismissible" [type]="alert.type" (onClosed)="onClosed(alert)">{{
-    alert.msg
-  }}</alert>
+  <alert
+    [dismissOnTimeout]="alert.timeout"
+    [dismissible]="alert.dismissible"
+    [type]="alert.type"
+    (onClosed)="onClosed(alert)"
+    >{{ alert.msg }}</alert
+  >
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -16,7 +20,11 @@
               class="avatar-img rounded-circle"
               src="{{ user.photoUrl }}"
               alt=""
+              *ngIf="user.photoUrl"
             />
+            <span class="avatar-title rounded-circle" *ngIf="!user.photoUrl">
+              {{ user.name.charAt(0) }}
+            </span>
           </div>
         </div>
         <div class="col ml-n2">
@@ -37,7 +45,8 @@
         type="button"
         (click)="openUploadModal()"
       >
-        Upload
+        <i class="fe fe-edit mr-1"></i>
+        Update avatar
       </button>
     </div>
   </div>

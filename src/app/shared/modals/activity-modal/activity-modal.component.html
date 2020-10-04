@@ -12,7 +12,7 @@
       >
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#modalActivityUser">User</a>
+      <a class="nav-link" data-toggle="tab">User</a>
     </li>
   </ul>
 </div>
@@ -27,8 +27,8 @@
           *ngFor="let activity of activities"
         >
           <div class="row">
+            <!-- Avatar -->
             <div class="col-auto">
-              <!-- Avatar -->
               <div class="avatar avatar-sm">
                 <div
                   class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"
@@ -37,24 +37,20 @@
                 </div>
               </div>
             </div>
+
+            <!-- Heading -->
             <div class="col ml-n2">
-              <!-- Heading -->
               <h5 class="mb-1">
                 {{ activity.heading }}
               </h5>
-
-              <!-- Text -->
               <p class="small text-gray-700 mb-0">
                 {{ activity.text }}
               </p>
-
-              <!-- Time -->
               <small class="text-muted">
                 {{ activity.time }}
               </small>
             </div>
           </div>
-          <!-- / .row -->
         </a>
       </div>
     </div>

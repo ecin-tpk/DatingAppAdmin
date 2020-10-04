@@ -39,17 +39,15 @@
   <div class="mb-4">
     <div class="row">
       <div class="col">
-        <!-- Button -->
-        <a href="#!" class="btn btn-sm btn-white">
-          Add Reaction
-        </a>
+        <button class="btn btn-sm btn-white mr-2">
+          Cancel
+        </button>
       </div>
       <div class="col-auto">
         <!-- Button -->
-        <a class="btn btn-sm btn-white">
-          <i class="fe fe-upload mr-2"></i>
+        <button class="btn btn-sm btn-white" (click)="uploader.uploadAll()">
           Upload
-        </a>
+        </button>
       </div>
     </div>
     <!-- / .row -->
@@ -58,54 +56,135 @@
   <!-- Card -->
   <div class="card">
     <div class="card-body">
-      <div class="dropzone dropzone-multiple dz-clickable">
-        <ul
-          class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"
-        ></ul>
-
-        <div class="dz-default dz-message">
-          <button class="dz-button" type="button">
-            Drop files here to upload
-          </button>
-        </div>
+      <!-- Drop zone-->
+      <div
+        class="my-drop-zone"
+        ng2FileDrop
+        [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+        [uploader]="uploader"
+        (fileOver)="fileOverBase($event)"
+        (click)="onDropZoneClick()"
+      >
+        Drop files here to upload
       </div>
+
+      <input
+        class="d-none"
+        type="file"
+        ng2FileSelect
+        [uploader]="uploader"
+        #fileInput
+      />
+      <!-- Preview -->
+      <ul
+        class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush"
+      >
+        <li class="list-group-item" *ngFor="let item of uploader.queue">
+          <div class="align-items-center row">
+            <div class="col-auto">
+              <!-- Image -->
+              <div class="avatar avatar-lg">
+                <img
+                  alt="{{ item?.file?.name }}"
+                  class="avatar-img rounded"
+                  appPreview
+                  [file]="item?._file"
+                />
+              </div>
+            </div>
+
+            <div class="col ml-n2">
+              <!-- Name -->
+              <h4 class="mb-1">
+                {{ item?.file?.name }}
+              </h4>
+
+              <!-- Size -->
+              <small class="text-muted" *ngIf="uploader.options.isHTML5">
+                {{ item?.file?.size / 1000 / 1000 | number: ".2" }} MB
+              </small>
+
+              <!-- Progress -->
+              <div
+                class="row align-items-center no-gutters"
+                *ngIf="uploader.options.isHTML5 && item.progress > 0"
+              >
+                <div class="col-auto">
+                  <div class="small mr-2">{{ item.progress }}%</div>
+                </div>
+                <div class="col">
+                  <div class="progress progress-sm">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      [ngStyle]="{ width: item.progress + '%' }"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dropdown -->
+            <div class="col-auto">
+              <div class="dropdown">
+                <a
+                  class="dropdown-ellipses dropdown-toggle"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fe fe-more-vertical"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item">
+                    Remove
+                  </a>
+                  <a class="dropdown-item">
+                    Another action
+                  </a>
+                  <a class="dropdown-item">
+                    Something else here
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <!-- Card -->
-  <div class="card">
+  <!-- Uploaded -->
+  <div class="card" *ngIf="user.photos?.length > 0">
+    <div class="card-header">
+      <h4 class="card-header-title">
+        Uploaded pictures
+      </h4>
+      <div *ngIf="selectedPhotoId">
+        <button class="btn btn-sm btn-white mr-2" (click)="test()">
+          <i class="fe fe-trash"></i>
+          Delete
+        </button>
+
+        <button class="btn btn-sm btn-white">
+          <i class="fe fe-check-square"></i>
+          Set avatar
+        </button>
+      </div>
+    </div>
     <div class="card-body">
       <div class="avatar-container">
-        <div class="avatar-item">
-          <img
-            width="100%"
-            src="../assets/img/avatars/profiles/avatar-2.jpg"
-            class="rounded-circle"
-            alt="..."
-          />
-        </div><div class="avatar-item">
-          <img
-            width="100%"
-            src="../assets/img/avatars/profiles/avatar-2.jpg"
-            class="rounded-circle"
-            alt="..."
-          />
-        </div><div class="avatar-item">
-          <img
-            width="100%"
-            src="../assets/img/avatars/profiles/avatar-2.jpg"
-            class="rounded-circle"
-            alt="..."
-          />
-        </div><div class="avatar-item">
-          <img
-            width="100%"
-            src="../assets/img/avatars/profiles/avatar-2.jpg"
-            class="rounded-circle"
-            alt="..."
-          />
+        <div
+          class="avatar-item"
+          [ngClass]="{
+            'selected-avatar': selectedPhotoId === photo.id
+          }"
+          (click)="onPictureClick(photo.id)"
+          *ngFor="let photo of user.photos"
+        >
+          <img src="{{ photo.url }}" alt="" class="avatar-img rounded" />
         </div>
-
       </div>
     </div>
   </div>

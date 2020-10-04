@@ -3,14 +3,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-modal-activity',
-  templateUrl: './modal-activity.component.html',
-  styleUrls: ['./modal-activity.component.css'],
+  templateUrl: './activity-modal.component.html',
+  styleUrls: ['./activity-modal.component.css'],
 })
-export class ModalActivityComponent implements OnInit {
+export class ActivityModalComponent implements OnInit {
   title: string;
   activities: { heading: string; text: string; time: string }[] = [];
 
-  constructor(public bsModalRef: BsModalRef) {}
+  constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  private userSubject: BehaviorSubject<User>;
+  userSubject: BehaviorSubject<User>;
 
   usersSubject = new Subject<User[]>();
   paginationSubject = new Subject<Pagination>();
@@ -41,7 +41,11 @@ export class UserService {
   }
 
   getUser(id) {
-    return this.http.get(environment.apiUrl + 'users/' + id);
+    return this.http.get<User>(`${environment.apiUrl}/users/${id}`).pipe(
+      map((user) => {
+        this.userSubject.next(user);
+      })
+    );
   }
 
   update(id, params) {

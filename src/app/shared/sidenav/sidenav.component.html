@@ -39,10 +39,14 @@
         >
           <div class="avatar avatar-sm avatar-online">
             <img
-              src="{{ avatarUrl }}"
+              src="{{ user.photoUrl }}"
               class="avatar-img rounded-circle"
               alt=""
+              *ngIf="user.photoUrl"
             />
+            <span class="avatar-title rounded-circle" *ngIf="!user.photoUrl">
+              {{ user.name.charAt(0) }}
+            </span>
           </div>
         </a>
 
@@ -183,22 +187,14 @@
 
       <!-- Heading -->
       <h6 class="navbar-heading">
-        Documentation
+        Admin area
       </h6>
 
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-4">
-        <!-- Basics -->
+        <!-- Employees -->
         <li class="nav-item">
-          <a
-            class="nav-link"
-            data-toggle="collapse"
-            role="button"
-            aria-expanded="false"
-            aria-controls="sidebarBasics"
-          >
-            <i class="fe fe-clipboard"></i> Basics
-          </a>
+          <a class="nav-link" href=""> <i class="fe fe-grid"></i> Widgets </a>
         </li>
 
         <!-- Components -->
@@ -262,9 +258,13 @@
             <div class="avatar avatar-sm avatar-online">
               <img
                 class="avatar-img rounded-circle"
-                src="{{ avatarUrl }}"
+                src="{{ user.photoUrl }}"
                 alt=""
+                *ngIf="user.photoUrl"
               />
+              <span class="avatar-title rounded-circle" *ngIf="!user.photoUrl">
+                {{ user.name.charAt(0) }}
+              </span>
             </div>
           </a>
 

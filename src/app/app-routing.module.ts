@@ -26,10 +26,12 @@ const routes: Routes = [
   {
     path: 'account/settings',
     loadChildren: settingsModule,
+    canActivate: [AuthGuard],
   },
   {
     path: 'users',
     loadChildren: usersModule,
+    canActivate: [AuthGuard],
   },
 ];
 

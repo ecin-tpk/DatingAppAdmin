@@ -11,7 +11,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
 import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
 import { AuthService } from './_services';
-import {ModalModule} from 'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, SidenavComponent],
@@ -19,6 +20,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    SharedModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
@@ -43,5 +45,6 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     },
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

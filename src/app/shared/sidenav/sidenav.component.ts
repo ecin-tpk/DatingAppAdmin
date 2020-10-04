@@ -1,20 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-import { ModalActivityComponent } from '../components/nav/modal-activity/modal-activity.component';
-import { ModalSearchComponent } from '../components/nav/modal-search/modal-search.component';
-import { AuthService } from '../../_services';
+import { ActivityModalComponent } from '../modals/activity-modal/activity-modal.component';
+import { SearchModalComponent } from '../modals/search-modal/search-modal.component';
+import { AuthService, UserService } from '../../_services';
+import { User } from '../../_models';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
 })
-export class SidenavComponent implements OnInit {
-  @Input()
-  avatarUrl: string;
+export class SidenavComponent implements OnInit, OnDestroy {
+  user: User;
+  userSub: Subscription;
   bsModalRef: BsModalRef;
   collapses = {
     nav: true,
@@ -23,11 +25,16 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userSub = this.userService.userSubject.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   logout() {
     this.authService.logout();
@@ -122,16 +129,20 @@ export class SidenavComponent implements OnInit {
     const modal = opener.getAttribute('data-toggle');
     switch (modal) {
       case 'activity':
-        this.bsModalRef = this.modalService.show(ModalActivityComponent, {
+        this.bsModalRef = this.modalService.show(ActivityModalComponent, {
           initialState,
           class: 'modal-dialog-vertical',
         });
         break;
       case 'search':
-        this.bsModalRef = this.modalService.show(ModalSearchComponent, {
+        this.bsModalRef = this.modalService.show(SearchModalComponent, {
           class: 'modal-dialog-vertical',
         });
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 }

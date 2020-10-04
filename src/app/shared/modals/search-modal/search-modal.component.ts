@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-modal-search',
-  templateUrl: './modal-search.component.html',
-  styleUrls: ['./modal-search.component.css']
+  templateUrl: './search-modal.component.html',
+  styleUrls: ['./search-modal.component.css']
 })
-export class ModalSearchComponent implements OnInit {
+export class SearchModalComponent implements OnInit {
 
   constructor() { }
 
