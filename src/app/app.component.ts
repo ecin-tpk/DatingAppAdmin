@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 
 import { User } from './_models';
-import { AuthService } from './_services';
+import { AccountService } from './_services';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,13 +10,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
-  userSub: Subscription;
   user: User;
+  userSub: Subscription;
 
-  constructor(public authService: AuthService) {
-    this.userSub = this.authService.user.subscribe(
-      (user) => (this.user = user)
-    );
+  constructor(public authService: AccountService) {
+    this.userSub = this.authService.account.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnDestroy() {

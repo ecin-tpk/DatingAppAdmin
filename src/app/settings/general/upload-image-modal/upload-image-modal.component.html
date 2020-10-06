@@ -156,18 +156,18 @@
   </div>
 
   <!-- Uploaded -->
-  <div class="card" *ngIf="user.photos?.length > 0">
+  <div class="card" *ngIf="account.photos?.length > 0">
     <div class="card-header">
       <h4 class="card-header-title">
         Uploaded pictures
       </h4>
       <div *ngIf="selectedPhotoId">
-        <button class="btn btn-sm btn-white mr-2" (click)="test()">
+        <button class="btn btn-sm btn-white mr-2" >
           <i class="fe fe-trash"></i>
           Delete
         </button>
 
-        <button class="btn btn-sm btn-white">
+        <button class="btn btn-sm btn-white" (click)="setMainPhoto()">
           <i class="fe fe-check-square"></i>
           Set avatar
         </button>
@@ -181,7 +181,7 @@
             'selected-avatar': selectedPhotoId === photo.id
           }"
           (click)="onPictureClick(photo.id)"
-          *ngFor="let photo of user.photos"
+          *ngFor="let photo of account.photos"
         >
           <img src="{{ photo.url }}" alt="" class="avatar-img rounded" />
         </div>

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AuthService, UserService } from '../../_services';
+import { AccountService, UserService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UploadImageModalComponent } from './upload-image-modal/upload-image-modal.component';
 import { User } from '../../_models';
@@ -16,10 +16,13 @@ import { AlertComponent } from 'ngx-bootstrap/alert';
   styleUrls: ['./general.component.css'],
 })
 export class GeneralComponent implements OnInit {
+  account: User;
+  accountSub: Subscription;
+
   alerts: any[] = [];
   tabId = new Subject<number>();
 
-  user: User;
+  // user = this.accountService.accountValue;
 
   form: FormGroup;
   loading = false;
@@ -31,7 +34,7 @@ export class GeneralComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
+    private accountService: AccountService,
     private modalService: BsModalService,
     private userService: UserService
   ) {}
@@ -41,18 +44,19 @@ export class GeneralComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.userSubject.subscribe((user) => {
-      this.user = user;
+    this.accountSub = this.accountService.account.subscribe((account) => {
+      this.account = account;
     });
+
     this.initForm();
   }
 
   initForm() {
     this.form = this.formBuilder.group({
-      name: [this.user.name, Validators.required],
-      email: [this.user.email, [Validators.required, Validators.email]],
-      phone: [this.user.phone, Validators.required],
-      dateOfBirth: [new Date(this.user.dateOfBirth), Validators.required],
+      name: [this.account.name, Validators.required],
+      email: [this.account.email, [Validators.required, Validators.email]],
+      phone: [this.account.phone, Validators.required],
+      dateOfBirth: [new Date(this.account.dateOfBirth), Validators.required],
     });
   }
 
@@ -65,33 +69,35 @@ export class GeneralComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService
-      .update(this.user.id, this.form.value)
+    this.accountService
+      .updateInfo(this.account.id, this.form.value)
       .pipe(first())
-      .subscribe({
-        next: () => {
+      .subscribe(
+        () => {
           this.alerts = [];
           this.alerts.push({
             type: 'success',
-            msg: 'Update success',
+            msg: 'Update successful',
             dismissible: true,
             timeout: 5000,
           });
           this.loading = false;
         },
-        error: (err) => {
+        (err) => {
           this.alerts.push({
             type: 'danger',
             msg: err,
             dismissible: true,
           });
           this.loading = false;
-        },
-      });
+        }
+      );
   }
 
-  openUploadModal() {
-    this.bsModalRef = this.modalService.show(UploadImageModalComponent);
+  openAvatarModal() {
+    this.bsModalRef = this.modalService.show(UploadImageModalComponent, {
+      initialState: { uploadedPhotos: this.account.photos },
+    });
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 

@@ -5,7 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import { ActivityModalComponent } from '../modals/activity-modal/activity-modal.component';
 import { SearchModalComponent } from '../modals/search-modal/search-modal.component';
-import { AuthService, UserService } from '../../_services';
+import { AccountService, UserService } from '../../_services';
 import { User } from '../../_models';
 import { Subscription } from 'rxjs';
 
@@ -14,27 +14,23 @@ import { Subscription } from 'rxjs';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
 })
-export class SidenavComponent implements OnInit, OnDestroy {
-  user: User;
-  userSub: Subscription;
+export class SidenavComponent implements OnInit {
   bsModalRef: BsModalRef;
   collapses = {
     nav: true,
     users: true,
   };
+  @Input()
+  user: User;
 
   constructor(
-    private authService: AuthService,
+    private authService: AccountService,
     private userService: UserService,
     private router: Router,
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {
-    this.userSub = this.userService.userSubject.subscribe((user) => {
-      this.user = user;
-    });
-  }
+  ngOnInit() {}
 
   logout() {
     this.authService.logout();
@@ -140,9 +136,5 @@ export class SidenavComponent implements OnInit, OnDestroy {
         });
         break;
     }
-  }
-
-  ngOnDestroy() {
-    this.userSub.unsubscribe();
   }
 }

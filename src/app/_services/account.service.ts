@@ -8,18 +8,18 @@ import { environment } from '../../environments/environment';
 import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
-  private userSubject: BehaviorSubject<User>;
-  public user: Observable<User>;
+export class AccountService {
+  accountSubject: BehaviorSubject<User>;
+  public account: Observable<User>;
   private refreshTokenTimeout;
 
   constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject<User>(null);
-    this.user = this.userSubject.asObservable();
+    this.accountSubject = new BehaviorSubject<User>(null);
+    this.account = this.accountSubject.asObservable();
   }
 
-  public get userValue(): User {
-    return this.userSubject.value;
+  public get accountValue(): User {
+    return this.accountSubject.value;
   }
 
   login(email: string, password: string) {
@@ -31,7 +31,7 @@ export class AuthService {
       )
       .pipe(
         map((user) => {
-          this.userSubject.next(user);
+          this.accountSubject.next(user);
           this.startRefreshTokenTimer();
           return user;
         })
@@ -47,20 +47,34 @@ export class AuthService {
       )
       .subscribe();
     this.stopRefreshTokenTimer();
-    this.userSubject.next(null);
+    this.accountSubject.next(null);
     this.router.navigate(['/account/login']);
   }
 
-  updatePassword(id, params){
-    return this.http.put(`${environment.apiUrl}/account/${id}/update-password`, params).pipe(
-      map((user: any) => {
-        // Update the current user if it was updated
-        if (user.id === this.userValue.id) {
-          user = { ...this.userValue, ...user };
-          this.userSubject.next(user);
-        }
+  changePassword(id, params) {
+    return this.http
+      .put(`${environment.apiUrl}/account/${id}/update-password`, params)
+      .pipe(
+        map((account: User) => {
+          account = { ...this.accountValue, ...account };
+          this.accountSubject.next(account);
 
-        return user;
+          return account;
+        })
+      );
+  }
+
+  updateInfo(id, params) {
+    if (params.dateOfBirth) {
+      params.dateOfBirth = this.getDateOnly(params.dateOfBirth);
+    }
+
+    return this.http.put(`${environment.apiUrl}/users/${id}`, params).pipe(
+      map((account: User) => {
+        account = { ...this.accountValue, ...account };
+        this.accountSubject.next(account);
+
+        return account;
       })
     );
   }
@@ -73,10 +87,10 @@ export class AuthService {
         { withCredentials: true }
       )
       .pipe(
-        map((user) => {
-          this.userSubject.next(user);
+        map((account) => {
+          this.accountSubject.next(account);
           this.startRefreshTokenTimer();
-          return user;
+          return account;
         })
       );
   }
@@ -84,7 +98,7 @@ export class AuthService {
   // Helper methods
   private startRefreshTokenTimer() {
     // Parse json object from base64 encoded jwt token
-    const jwtToken = JSON.parse(atob(this.userValue.jwtToken.split('.')[1]));
+    const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));
 
     // Set a timeout to refresh the token a minute before it expires (14 minutes)
     const expires = new Date(jwtToken.exp * 1000);
@@ -97,5 +111,11 @@ export class AuthService {
 
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
+  }
+
+  getDateOnly(date) {
+    return (
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    );
   }
 }

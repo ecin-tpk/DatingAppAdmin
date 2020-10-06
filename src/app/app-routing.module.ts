@@ -13,6 +13,9 @@ const settingsModule = () =>
 const usersModule = () =>
   import('./users/users.module').then((x) => x.UsersModule);
 
+const userDetailsModule = () =>
+  import('./user-details/user-details.module').then((x) => x.UserDetailsModule);
+
 const routes: Routes = [
   {
     path: '',
@@ -30,6 +33,16 @@ const routes: Routes = [
   },
   {
     path: 'users',
+    loadChildren: usersModule,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user-details/:id',
+    loadChildren: userDetailsModule,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'staff',
     loadChildren: usersModule,
     canActivate: [AuthGuard],
   },

@@ -232,7 +232,11 @@
                   alt=""
                 />
               </div>
-              <a class="text-reset">{{ user.name }}</a>
+              <a
+                class="text-reset"
+                routerLink="/user-details/{{ user.id }}/overview"
+                >{{ user.name }}</a
+              >
             </td>
 
             <!-- Gender -->
@@ -289,7 +293,11 @@
                     >{{ action }}</a
                   >
                   <hr class="dropdown-divider" />
-                  <a class="dropdown-item">View profile</a>
+                  <a
+                    class="dropdown-item"
+                    routerLink="/user-details/{{ user.id }}/overview"
+                    >View details</a
+                  >
                 </div>
               </div>
             </td>

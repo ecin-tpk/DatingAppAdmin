@@ -18,12 +18,12 @@
           <div class="avatar">
             <img
               class="avatar-img rounded-circle"
-              src="{{ user.photoUrl }}"
+              src="{{ account.photoUrl }}"
               alt=""
-              *ngIf="user.photoUrl"
+              *ngIf="account.photoUrl"
             />
-            <span class="avatar-title rounded-circle" *ngIf="!user.photoUrl">
-              {{ user.name.charAt(0) }}
+            <span class="avatar-title rounded-circle" *ngIf="!account.photoUrl">
+              {{ account.name.charAt(0) }}
             </span>
           </div>
         </div>
@@ -43,7 +43,7 @@
       <button
         class="btn btn-sm btn-primary"
         type="button"
-        (click)="openUploadModal()"
+        (click)="openAvatarModal()"
       >
         <i class="fe fe-edit mr-1"></i>
         Update avatar

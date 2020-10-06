@@ -1,0 +1,95 @@
+<div class="main-content">
+  <!-- HEADER -->
+  <div class="header">
+    <!-- Image -->
+    <img
+      src="assets/img/covers/profile-cover-1.jpg"
+      class="header-img-top"
+      alt="..."
+    />
+
+    <div class="container-fluid">
+      <!-- Body -->
+      <div class="header-body mt-n5 mt-md-n6">
+        <div class="row align-items-end">
+          <div class="col-auto">
+            <!-- Avatar -->
+            <div class="avatar avatar-xxl header-avatar-top">
+              <img
+                src="{{ user?.photoUrl }}"
+                alt=""
+                class="avatar-img rounded-circle border border-4 border-body"
+              />
+            </div>
+          </div>
+          <div class="col mb-3 ml-n3 ml-md-n2">
+            <!-- Pretitle -->
+            <h6 class="header-pretitle">
+              Normal user
+            </h6>
+
+            <!-- Title -->
+            <h1 class="header-title">
+              {{ user?.name }}
+            </h1>
+          </div>
+          <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+            <!-- Button -->
+            <a class="btn btn-primary d-block d-md-inline-block lift">
+              Subscribe
+            </a>
+          </div>
+        </div>
+        <!-- / .row -->
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Nav -->
+            <tabset #detailsTabs>
+              <tab heading="overview" (selectTab)="onSelect($event)">
+                <ng-template tabHeading>
+                  <span
+                    class="badge badge-tab badge-pill badge-soft-secondary"
+                  ></span>
+                </ng-template>
+              </tab>
+              <tab heading="photos" (selectTab)="onSelect($event)">
+                <ng-template tabHeading>
+                  <span
+                    class="badge badge-tab badge-pill badge-soft-secondary"
+                  ></span>
+                </ng-template>
+              </tab>
+              <tab heading="likes" (selectTab)="onSelect($event)">
+                <ng-template tabHeading>
+                  <span
+                    class="badge badge-tab badge-pill badge-soft-secondary"
+                  ></span>
+                </ng-template>
+              </tab>
+              <tab heading="messages" (selectTab)="onSelect($event)">
+                <ng-template tabHeading>
+                  <span
+                    class="badge badge-tab badge-pill badge-soft-secondary"
+                  ></span>
+                </ng-template>
+              </tab>
+              <tab heading="linked accounts" (selectTab)="onSelect($event)">
+                <ng-template tabHeading>
+                  <span
+                    class="badge badge-tab badge-pill badge-soft-secondary"
+                  ></span>
+                </ng-template>
+              </tab>
+            </tabset>
+          </div>
+        </div>
+      </div>
+      <!-- / .header-body -->
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</div>

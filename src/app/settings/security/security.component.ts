@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from '../../_helpers';
-import { AuthService, UserService } from '../../_services';
+import { AccountService, UserService } from '../../_services';
 import { first } from 'rxjs/operators';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 
@@ -13,7 +13,8 @@ import { AlertComponent } from 'ngx-bootstrap/alert';
 export class SecurityComponent implements OnInit {
   alerts: any[] = [];
 
-  user = this.accountService.userValue;
+  account = this.accountService.accountValue;
+
   form: FormGroup;
   loading = false;
   submitted = false;
@@ -25,7 +26,7 @@ export class SecurityComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private accountService: AuthService
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -53,28 +54,28 @@ export class SecurityComponent implements OnInit {
     this.loading = true;
 
     this.accountService
-      .updatePassword(this.user.id, this.form.value)
+      .changePassword(this.account.id, this.form.value)
       .pipe(first())
-      .subscribe({
-        next: () => {
+      .subscribe(
+        () => {
           this.alerts = [];
           this.alerts.push({
             type: 'success',
-            msg: 'Update password success',
+            msg: 'Update successful',
             dismissible: true,
             timeout: 5000,
           });
           this.loading = false;
         },
-        error: (err) => {
+        (err) => {
           this.alerts.push({
             type: 'danger',
             msg: err,
             dismissible: true,
           });
           this.loading = false;
-        },
-      });
+        }
+      );
   }
 
   onClosed(dismissedAlert: AlertComponent): void {

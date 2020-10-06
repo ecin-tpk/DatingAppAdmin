@@ -10,7 +10,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { Subscription } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { AuthService, UserService } from '../../../_services';
+import { AccountService, UserService } from '../../../_services';
 import { User } from '../../../_models';
 import { Photo } from '../../../_models/photo';
 import { PhotoService } from '../../../_services/photo.service';
@@ -20,13 +20,11 @@ import { PhotoService } from '../../../_services/photo.service';
   templateUrl: './upload-image-modal.component.html',
   styleUrls: ['./upload-image-modal.component.css'],
 })
-export class UploadImageModalComponent implements OnInit, OnDestroy {
+export class UploadImageModalComponent implements OnInit {
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
-  user: User;
-  userSub: Subscription;
 
-  userId = this.authService.userValue.id;
+  account = this.accountService.accountValue;
 
   selectedPhotoId: number;
 
@@ -36,28 +34,19 @@ export class UploadImageModalComponent implements OnInit, OnDestroy {
   constructor(
     public bsModalRef: BsModalRef,
     private userService: UserService,
-    private authService: AuthService,
+    private accountService: AccountService,
     private photoService: PhotoService
   ) {}
 
   ngOnInit() {
-    this.userService.getUser(this.userId).subscribe();
-
-    this.userService.userSubject.subscribe((user) => {
-      this.user = user;
-    });
-
+    this.selectedPhotoId = this.account.photos.find((p) => p.isMain).id;
     this.initUploader();
-  }
-
-  test() {
-    this.selectedPhotoId = this.user.photos.find((p) => p.isMain).id;
   }
 
   initUploader() {
     this.uploader = new FileUploader({
-      url: `${environment.apiUrl}/users/${this.user.id}/photos`,
-      authToken: 'Bearer ' + this.user.jwtToken,
+      url: `${environment.apiUrl}/users/${this.account.id}/photos`,
+      authToken: 'Bearer ' + this.account.jwtToken,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -78,13 +67,9 @@ export class UploadImageModalComponent implements OnInit, OnDestroy {
     this.hasBaseDropZoneOver = e;
   }
 
-  setMainPhoto(photoId) {
-    this.photoService.setMain(this.userId, photoId).subscribe(() => {
+  setMainPhoto() {
+    this.photoService.setMain(this.account.id, this.selectedPhotoId).subscribe(() => {
       console.log('success');
     });
-  }
-
-  ngOnDestroy() {
-    this.userSub.unsubscribe();
   }
 }

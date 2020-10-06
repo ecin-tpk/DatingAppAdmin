@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
 import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
-import { AuthService } from './_services';
+import { AccountService } from './_services';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from './shared/shared.module';
 
@@ -31,7 +31,7 @@ import { SharedModule } from './shared/shared.module';
       provide: APP_INITIALIZER,
       useFactory: appInitializer,
       multi: true,
-      deps: [AuthService],
+      deps: [AccountService],
     },
     {
       provide: HTTP_INTERCEPTORS,

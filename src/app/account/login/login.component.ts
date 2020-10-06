@@ -13,7 +13,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AuthService } from '../../_services/auth.service';
+import { AccountService } from '../../_services/account.service';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
+    private authService: AccountService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {}

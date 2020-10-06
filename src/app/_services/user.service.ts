@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Pagination } from '../shared/pagination';
 import { User } from '../_models';
 import { map } from 'rxjs/operators';
-import { AuthService } from './auth.service';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +18,8 @@ export class UserService {
   paginationSubject = new Subject<Pagination>();
   statusCountsSubject = new Subject<number[]>();
 
-  constructor(private http: HttpClient, private accountService: AuthService) {
-    this.accountService.user.subscribe((user) => {
+  constructor(private http: HttpClient, private accountService: AccountService) {
+    this.accountService.account.subscribe((user) => {
       this.userSubject = new BehaviorSubject<User>(user);
     });
   }
@@ -40,12 +40,8 @@ export class UserService {
       });
   }
 
-  getUser(id) {
-    return this.http.get<User>(`${environment.apiUrl}/users/${id}`).pipe(
-      map((user) => {
-        this.userSubject.next(user);
-      })
-    );
+  getById(id) {
+    return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
   }
 
   update(id, params) {

@@ -8,11 +8,11 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AuthService } from '../_services';
+import { AccountService } from '../_services';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AccountService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         // Auto logout if 401 or 403 response returned from api
-        if ([401, 403].includes(err.status) && this.authService.userValue) {
+        if ([401, 403].includes(err.status) && this.authService.accountValue) {
           this.authService.logout();
         }
 
