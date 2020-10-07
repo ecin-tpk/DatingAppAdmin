@@ -95,9 +95,7 @@ export class GeneralComponent implements OnInit {
   }
 
   openAvatarModal() {
-    this.bsModalRef = this.modalService.show(UploadImageModalComponent, {
-      initialState: { uploadedPhotos: this.account.photos },
-    });
+    this.bsModalRef = this.modalService.show(UploadImageModalComponent);
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 

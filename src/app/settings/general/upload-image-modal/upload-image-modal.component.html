@@ -161,8 +161,8 @@
       <h4 class="card-header-title">
         Uploaded pictures
       </h4>
-      <div *ngIf="selectedPhotoId">
-        <button class="btn btn-sm btn-white mr-2" >
+      <div *ngIf="selectedPhotoId !== currentAvatarId">
+        <button class="btn btn-sm btn-white mr-2" (click)="deletePhoto()">
           <i class="fe fe-trash"></i>
           Delete
         </button>
@@ -178,7 +178,8 @@
         <div
           class="avatar-item"
           [ngClass]="{
-            'selected-avatar': selectedPhotoId === photo.id
+            'selected-avatar': selectedPhotoId === photo.id,
+            'current-avatar': photo.id === currentAvatarId
           }"
           (click)="onPictureClick(photo.id)"
           *ngFor="let photo of account.photos"

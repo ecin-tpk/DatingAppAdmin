@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserDetailsComponent } from './user-details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { PhotosComponent } from './photos/photos.component';
+import {LikesComponent} from './likes/likes.component';
+import {MessagesComponent} from './messages/messages.component';
+import {LinkedAccountsComponent} from './linked-accounts/linked-accounts.component';
 
 const routes: Routes = [
   {
@@ -19,16 +22,16 @@ const routes: Routes = [
         component: PhotosComponent,
       },
       {
-        path: 'likes',
-        component: PhotosComponent,
+        path: 'matches',
+        component: LikesComponent,
       },
       {
         path: 'messages',
-        component: PhotosComponent,
+        component: MessagesComponent,
       },
       {
         path: 'linked-accounts',
-        component: PhotosComponent,
+        component: LinkedAccountsComponent,
       },
     ],
   },

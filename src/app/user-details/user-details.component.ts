@@ -15,7 +15,7 @@ export class UserDetailsComponent implements OnInit {
   tabs: any[] = [
     { heading: 'overview', count: null },
     { heading: 'photos', count: null },
-    { heading: 'likes', count: null },
+    { heading: 'matches', count: null },
     { heading: 'messages', count: null },
     { heading: 'linked accounts', count: null },
   ];

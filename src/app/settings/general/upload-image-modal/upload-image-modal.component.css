@@ -53,6 +53,22 @@
   z-index: 9999;
 }
 
+.selected-avatar.current-avatar:before {
+  content: "\e92b";
+  position: absolute;
+  font-family: Feather;
+  font-size: 0.7rem;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #00d97e;
+  color: #fff;
+  bottom: 2px;
+  right: 2px;
+  z-index: 9999;
+}
+
 .file-preview {
   width: 4rem;
   height: 4rem;

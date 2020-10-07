@@ -20,11 +20,12 @@ import { PhotoService } from '../../../_services/photo.service';
   templateUrl: './upload-image-modal.component.html',
   styleUrls: ['./upload-image-modal.component.css'],
 })
-export class UploadImageModalComponent implements OnInit {
+export class UploadImageModalComponent implements OnInit, OnDestroy {
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
 
-  account = this.accountService.accountValue;
+  account: User;
+  accountSub: Subscription;
 
   selectedPhotoId: number;
 
@@ -38,8 +39,16 @@ export class UploadImageModalComponent implements OnInit {
     private photoService: PhotoService
   ) {}
 
+  get currentAvatarId() {
+    return this.account.photos.find((p) => p.isMain).id;
+  }
+
   ngOnInit() {
-    this.selectedPhotoId = this.account.photos.find((p) => p.isMain).id;
+    this.accountSub = this.accountService.account.subscribe((account) => {
+      this.account = account;
+    });
+
+    this.selectedPhotoId = this.currentAvatarId;
     this.initUploader();
   }
 
@@ -68,8 +77,23 @@ export class UploadImageModalComponent implements OnInit {
   }
 
   setMainPhoto() {
-    this.photoService.setMain(this.account.id, this.selectedPhotoId).subscribe(() => {
-      console.log('success');
-    });
+    this.photoService
+      .setMain(this.account.id, this.selectedPhotoId)
+      .subscribe(() => {
+        console.log('success');
+      });
+  }
+
+  deletePhoto() {
+    this.photoService
+      .delete(this.account.id, this.selectedPhotoId)
+      .subscribe(() => {
+        console.log('success');
+        this.selectedPhotoId = this.currentAvatarId;
+      });
+  }
+
+  ngOnDestroy() {
+    this.accountSub.unsubscribe();
   }
 }

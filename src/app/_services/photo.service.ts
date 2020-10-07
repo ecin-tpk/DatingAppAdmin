@@ -31,10 +31,31 @@ export class PhotoService {
       .pipe(
         mergeMap(() => {
           return this.http
-            .get(`${environment.apiUrl}/users/${this.accountService.accountValue.id}`)
+            .get(
+              `${environment.apiUrl}/users/${this.accountService.accountValue.id}`
+            )
             .pipe(
               map((account: User) => {
-                console.log(account);
+                account = { ...this.accountService.accountValue, ...account };
+                this.accountService.accountSubject.next(account);
+                return account;
+              })
+            );
+        })
+      );
+  }
+
+  delete(userId, photoId) {
+    return this.http
+      .delete(`${environment.apiUrl}/users/${userId}/photos/${photoId}`)
+      .pipe(
+        mergeMap(() => {
+          return this.http
+            .get(
+              `${environment.apiUrl}/users/${this.accountService.accountValue.id}`
+            )
+            .pipe(
+              map((account: User) => {
                 account = { ...this.accountService.accountValue, ...account };
                 this.accountService.accountSubject.next(account);
                 return account;
