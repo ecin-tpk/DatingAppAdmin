@@ -38,16 +38,17 @@ pagination {
   color: #95aac9;
 }
 
-::ng-deep .page-item.active .page-link {
+::ng-deep pagination.bottom-active .page-item.active .page-link {
   color: #12263f;
   border-bottom: 1px solid #2c7be5;
+  border-top: none;
 }
 
 pager {
   width: auto;
 }
 
-::ng-deep .btn-pager {
+::ng-deep pager.has-border .btn-pager {
   padding: 1.25rem 1.5rem;
 }
 
@@ -68,8 +69,12 @@ pager {
   z-index: 999;
 }
 
-::ng-deep pager li.btn-pager:first-child {
+::ng-deep pager.has-border li.btn-pager:first-child {
   border-right: 1px solid #e3ebf6;
+}
+
+::ng-deep pager.has-border li.btn-pager:last-child {
+  border-left: 1px solid #e3ebf6;
 }
 
 ::ng-deep pager li:first-child a::before {
@@ -79,19 +84,15 @@ pager {
   margin-right: 0.1875rem;
 }
 
-::ng-deep pager a:hover {
-  color: #12263f;
-}
-
-::ng-deep pager li.btn-pager:last-child {
-  border-left: 1px solid #e3ebf6;
-}
-
 ::ng-deep pager li:last-child a::after {
   content: "\e912";
   font-family: Feather;
   -webkit-font-smoothing: antialiased;
   margin-left: 0.1875rem;
+}
+
+::ng-deep pager a:hover {
+  color: #12263f;
 }
 
 ::ng-deep pager ul {

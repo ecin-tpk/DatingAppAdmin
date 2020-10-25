@@ -315,6 +315,7 @@
     <!-- Footer -->
     <div class="card-footer p-0" *ngIf="users && users.length > 0">
       <pagination
+        class="bottom-active"
         [directionLinks]="false"
         [maxSize]="3"
         [totalItems]="pagination.totalItems"
@@ -324,6 +325,7 @@
       </pagination>
 
       <pager
+        class="has-border"
         pageBtnClass="btn-pager"
         previousText=" Prev"
         nextText="Next "
