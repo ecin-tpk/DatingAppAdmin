@@ -40,7 +40,7 @@ export class UploadImageModalComponent implements OnInit, OnDestroy {
   ) {}
 
   get currentAvatarId() {
-    return this.account.photos.find((p) => p.isMain).id;
+    return this.account.photos.find((p) => p.isMain)?.id;
   }
 
   ngOnInit() {

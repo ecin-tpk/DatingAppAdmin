@@ -1,0 +1,37 @@
+.message-right .row {
+  flex-flow: row-reverse nowrap;
+}
+
+.message-right .comment-body {
+  background: #2c7be5;
+  color: #ffffff;
+}
+
+.green {
+  background: green;
+}
+
+.red {
+  background: red;
+}
+
+.chat-body {
+  display: flex;
+  flex-flow: column;
+}
+
+.chat-footer {
+  border-top: 1px solid #e3ebf6;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+  display: flex;
+  flex-flow: row;
+}
+
+.chat-header {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding: 0.75rem 1.5rem 1.5rem 1.5rem;
+  border-bottom: 1px solid #e3ebf6;
+}

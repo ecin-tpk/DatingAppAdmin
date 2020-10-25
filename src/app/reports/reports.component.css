@@ -1,10 +1,16 @@
-a {
-  cursor: pointer;
+::ng-deep ul.nav-tabs a.nav-link span:first-child{
+  margin-right: 5px;
 }
 
-.sort::after {
-  content: url("data:image/svg+xml;utf8,<svg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M3 0L6 4H0L3 0ZM3 10L0 6H6L3 10Z' fill='%2395AAC9'/></svg>");
-  margin-left: 0.25rem;
+::ng-deep .custom-flush .ng-select-container {
+  padding-left: 0;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  resize: none;
+}
+
+::ng-deep .custom-flush .ng-select-container:hover {
+  box-shadow: none;
 }
 
 .custom {
@@ -12,13 +18,6 @@ a {
   width: 100%;
 }
 
-.custom .ng-select-container {
-  z-index: 1051;
-}
-
-::ng-deep .ng-option.ng-option-disabled {
-  font-size: 0.8125rem;
-}
 
 pagination {
   position: absolute;
@@ -40,15 +39,15 @@ pagination {
 
 ::ng-deep .page-item.active .page-link {
   color: #12263f;
-  border-bottom: 1px solid #2c7be5;
+  border-top: 1px solid #2c7be5;
 }
 
 pager {
-  width: auto;
+  width: 100%;
 }
 
 ::ng-deep .btn-pager {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem .75rem;
 }
 
 ::ng-deep pager ul {
@@ -68,10 +67,6 @@ pager {
   z-index: 999;
 }
 
-::ng-deep pager li.btn-pager:first-child {
-  border-right: 1px solid #e3ebf6;
-}
-
 ::ng-deep pager li:first-child a::before {
   content: "\e910";
   font-family: Feather;
@@ -81,10 +76,6 @@ pager {
 
 ::ng-deep pager a:hover {
   color: #12263f;
-}
-
-::ng-deep pager li.btn-pager:last-child {
-  border-left: 1px solid #e3ebf6;
 }
 
 ::ng-deep pager li:last-child a::after {

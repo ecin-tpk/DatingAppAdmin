@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   submitted = false;
   genders = Genders;
   verification = Verification;
-  pageSizes: any[] = [
+  pageSizes = [
     { itemsPerPage: 10, text: '10 per page' },
     { itemsPerPage: 5, text: '5 per page' },
   ];

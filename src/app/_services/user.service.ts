@@ -18,7 +18,10 @@ export class UserService {
   paginationSubject = new Subject<Pagination>();
   statusCountsSubject = new Subject<number[]>();
 
-  constructor(private http: HttpClient, private accountService: AccountService) {
+  constructor(
+    private http: HttpClient,
+    private accountService: AccountService
+  ) {
     this.accountService.account.subscribe((user) => {
       this.userSubject = new BehaviorSubject<User>(user);
     });
@@ -67,10 +70,16 @@ export class UserService {
 
   getStatusCounts() {
     return this.http
-      .get<number[]>(`${environment.apiUrl}/admin/users/status`)
+      .get<number[]>(`${environment.apiUrl}/admin/users/status-count`)
       .subscribe((statusCounts) => {
         this.statusCountsSubject.next(statusCounts);
       });
+  }
+
+  getNewUsersPerMonth(year) {
+    return this.http.get<number[]>(
+      `${environment.apiUrl}/admin/users/new-users-per-month/${year}`
+    );
   }
 
   // Helper methods

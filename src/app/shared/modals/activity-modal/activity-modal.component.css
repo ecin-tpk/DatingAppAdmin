@@ -1,3 +1,17 @@
 .modal-body.shrink {
   height: calc(100vh - 2rem - 32px);
 }
+
+::ng-deep .modal-tabs ul {
+  font-size: 0.8125rem;
+  margin-top: -1rem;
+  margin-bottom: calc(-1rem - 1px);
+}
+
+::ng-deep .modal-tabs a.nav-link {
+  padding: 1.15385rem 0 !important;
+}
+
+.modal-header{
+  padding: 1.15385rem 1.5rem;
+}

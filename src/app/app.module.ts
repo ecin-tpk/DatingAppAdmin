@@ -13,9 +13,26 @@ import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
 import { AccountService } from './_services';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from './shared/shared.module';
+import { ChartsModule } from 'ng2-charts';
+import { SwitchComponent } from './_components/switch/switch.component';
+import { ReportsComponent } from './reports/reports.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MessagesComponent } from './messages/messages.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {FormsModule} from '@angular/forms';
+import { ReportCardComponent } from './reports/report-card/report-card.component';
+import {PaginationModule} from "ngx-bootstrap/pagination";
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, SidenavComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    SidenavComponent,
+    SwitchComponent,
+    ReportsComponent,
+    MessagesComponent,
+    ReportCardComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -25,6 +42,11 @@ import { SharedModule } from './shared/shared.module';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule,
+    NgSelectModule,
+    FormsModule,
+    PaginationModule,
   ],
   providers: [
     {

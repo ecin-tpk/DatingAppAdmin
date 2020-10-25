@@ -22,7 +22,6 @@
       <!-- / .header-body -->
     </div>
   </div>
-  <!-- / .header -->
 
   <!-- CARDS -->
   <div class="container-fluid">
@@ -37,10 +36,22 @@
                 <h6 class="text-uppercase text-muted mb-2">Users</h6>
 
                 <!-- Heading -->
-                <span class="h2 mb-0">69,696</span>
+                <span class="h2 mb-0">{{ numberOfUsers }}</span>
 
                 <!-- Badge -->
-                <span class="badge badge-soft-success mt-n1 ml-2"> +3.5% </span>
+                <span
+                  class="badge badge-soft-success mt-n1 ml-2"
+                  *ngIf="usersGrowth > 0"
+                >
+                  +{{ usersGrowth }}%
+                </span>
+
+                <span
+                  class="badge badge-soft-danger mt-n1 ml-2"
+                  *ngIf="usersGrowth < 0"
+                >
+                  {{ usersGrowth }}%
+                </span>
               </div>
               <div class="col-auto">
                 <!-- Icon -->
@@ -86,8 +97,22 @@
               </div>
               <div class="col-auto">
                 <!-- Chart -->
-                <div class="chart chart-sparkline"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas class="chart-canvas chartjs-render-monitor" id="sparklineChart" width="75" height="35" style="display: block; width: 75px; height: 35px;"></canvas>
+                <div class="chart chart-sparkline">
+                  <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                      <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                      <div class=""></div>
+                    </div>
+                  </div>
+                  <canvas
+                    class="chart-canvas chartjs-render-monitor"
+                    id="sparklineChart"
+                    width="75"
+                    height="35"
+                    style="display: block; width: 75px; height: 35px"
+                  ></canvas>
                 </div>
               </div>
             </div>
@@ -120,25 +145,29 @@
     <!-- / .row -->
     <div class="row">
       <div class="col-12 col-xl-8">
-        <!-- Convertions -->
+        <!-- New users -->
         <div class="card">
           <div class="card-header">
             <!-- Title -->
-            <h4 class="card-header-title">Conversions</h4>
+            <h4 class="card-header-title">New Users Per Month</h4>
 
             <!-- Caption -->
-            <span class="text-muted mr-3"> Last year comparision: </span>
+            <span class="text-muted mr-3"> Last year comparison: </span>
 
             <!-- Switch -->
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="cardToggle" data-toggle="chart" data-target="#conversionsChart" data-trigger="change" data-action="add" data-dataset="1">
-              <label class="custom-control-label" for="cardToggle"></label>
-            </div>
+            <app-switch (changed)="compareLastYear($event)"></app-switch>
           </div>
+          <!-- New ysers chart -->
           <div class="card-body">
-            <!-- Chart -->
-            <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-              <canvas id="conversionsChart" class="chart-canvas chartjs-render-monitor" style="display: block; width: 847px; height: 300px;" width="847" height="300"></canvas>
+            <div class="chart">
+              <canvas
+                id="11"
+                baseChart
+                chartType="bar"
+                [datasets]="newUsersChartData"
+                [labels]="newUsersChartLabels"
+              >
+              </canvas>
             </div>
           </div>
         </div>
@@ -152,29 +181,69 @@
 
             <!-- Tabs -->
             <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-              <li class="nav-item" data-toggle="chart" data-target="#trafficChart" data-trigger="click" data-action="toggle" data-dataset="0">
-                <a href="#" class="nav-link active" data-toggle="tab">
-                  All
-                </a>
+              <li
+                class="nav-item"
+                data-toggle="chart"
+                data-target="#trafficChart"
+                data-trigger="click"
+                data-action="toggle"
+                data-dataset="0"
+              >
+                <a href="#" class="nav-link active" data-toggle="tab"> All </a>
               </li>
-              <li class="nav-item" data-toggle="chart" data-target="#trafficChart" data-trigger="click" data-action="toggle" data-dataset="1">
+              <li
+                class="nav-item"
+                data-toggle="chart"
+                data-target="#trafficChart"
+                data-trigger="click"
+                data-action="toggle"
+                data-dataset="1"
+              >
                 <a href="#" class="nav-link" data-toggle="tab"> Direct </a>
               </li>
             </ul>
           </div>
           <div class="card-body">
             <!-- Chart -->
-            <div class="chart chart-appended"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-              <canvas id="trafficChart" class="chart-canvas chartjs-render-monitor" data-toggle="legend" data-target="#trafficChartLegend" width="386" height="241" style="display: block; width: 386px; height: 241px;"></canvas>
+            <div class="chart chart-appended">
+              <canvas
+                id="22"
+                baseChart
+                chartType="doughnut"
+                [data]="trafficChartData"
+                [labels]="trafficChartLabels"
+                [colors]="trafficChartColors"
+              >
+              </canvas>
             </div>
 
             <!-- Legend -->
-            <div id="trafficChartLegend" class="chart-legend"><span class="chart-legend-item"><i class="chart-legend-indicator" style="background-color: #2C7BE5"></i>Direct</span><span class="chart-legend-item"><i class="chart-legend-indicator" style="background-color: #A6C5F7"></i>Organic</span><span class="chart-legend-item"><i class="chart-legend-indicator" style="background-color: #D2DDEC"></i>Referral</span></div>
+            <div id="trafficChartLegend" class="chart-legend">
+              <span class="chart-legend-item"
+                ><i
+                  class="chart-legend-indicator"
+                  style="background-color: #2c7be5"
+                ></i
+                >Direct</span
+              ><span class="chart-legend-item"
+                ><i
+                  class="chart-legend-indicator"
+                  style="background-color: #a6c5f7"
+                ></i
+                >Organic</span
+              ><span class="chart-legend-item"
+                ><i
+                  class="chart-legend-indicator"
+                  style="background-color: #d2ddec"
+                ></i
+                >Referral</span
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- / .row -->
+
     <div class="row">
       <div class="col-12 col-xl-4">
         <!-- Projects -->
@@ -184,7 +253,7 @@
             <h4 class="card-header-title">Projects</h4>
 
             <!-- Link -->
-            <a href="project-overview.html" class="small">View all</a>
+            <a class="small">View all</a>
           </div>
           <div class="card-body">
             <!-- List group -->
@@ -193,8 +262,12 @@
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->
-                    <a href="project-overview.html" class="avatar avatar-4by3">
-                      <img src="assets/img/avatars/projects/project-1.jpg" alt="..." class="avatar-img rounded">
+                    <a class="avatar avatar-4by3">
+                      <img
+                        src="assets/img/avatars/projects/project-1.jpg"
+                        alt="..."
+                        class="avatar-img rounded"
+                      />
                     </a>
                   </div>
                   <div class="col ml-n2">
@@ -211,17 +284,20 @@
                   <div class="col-auto">
                     <!-- Dropdown -->
                     <div class="dropdown">
-                      <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#!" class="dropdown-item"> Action </a>
-                        <a href="#!" class="dropdown-item">
-                          Another action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Something else here
-                        </a>
+                        <a class="dropdown-item"> Action </a>
+                        <a class="dropdown-item"> Another action </a>
+                        <a class="dropdown-item"> Something else here </a>
                       </div>
                     </div>
                   </div>
@@ -232,14 +308,18 @@
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->
-                    <a href="project-overview.html" class="avatar avatar-4by3">
-                      <img src="assets/img/avatars/projects/project-2.jpg" alt="..." class="avatar-img rounded">
+                    <a class="avatar avatar-4by3">
+                      <img
+                        src="assets/img/avatars/projects/project-2.jpg"
+                        alt="..."
+                        class="avatar-img rounded"
+                      />
                     </a>
                   </div>
                   <div class="col ml-n2">
                     <!-- Title -->
                     <h4 class="mb-1">
-                      <a href="project-overview.html">Travels &amp; Time</a>
+                      <a>Travels &amp; Time</a>
                     </h4>
 
                     <!-- Time -->
@@ -250,17 +330,19 @@
                   <div class="col-auto">
                     <!-- Dropdown -->
                     <div class="dropdown">
-                      <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#!" class="dropdown-item"> Action </a>
-                        <a href="#!" class="dropdown-item">
-                          Another action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Something else here
-                        </a>
+                        <a class="dropdown-item"> Action </a>
+                        <a class="dropdown-item"> Another action </a>
+                        <a class="dropdown-item"> Something else here </a>
                       </div>
                     </div>
                   </div>
@@ -271,14 +353,18 @@
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->
-                    <a href="project-overview.html" class="avatar avatar-4by3">
-                      <img src="assets/img/avatars/projects/project-3.jpg" alt="..." class="avatar-img rounded">
+                    <a class="avatar avatar-4by3">
+                      <img
+                        src="assets/img/avatars/projects/project-3.jpg"
+                        alt="..."
+                        class="avatar-img rounded"
+                      />
                     </a>
                   </div>
                   <div class="col ml-n2">
                     <!-- Title -->
                     <h4 class="mb-1">
-                      <a href="project-overview.html">Safari Exploration</a>
+                      <a>Safari Exploration</a>
                     </h4>
 
                     <!-- Time -->
@@ -289,17 +375,20 @@
                   <div class="col-auto">
                     <!-- Dropdown -->
                     <div class="dropdown">
-                      <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#!" class="dropdown-item"> Action </a>
-                        <a href="#!" class="dropdown-item">
-                          Another action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Something else here
-                        </a>
+                        <a class="dropdown-item"> Action </a>
+                        <a class="dropdown-item"> Another action </a>
+                        <a class="dropdown-item"> Something else here </a>
                       </div>
                     </div>
                   </div>
@@ -310,14 +399,18 @@
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->
-                    <a href="project-overview.html" class="avatar avatar-4by3">
-                      <img src="assets/img/avatars/projects/project-5.jpg" alt="..." class="avatar-img rounded">
+                    <a class="avatar avatar-4by3">
+                      <img
+                        src="assets/img/avatars/projects/project-5.jpg"
+                        alt="..."
+                        class="avatar-img rounded"
+                      />
                     </a>
                   </div>
                   <div class="col ml-n2">
                     <!-- Title -->
                     <h4 class="mb-1">
-                      <a href="project-overview.html">Personal Site</a>
+                      <a>Personal Site</a>
                     </h4>
 
                     <!-- Time -->
@@ -328,28 +421,28 @@
                   <div class="col-auto">
                     <!-- Dropdown -->
                     <div class="dropdown">
-                      <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#!" class="dropdown-item"> Action </a>
-                        <a href="#!" class="dropdown-item">
-                          Another action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Something else here
-                        </a>
+                        <a class="dropdown-item"> Action </a>
+                        <a class="dropdown-item"> Another action </a>
+                        <a class="dropdown-item"> Something else here </a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- / .row -->
               </div>
             </div>
           </div>
-          <!-- / .card-body -->
         </div>
-        <!-- / .card -->
       </div>
       <div class="col-12 col-xl-8">
         <!-- Sales -->
@@ -360,23 +453,48 @@
 
             <!-- Nav -->
             <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-              <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="0">
-                <a class="nav-link active" href="#" data-toggle="tab">
-                  All
-                </a>
+              <li
+                class="nav-item"
+                data-toggle="chart"
+                data-target="#salesChart"
+                data-trigger="click"
+                data-action="toggle"
+                data-dataset="0"
+              >
+                <a class="nav-link active" href="#" data-toggle="tab"> All </a>
               </li>
-              <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="1">
+              <li
+                class="nav-item"
+                data-toggle="chart"
+                data-target="#salesChart"
+                data-trigger="click"
+                data-action="toggle"
+                data-dataset="1"
+              >
                 <a class="nav-link" href="#" data-toggle="tab"> Direct </a>
               </li>
-              <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="2">
+              <li
+                class="nav-item"
+                data-toggle="chart"
+                data-target="#salesChart"
+                data-trigger="click"
+                data-action="toggle"
+                data-dataset="2"
+              >
                 <a class="nav-link" href="#" data-toggle="tab"> Organic </a>
               </li>
             </ul>
           </div>
           <div class="card-body">
             <!-- Chart -->
-            <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-              <canvas id="salesChart" class="chart-canvas chartjs-render-monitor" width="847" height="300" style="display: block; width: 847px; height: 300px;"></canvas>
+            <div class="chart">
+              <canvas
+                baseChart
+                chartType="line"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+              >
+              </canvas>
             </div>
           </div>
         </div>
@@ -400,228 +518,438 @@
             </div>
             <!-- / .row -->
           </div>
-          <div class="table-responsive mb-0" data-list="{&quot;valueNames&quot;: [&quot;goal-project&quot;, &quot;goal-status&quot;, &quot;goal-progress&quot;, &quot;goal-date&quot;]}">
+          <div
+            class="table-responsive mb-0"
+            data-list='{"valueNames": ["goal-project", "goal-status", "goal-progress", "goal-date"]}'
+          >
             <table class="table table-sm table-nowrap card-table">
               <thead>
-              <tr>
-                <th>
-                  <a href="#" class="text-muted list-sort" data-sort="goal-project">
-                    Goal
-                  </a>
-                </th>
-                <th>
-                  <a href="#" class="text-muted list-sort" data-sort="goal-status">
-                    Status
-                  </a>
-                </th>
-                <th>
-                  <a href="#" class="text-muted list-sort" data-sort="goal-progress">
-                    Progress
-                  </a>
-                </th>
-                <th>
-                  <a href="#" class="text-muted list-sort" data-sort="goal-date">
-                    Due date
-                  </a>
-                </th>
-                <th class="text-right">Team</th>
-                <th></th>
-              </tr>
+                <tr>
+                  <th>
+                    <a
+                      href="#"
+                      class="text-muted list-sort"
+                      data-sort="goal-project"
+                    >
+                      Goal
+                    </a>
+                  </th>
+                  <th>
+                    <a
+                      href="#"
+                      class="text-muted list-sort"
+                      data-sort="goal-status"
+                    >
+                      Status
+                    </a>
+                  </th>
+                  <th>
+                    <a
+                      href="#"
+                      class="text-muted list-sort"
+                      data-sort="goal-progress"
+                    >
+                      Progress
+                    </a>
+                  </th>
+                  <th>
+                    <a
+                      href="#"
+                      class="text-muted list-sort"
+                      data-sort="goal-date"
+                    >
+                      Due date
+                    </a>
+                  </th>
+                  <th class="text-right">Team</th>
+                  <th></th>
+                </tr>
               </thead>
-              <tbody class="list"><tr>
-                <td class="goal-project">Update the API</td>
-                <td class="goal-status">
-                  <span class="text-warning">●</span> In progress
-                </td>
-                <td class="goal-progress">55%</td>
-                <td class="goal-date">
-                  <time datetime="2018-10-24">07/24/18</time>
-                </td>
-                <td class="text-right">
-                  <div class="avatar-group">
-                    <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Dianna Smiley">
-                      <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                      <img src="assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                      <img src="assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="profile-posts.html" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
-                      <img src="assets/img/avatars/profiles/avatar-4.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                  </div>
-                </td>
-                <td class="text-right">
-                  <div class="dropdown">
-                    <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fe fe-more-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#!" class="dropdown-item"> Action </a>
-                      <a href="#!" class="dropdown-item">
-                        Another action
+              <tbody class="list">
+                <tr>
+                  <td class="goal-project">Update the API</td>
+                  <td class="goal-status">
+                    <span class="text-warning">●</span> In progress
+                  </td>
+                  <td class="goal-progress">55%</td>
+                  <td class="goal-date">
+                    <time datetime="2018-10-24">07/24/18</time>
+                  </td>
+                  <td class="text-right">
+                    <div class="avatar-group">
+                      <a
+                        href="profile-posts.html"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Dianna Smiley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-1.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
-                      <a href="#!" class="dropdown-item">
-                        Something else here
+                      <a
+                        href="profile-posts.html"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Ab Hadley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-2.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
-                    </div>
-                  </div>
-                </td>
-              </tr><tr>
-                <td class="goal-project">Release v1.2-Beta</td>
-                <td class="goal-status">
-                  <span class="text-warning">●</span> In progress
-                </td>
-                <td class="goal-progress">25%</td>
-                <td class="goal-date">
-                  <time datetime="2018-10-24">08/26/18</time>
-                </td>
-                <td class="text-right">
-                  <div class="avatar-group justify-content-end">
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Dianna Smiley">
-                      <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                      <img src="assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                      <img src="assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                  </div>
-                </td>
-                <td class="text-right">
-                  <div class="dropdown">
-                    <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fe fe-more-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#!" class="dropdown-item"> Action </a>
-                      <a href="#!" class="dropdown-item">
-                        Another action
+                      <a
+                        href="profile-posts.html"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Adolfo Hess"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-3.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
-                      <a href="#!" class="dropdown-item">
-                        Something else here
+                      <a
+                        href="profile-posts.html"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Daniela Dewitt"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-4.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
                     </div>
-                  </div>
-                </td>
-              </tr><tr>
-                <td class="goal-project">GDPR Compliance</td>
-                <td class="goal-status">
-                  <span class="text-success">●</span> Completed
-                </td>
-                <td class="goal-progress">100%</td>
-                <td class="goal-date">
-                  <time datetime="2018-10-24">06/19/18</time>
-                </td>
-                <td class="text-right">
-                  <div class="avatar-group justify-content-end">
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Dianna Smiley">
-                      <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                      <img src="assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                      <img src="assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                  </div>
-                </td>
-                <td class="text-right">
-                  <div class="dropdown">
-                    <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fe fe-more-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#!" class="dropdown-item"> Action </a>
-                      <a href="#!" class="dropdown-item">
-                        Another action
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fe fe-more-vertical"></i>
                       </a>
-                      <a href="#!" class="dropdown-item">
-                        Something else here
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#!" class="dropdown-item"> Action </a>
+                        <a href="#!" class="dropdown-item"> Another action </a>
+                        <a href="#!" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="goal-project">Release v1.2-Beta</td>
+                  <td class="goal-status">
+                    <span class="text-warning">●</span> In progress
+                  </td>
+                  <td class="goal-progress">25%</td>
+                  <td class="goal-date">
+                    <time datetime="2018-10-24">08/26/18</time>
+                  </td>
+                  <td class="text-right">
+                    <div class="avatar-group justify-content-end">
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Dianna Smiley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-1.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Ab Hadley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-2.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Adolfo Hess"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-3.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
                     </div>
-                  </div>
-                </td>
-              </tr><tr>
-                <td class="goal-project">v1.2 Documentation</td>
-                <td class="goal-status">
-                  <span class="text-danger">●</span> Cancelled
-                </td>
-                <td class="goal-progress">0%</td>
-                <td class="goal-date">
-                  <time datetime="2018-10-24">06/25/18</time>
-                </td>
-                <td class="text-right">
-                  <div class="avatar-group justify-content-end">
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Dianna Smiley">
-                      <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                      <img src="assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                  </div>
-                </td>
-                <td class="text-right">
-                  <div class="dropdown">
-                    <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <span class="fe fe-more-vertical"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#!" class="dropdown-item"> Action </a>
-                      <a href="#!" class="dropdown-item">
-                        Another action
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fe fe-more-vertical"></i>
                       </a>
-                      <a href="#!" class="dropdown-item">
-                        Something else here
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#!" class="dropdown-item"> Action </a>
+                        <a href="#!" class="dropdown-item"> Another action </a>
+                        <a href="#!" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="goal-project">GDPR Compliance</td>
+                  <td class="goal-status">
+                    <span class="text-success">●</span> Completed
+                  </td>
+                  <td class="goal-progress">100%</td>
+                  <td class="goal-date">
+                    <time datetime="2018-10-24">06/19/18</time>
+                  </td>
+                  <td class="text-right">
+                    <div class="avatar-group justify-content-end">
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Dianna Smiley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-1.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Ab Hadley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-2.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Adolfo Hess"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-3.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
                     </div>
-                  </div>
-                </td>
-              </tr><tr>
-                <td class="goal-project">Plan design offsite</td>
-                <td class="goal-status">
-                  <span class="text-success">●</span> Completed
-                </td>
-                <td class="goal-progress">100%</td>
-                <td class="goal-date">
-                  <time datetime="2018-10-24">06/30/18</time>
-                </td>
-                <td class="text-right">
-                  <div class="avatar-group justify-content-end">
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Dianna Smiley">
-                      <img src="assets/img/avatars/profiles/avatar-1.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                      <img src="assets/img/avatars/profiles/avatar-2.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Adolfo Hess">
-                      <img src="assets/img/avatars/profiles/avatar-3.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                    <a href="#!" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Daniela Dewitt">
-                      <img src="assets/img/avatars/profiles/avatar-4.jpg" class="avatar-img rounded-circle" alt="...">
-                    </a>
-                  </div>
-                </td>
-                <td class="text-right">
-                  <div class="dropdown">
-                    <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fe fe-more-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a href="#!" class="dropdown-item"> Action </a>
-                      <a href="#!" class="dropdown-item">
-                        Another action
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fe fe-more-vertical"></i>
                       </a>
-                      <a href="#!" class="dropdown-item">
-                        Something else here
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#!" class="dropdown-item"> Action </a>
+                        <a href="#!" class="dropdown-item"> Another action </a>
+                        <a href="#!" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="goal-project">v1.2 Documentation</td>
+                  <td class="goal-status">
+                    <span class="text-danger">●</span> Cancelled
+                  </td>
+                  <td class="goal-progress">0%</td>
+                  <td class="goal-date">
+                    <time datetime="2018-10-24">06/25/18</time>
+                  </td>
+                  <td class="text-right">
+                    <div class="avatar-group justify-content-end">
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Dianna Smiley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-1.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Ab Hadley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-2.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
                       </a>
                     </div>
-                  </div>
-                </td>
-              </tr></tbody>
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <span class="fe fe-more-vertical"></span>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#!" class="dropdown-item"> Action </a>
+                        <a href="#!" class="dropdown-item"> Another action </a>
+                        <a href="#!" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="goal-project">Plan design offsite</td>
+                  <td class="goal-status">
+                    <span class="text-success">●</span> Completed
+                  </td>
+                  <td class="goal-progress">100%</td>
+                  <td class="goal-date">
+                    <time datetime="2018-10-24">06/30/18</time>
+                  </td>
+                  <td class="text-right">
+                    <div class="avatar-group justify-content-end">
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Dianna Smiley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-1.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Ab Hadley"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-2.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Adolfo Hess"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-3.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                      <a
+                        href="#!"
+                        class="avatar avatar-xs"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Daniela Dewitt"
+                      >
+                        <img
+                          src="assets/img/avatars/profiles/avatar-4.jpg"
+                          class="avatar-img rounded-circle"
+                          alt="..."
+                        />
+                      </a>
+                    </div>
+                  </td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a
+                        href="#"
+                        class="dropdown-ellipses dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fe fe-more-vertical"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#!" class="dropdown-item"> Action </a>
+                        <a href="#!" class="dropdown-item"> Another action </a>
+                        <a href="#!" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -647,7 +975,11 @@
                   <div class="col-auto">
                     <!-- Avatar -->
                     <div class="avatar avatar-sm avatar-online">
-                      <img class="avatar-img rounded-circle" src="assets/img/avatars/profiles/avatar-1.jpg" alt="...">
+                      <img
+                        class="avatar-img rounded-circle"
+                        src="assets/img/avatars/profiles/avatar-1.jpg"
+                        alt="..."
+                      />
                     </div>
                   </div>
                   <div class="col ml-n2">
@@ -670,7 +1002,11 @@
                   <div class="col-auto">
                     <!-- Avatar -->
                     <div class="avatar avatar-sm avatar-online">
-                      <img class="avatar-img rounded-circle" src="assets/img/avatars/profiles/avatar-2.jpg" alt="...">
+                      <img
+                        class="avatar-img rounded-circle"
+                        src="assets/img/avatars/profiles/avatar-2.jpg"
+                        alt="..."
+                      />
                     </div>
                   </div>
                   <div class="col ml-n2">
@@ -693,7 +1029,11 @@
                   <div class="col-auto">
                     <!-- Avatar -->
                     <div class="avatar avatar-sm avatar-offline">
-                      <img class="avatar-img rounded-circle" src="assets/img/avatars/profiles/avatar-3.jpg" alt="...">
+                      <img
+                        class="avatar-img rounded-circle"
+                        src="assets/img/avatars/profiles/avatar-3.jpg"
+                        alt="..."
+                      />
                     </div>
                   </div>
                   <div class="col ml-n2">
@@ -728,49 +1068,95 @@
           <div class="card-body">
             <!-- Checklist -->
             <div class="checklist" tabindex="0">
-              <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                <input class="custom-control-input" id="checklistOne" type="checkbox">
+              <div
+                class="custom-control custom-checkbox checklist-control"
+                tabindex="0"
+              >
+                <input
+                  class="custom-control-input"
+                  id="checklistOne"
+                  type="checkbox"
+                />
                 <label class="custom-control-label" for="checklistOne"></label>
                 <span class="custom-control-caption">
-                      Delete the old mess in functions files.
-                    </span>
+                  Delete the old mess in functions files.
+                </span>
               </div>
-              <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                <input class="custom-control-input" id="checklistTwo" type="checkbox">
+              <div
+                class="custom-control custom-checkbox checklist-control"
+                tabindex="0"
+              >
+                <input
+                  class="custom-control-input"
+                  id="checklistTwo"
+                  type="checkbox"
+                />
                 <label class="custom-control-label" for="checklistTwo"></label>
                 <span class="custom-control-caption">
-                      Refactor the core social sharing modules
-                    </span>
+                  Refactor the core social sharing modules
+                </span>
               </div>
-              <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                <input class="custom-control-input" id="checklistThree" type="checkbox">
-                <label class="custom-control-label" for="checklistThree"></label>
+              <div
+                class="custom-control custom-checkbox checklist-control"
+                tabindex="0"
+              >
+                <input
+                  class="custom-control-input"
+                  id="checklistThree"
+                  type="checkbox"
+                />
+                <label
+                  class="custom-control-label"
+                  for="checklistThree"
+                ></label>
                 <span class="custom-control-caption">
-                      Create the release notes for the new pages so customers
-                      get psyched.
-                    </span>
+                  Create the release notes for the new pages so customers get
+                  psyched.
+                </span>
               </div>
-              <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                <input class="custom-control-input" id="checklistFour" type="checkbox">
+              <div
+                class="custom-control custom-checkbox checklist-control"
+                tabindex="0"
+              >
+                <input
+                  class="custom-control-input"
+                  id="checklistFour"
+                  type="checkbox"
+                />
                 <label class="custom-control-label" for="checklistFour"></label>
                 <span class="custom-control-caption">
-                      Send Dianna those meeting notes
-                    </span>
+                  Send Dianna those meeting notes
+                </span>
               </div>
-              <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                <input class="custom-control-input" id="checklistFive" type="checkbox">
+              <div
+                class="custom-control custom-checkbox checklist-control"
+                tabindex="0"
+              >
+                <input
+                  class="custom-control-input"
+                  id="checklistFive"
+                  type="checkbox"
+                />
                 <label class="custom-control-label" for="checklistFive"></label>
                 <span class="custom-control-caption">
-                      Share the documentation for the new unified API
-                    </span>
+                  Share the documentation for the new unified API
+                </span>
               </div>
-              <div class="custom-control custom-checkbox checklist-control" tabindex="0">
-                <input class="custom-control-input" id="checklistSix" type="checkbox" checked="">
+              <div
+                class="custom-control custom-checkbox checklist-control"
+                tabindex="0"
+              >
+                <input
+                  class="custom-control-input"
+                  id="checklistSix"
+                  type="checkbox"
+                  checked=""
+                />
                 <label class="custom-control-label" for="checklistSix"></label>
                 <span class="custom-control-caption">
-                      Clean up the Figma file with all of the avatars, buttons,
-                      and other components.
-                    </span>
+                  Clean up the Figma file with all of the avatars, buttons, and
+                  other components.
+                </span>
               </div>
             </div>
           </div>
@@ -778,7 +1164,17 @@
             <div class="row align-items-center">
               <div class="col">
                 <!-- Input -->
-                <textarea class="form-control form-control-flush form-control-auto" data-toggle="autosize" rows="1" placeholder="Create a task" style="overflow: hidden; overflow-wrap: break-word; height: 24px;"></textarea>
+                <textarea
+                  class="form-control form-control-flush form-control-auto"
+                  data-toggle="autosize"
+                  rows="1"
+                  placeholder="Create a task"
+                  style="
+                    overflow: hidden;
+                    overflow-wrap: break-word;
+                    height: 24px;
+                  "
+                ></textarea>
               </div>
               <div class="col-auto">
                 <!-- Button -->

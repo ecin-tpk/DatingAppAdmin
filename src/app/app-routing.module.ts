@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_helpers';
+import { ReportsComponent } from './reports/reports.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const accountModule = () =>
   import('./account/account.module').then((x) => x.AccountModule);
@@ -39,6 +41,16 @@ const routes: Routes = [
   {
     path: 'user-details/:id',
     loadChildren: userDetailsModule,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent,
     canActivate: [AuthGuard],
   },
   {
