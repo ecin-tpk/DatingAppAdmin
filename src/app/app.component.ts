@@ -17,6 +17,8 @@ export class AppComponent implements OnDestroy {
     this.userSub = this.authService.account.subscribe((user) => {
       this.user = user;
     });
+
+    console.log(this.user.jwtToken);
   }
 
   ngOnDestroy() {

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-messages',
-  templateUrl: './messages1.component.html',
+  templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'],
 })
 export class MessagesComponent implements OnInit, OnDestroy {
@@ -26,6 +26,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
       .getPagination(1, 20, { userId: '21', recipientId: '1' })
       .subscribe((data) => {
         this.messages = data.body;
+        console.log(this.messages);
       });
 
     this.accountSub = this.accountService.account.subscribe((account) => {

@@ -1,330 +1,296 @@
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="d-flex flex-column" style="height: 100vh">
+<div class="main-content d-flex flex-row" style="height: 100vh;">
+  <div
+    class="chat-contacts"
+    style="border-right: 1px solid #e3ebf6; min-width: 375px; width: 375px;"
+  >
+    <div
+      class="container-fluid d-flex flex-column"
+      style="height: 100%; max-height: 100%;"
+    >
       <div class="header">
         <div class="header-body">
-          <div class="row align-items-center">
-            <!-- Title -->
-            <div class="col">
-              <h6 class="header-pretitle">Internal</h6>
-              <h1 class="header-title">Messages</h1>
-            </div>
+          <h6 class="header-pretitle">Staff</h6>
+          <h1 class="header-title">Messages</h1>
+        </div>
+      </div>
 
-            <!-- Buttons -->
-            <div class="col-auto">
-              <a class="btn btn-white mr-2"> Edit </a>
-              <!-- Navigation (button group) -->
-              <div class="nav btn-group d-inline-flex" role="tablist">
-                <button class="btn btn-white active">
-                  <span class="fe fe-grid"></span>
-                </button>
-                <button class="btn btn-white">
-                  <span class="fe fe-list"></span>
-                </button>
+      <form class="mb-4">
+        <div class="input-group input-group-lg input-group-merge">
+          <input
+            class="list-search form-control form-control-prepended"
+            type="search"
+            placeholder="Search"
+          />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span class="fe fe-search"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="hide-scrollbar chat-list">
+        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer;">
+          <div class="card-body">
+            <div class="row">
+              <!-- Avatar -->
+              <div class="col-auto">
+                <div class="avatar avatar-sm">
+                  <img
+                    src="./assets/img/avatars/profiles/avatar-2.jpg"
+                    alt="..."
+                    class="avatar-img rounded-circle"
+                  />
+                </div>
+              </div>
+
+              <div class="col ml-n2">
+                <div class="row">
+                  <div class="col">
+                    <div class="small">
+                      <strong>Ab Hadley</strong>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <div class="small text-muted">
+                      <strong>10:20</strong>
+                    </div>
+                  </div>
+                </div>
+                <small class="text-gray-700">
+                  Hello. How r u doin?
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer;">
+          <div class="card-body">
+            <div class="row">
+              <!-- Avatar -->
+              <div class="col-auto">
+                <div class="avatar avatar-sm">
+                  <img
+                    src="./assets/img/avatars/profiles/avatar-1.jpg"
+                    alt="..."
+                    class="avatar-img rounded-circle"
+                  />
+                </div>
+              </div>
+
+              <div class="col ml-n2">
+                <div class="row">
+                  <div class="col">
+                    <div class="small">
+                      <strong>Dianna Smiley</strong>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <div class="small text-muted">
+                      <strong>1:30</strong>
+                    </div>
+                  </div>
+                </div>
+                <small class="text-gray-700">
+                  Lorem ipsum dolor sit amet, conse
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer;">
+          <div class="card-body">
+            <div class="row">
+              <!-- Avatar -->
+              <div class="col-auto">
+                <div class="avatar avatar-sm">
+                  <img
+                    src="./assets/img/avatars/profiles/avatar-3.jpg"
+                    alt="..."
+                    class="avatar-img rounded-circle"
+                  />
+                </div>
+              </div>
+
+              <div class="col ml-n2">
+                <div class="row">
+                  <div class="col">
+                    <div class="small">
+                      <strong>Adolfo Hess</strong>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <div class="small text-muted">
+                      <strong>11:11</strong>
+                    </div>
+                  </div>
+                </div>
+                <small class="text-gray-700">
+                  Lorem ipsum dolor sit amet, conse
+                </small>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div
+    class="chat-body"
+    style="background: white; padding: 0.75rem 1.5rem; flex-grow: 1;"
+  >
+    <div class="chat-header">
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <!-- Avatar -->
+          <a class="avatar">
+            <img
+              src="assets/img/avatars/profiles/avatar-1.jpg"
+              alt="..."
+              class="avatar-img rounded-circle"
+            />
+          </a>
+        </div>
+        <div class="col ml-n2">
+          <!-- Title -->
+          <h4 class="mb-1">
+            <a>Dianna Smiley</a>
+          </h4>
 
-      <div class="flex-grow-1 pb-5">
-        <div class="h-100">
-          <div class="row h-100">
-            <div class="col-12 col-xl-3 col-lg-4">
-              <div class="h-100 d-flex flex-column">
-                <form class="mb-4">
-                  <div class="input-group input-group-lg input-group-merge">
-                    <input
-                      class="list-search form-control form-control-prepended"
-                      type="search"
-                      placeholder="Search"
-                    />
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <span class="fe fe-search"></span>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <div class="flex-grow-1">
-                  <div class="h-100" >
-                    <div class="card card-sm mb-3">
-                      <div class="card-body">
-                        <div class="row">
-                          <!-- Avatar -->
-                          <div class="col-auto">
-                            <div class="avatar avatar-sm">
-                              <img
-                                src="./assets/img/avatars/profiles/avatar-2.jpg"
-                                alt="..."
-                                class="avatar-img rounded-circle"
-                              />
-                            </div>
-                          </div>
+          <!-- Status -->
+          <p class="small mb-0"><span class="text-success">●</span> Online</p>
+        </div>
 
-                          <div class="col ml-n2">
-                            <div class="row">
-                              <div class="col">
-                                <div class="small">
-                                  <strong>Ab Hadley</strong>
-                                </div>
-                              </div>
-                              <div class="col-auto">
-                                <div class="small text-muted">
-                                  <strong>10:20</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <small class="text-gray-700">
-                              Hello. How r u doin?
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card card-sm mb-3">
-                      <div class="card-body">
-                        <div class="row">
-                          <!-- Avatar -->
-                          <div class="col-auto">
-                            <div class="avatar avatar-sm">
-                              <img
-                                src="./assets/img/avatars/profiles/avatar-2.jpg"
-                                alt="..."
-                                class="avatar-img rounded-circle"
-                              />
-                            </div>
-                          </div>
+<!--        <form>-->
+<!--          <div class="input-group input-group-lg input-group-merge">-->
+<!--            <input-->
+<!--              class="list-search form-control form-control-prepended"-->
+<!--              type="search"-->
+<!--              placeholder="Search"-->
+<!--              style="height: 48px;"-->
+<!--            />-->
+<!--            <div class="input-group-prepend">-->
+<!--              <div class="input-group-text">-->
+<!--                <span class="fe fe-search"></span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
 
-                          <div class="col ml-n2">
-                            <div class="row">
-                              <div class="col">
-                                <div class="small">
-                                  <strong>Ab Hadley</strong>
-                                </div>
-                              </div>
-                              <div class="col-auto">
-                                <div class="small text-muted">
-                                  <strong>10:20</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <small class="text-gray-700">
-                              Hello. How r u doin?
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card card-sm mb-3">
-                      <div class="card-body">
-                        <div class="row">
-                          <!-- Avatar -->
-                          <div class="col-auto">
-                            <div class="avatar avatar-sm">
-                              <img
-                                src="./assets/img/avatars/profiles/avatar-2.jpg"
-                                alt="..."
-                                class="avatar-img rounded-circle"
-                              />
-                            </div>
-                          </div>
+        <div class="col-auto">
+          <a class="dropdown-ellipses dropdown-toggle">
+            <i class="fe fe-search"></i>
+          </a>
+        </div>
 
-                          <div class="col ml-n2">
-                            <div class="row">
-                              <div class="col">
-                                <div class="small">
-                                  <strong>Ab Hadley</strong>
-                                </div>
-                              </div>
-                              <div class="col-auto">
-                                <div class="small text-muted">
-                                  <strong>10:20</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <small class="text-gray-700">
-                              Hello. How r u doin?
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card card-sm mb-3">
-                      <div class="card-body">
-                        <div class="row">
-                          <!-- Avatar -->
-                          <div class="col-auto">
-                            <div class="avatar avatar-sm">
-                              <img
-                                src="./assets/img/avatars/profiles/avatar-2.jpg"
-                                alt="..."
-                                class="avatar-img rounded-circle"
-                              />
-                            </div>
-                          </div>
+        <div class="col-auto">
+          <a class="dropdown-ellipses dropdown-toggle">
+            <i class="fe fe-more-vertical"></i>
+          </a>
+        </div>
+      </div>
+    </div>
 
-                          <div class="col ml-n2">
-                            <div class="row">
-                              <div class="col">
-                                <div class="small">
-                                  <strong>Ab Hadley</strong>
-                                </div>
-                              </div>
-                              <div class="col-auto">
-                                <div class="small text-muted">
-                                  <strong>10:20</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <small class="text-gray-700">
-                              Hello. How r u doin?
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <div class="chat-content" style="overflow-y: auto;">
+      <div>
+        <div class="message message-right">
+          <!-- Avatar -->
+          <a class="avatar avatar-sm">
+            <img
+              src="assets/img/avatars/profiles/avatar-3.jpg"
+              alt=""
+              class="avatar-img rounded-circle"
+            />
+          </a>
+
+          <!-- Body -->
+          <div class="messages-from">
+            <div class="comment-body d-block mt-1" style="width: fit-content;">
+              <p class="mb-0">
+                Lorem ipsum dolor sit amet, consectetur.
+              </p>
             </div>
-
-            <div class="col-12 col-xl-9 col-lg-8">
-              <div class="card h-100">
-                <div class="card-body">
-                  <!-- Header -->
-                  <div class="mb-3">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <a class="avatar">
-                          <img
-                            src="assets/img/avatars/profiles/avatar-1.jpg"
-                            alt="..."
-                            class="avatar-img rounded-circle"
-                          />
-                        </a>
-                      </div>
-
-                      <div class="col ml-n2">
-                        <!-- Title -->
-                        <h4 class="mb-1">Dianna Smiley</h4>
-
-                        <!-- Time -->
-                        <p class="card-text small text-muted">
-                          <span class="fe fe-clock"></span>
-                          <time datetime="2018-05-24"> 4hr ago</time>
-                        </p>
-                      </div>
-                      <!-- Dropdown -->
-                      <div class="col-auto">
-                        <div class="dropdown">
-                          <a
-                            class="dropdown-ellipses dropdown-toggle"
-                            role="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i class="fe fe-more-vertical"></i>
-                          </a>
-                          <div
-                            class="dropdown-menu dropdown-menu-right"
-                            style=""
-                          >
-                            <a class="dropdown-item"> Action </a>
-                            <a class="dropdown-item"> Another action </a>
-                            <a class="dropdown-item"> Something else here </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <hr />
-
-                  <!-- Messages -->
-                  <div class="message-container">
-                    <div
-                      class="comment mb-3"
-                      [ngClass]="{
-                        'message-right': message.senderId == account.id
-                      }"
-                      *ngFor="let message of messages"
-                    >
-                      <div class="row align-items-end flex-nowrap">
-                        <!-- Avatar -->
-                        <div class="col-auto">
-                          <a class="avatar avatar-sm">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="{{ message.senderPhotoUrl }}"
-                              alt=""
-                              *ngIf="message.senderPhotoUrl"
-                            />
-                            <span
-                              class="avatar-title rounded-circle"
-                              *ngIf="!message.senderPhotoUrl"
-                              >{{ message.senderName[0] }}</span
-                            >
-                          </a>
-                        </div>
-
-                        <!-- Body -->
-                        <div>
-                          <div class="comment-body">
-                            <p class="comment-text">
-                              {{ message.content }}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card-footer">
-                  <!-- Form -->
-                  <div class="row">
-                    <div class="col">
-                      <!-- Input -->
-                      <form class="mt-1">
-                        <label class="sr-only">Leave a comment...</label>
-                        <textarea
-                          class="form-control form-control-flush"
-                          data-toggle="autosize"
-                          rows="1"
-                          placeholder="Leave a comment"
-                          style="
-                            overflow: hidden;
-                            overflow-wrap: break-word;
-                            height: 40px;
-                          "
-                        ></textarea>
-                      </form>
-                    </div>
-                    <div class="col-auto align-self-end">
-                      <!-- Icons -->
-                      <div class="text-muted mb-1">
-                        <a class="text-reset mr-4">
-                          <i class="fe fe-camera"></i>
-                        </a>
-                        <a class="text-reset mr-4">
-                          <i class="fe fe-paperclip"></i>
-                        </a>
-                        <a class="text-reset mr-4">
-                          <i class="fe fe-mic"></i>
-                        </a>
-                        <a class="btn btn-rounded-circle btn-primary">
-                          <i class="fe fe-send"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="comment-body d-block mt-1" style="width: fit-content;">
+              <p class="mb-0">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea
+                eius, veniam?
+              </p>
             </div>
           </div>
+        </div>
+
+        <div class="message">
+          <!-- Avatar -->
+          <a class="avatar avatar-sm">
+            <img
+              src="assets/img/avatars/profiles/avatar-3.jpg"
+              alt=""
+              class="avatar-img rounded-circle"
+            />
+          </a>
+
+          <!-- Body -->
+          <div class="messages-from">
+            <div class="comment-body d-block mt-1" style="width: fit-content;">
+              <p class="mb-0">
+                Lorem ipsum dolor sit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="message message-right">
+          <!-- Avatar -->
+          <a class="avatar avatar-sm">
+            <img
+              src="assets/img/avatars/profiles/avatar-3.jpg"
+              alt=""
+              class="avatar-img rounded-circle"
+            />
+          </a>
+
+          <!-- Body -->
+          <div class="messages-from">
+            <div class="comment-body d-block mt-1" style="width: fit-content;">
+              <p class="mb-0">
+                Lorem ipsum dolor sit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-auto"></div>
+
+    <div class="chat-footer">
+      <div class="col pl-0">
+        <form>
+          <textarea
+            class="form-control form-control-flush"
+            rows="1"
+            placeholder="Type a message..."
+            style="overflow: hidden; overflow-wrap: break-word; height: 40px;"
+          ></textarea>
+        </form>
+      </div>
+      <div class="col-auto pr-0 align-self-end">
+        <div class="text-muted">
+          <a class="text-reset mr-4">
+            <i class="fe fe-camera"></i>
+          </a>
+          <a class="text-reset mr-4">
+            <i class="fe fe-paperclip"></i>
+          </a>
+          <a class="text-reset mr-4">
+            <i class="fe fe-mic"></i>
+          </a>
+          <button
+            class="btn btn-rounded-circle btn-primary"
+            style="width: 40px; height: 40px;"
+          >
+            <span class="fe fe-send"></span>
+          </button>
         </div>
       </div>
     </div>

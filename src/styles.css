@@ -3,6 +3,10 @@
 @import "./assets/fonts/fonts-feather.css";
 @import "assets/css/datepicker.css";
 
+a {
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
   .main-content {
     margin-left: 250px;
