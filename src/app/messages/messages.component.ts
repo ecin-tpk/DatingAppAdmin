@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import * as signalR from '@microsoft/signalr';
+import { IHttpConnectionOptions } from '@microsoft/signalr';
+
 import { Message } from '../_models/message';
 import { AccountService, MessageService } from '../_services';
-import { UserParams } from '../_helpers';
 import { User } from '../_models';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-messages',
@@ -15,6 +17,8 @@ export class MessagesComponent implements OnInit, OnDestroy {
   accountSub: Subscription;
 
   messages: Message[] = [];
+
+  private hubConnection: signalR.HubConnection;
 
   constructor(
     private messageService: MessageService,
@@ -31,6 +35,42 @@ export class MessagesComponent implements OnInit, OnDestroy {
 
     this.accountSub = this.accountService.account.subscribe((account) => {
       this.account = account;
+    });
+
+    this.startConnection();
+    this.addReceiveMessageListener();
+  }
+
+  private startConnection() {
+    const opt: IHttpConnectionOptions = {
+      accessTokenFactory(): string | Promise<string> {
+        return localStorage.getItem('access_token');
+      },
+    };
+
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl('http://192.168.0.108:5000/hubs/messages', opt)
+      .build();
+
+    this.hubConnection
+      .start()
+      .then(() => {
+        console.log('Connecting to message hub');
+      })
+      .catch((err) => {
+        console.log('Error while connecting to message hub: ' + err);
+      });
+  }
+
+  private addReceiveMessageListener() {
+    this.hubConnection.on('receiveMessage', (data) => {
+      console.log(data);
+    });
+  }
+
+  public send() {
+    this.messageService.sendMessage(null, null).subscribe((data) => {
+      console.log('Message sent');
     });
   }
 

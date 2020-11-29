@@ -29,7 +29,8 @@ export class MessageService {
   }
 
   sendMessage(id, message) {
-    return this.http.post(`${environment.apiUrl}/users/${id}/messages`, message);
+    // return this.http.post(`${environment.apiUrl}/users/${id}/messages`, message);
+    return this.http.get(`${environment.apiUrl}/values`);
   }
 
   // Helpers

@@ -89,6 +89,7 @@ export class AccountService {
       .pipe(
         map((account) => {
           this.accountSubject.next(account);
+          localStorage.setItem('access_token', account.jwtToken);
           this.startRefreshTokenTimer();
           return account;
         })

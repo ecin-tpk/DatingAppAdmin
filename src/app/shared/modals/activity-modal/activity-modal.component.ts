@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import * as signalR from '@microsoft/signalr';
+import { SignalRService } from '../../../_services/signal-r.service';
 
 @Component({
   selector: 'app-modal-activity',
@@ -12,6 +14,5 @@ export class ActivityModalComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

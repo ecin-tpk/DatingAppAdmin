@@ -1,24 +1,28 @@
-import { Component, OnDestroy } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { User } from './_models';
 import { AccountService } from './_services';
 import { Subscription } from 'rxjs';
+import {SignalRService} from './_services/signal-r.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   user: User;
   userSub: Subscription;
 
-  constructor(public authService: AccountService) {
-    this.userSub = this.authService.account.subscribe((user) => {
+  constructor(public accountService: AccountService, private signalRService: SignalRService) {
+    this.userSub = this.accountService.account.subscribe((user) => {
       this.user = user;
     });
+  }
 
-    console.log(this.user.jwtToken);
+  ngOnInit(): void {
+    this.signalRService.connectToNotificationHub();
+    this.signalRService.addNotificationListener();
   }
 
   ngOnDestroy() {
