@@ -19,6 +19,7 @@ export class SidenavComponent implements OnInit {
   collapses = {
     nav: true,
     users: true,
+    reports: true,
   };
   @Input()
   user: User;

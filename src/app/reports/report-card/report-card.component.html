@@ -1,23 +1,19 @@
 <div class="card">
-  <div class="card-body pb-3">
+  <div class="card-body">
     <!-- Header -->
     <div class="row align-items-center">
       <div class="col">
         <!-- Checkbox -->
-        <div
-          class="custom-control custom-control-circle custom-checkbox"
-        >
+        <div class="custom-control custom-control-circle custom-checkbox">
           <input
             type="checkbox"
             class="list-checkbox custom-control-input"
             id="cardsCheckboxOne"
           />
-          <label
-            class="custom-control-label"
-            for="cardsCheckboxOne"
-          ></label>
+          <label class="custom-control-label" for="cardsCheckboxOne"></label>
         </div>
       </div>
+
       <!-- Dropdown -->
       <div class="col-auto">
         <div
@@ -26,18 +22,11 @@
           container="body"
           placement="bottom right"
         >
-          <a
-            class="dropdown-ellipses"
-            role="button"
-            dropdownToggle
-          >
+          <a class="dropdown-ellipses" role="button" dropdownToggle>
             <i class="fe fe-more-vertical"></i>
           </a>
 
-          <div
-            class="dropdown-menu dropdown-menu-right"
-            *dropdownMenu
-          >
+          <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
             <a class="dropdown-item">Action</a>
             <a class="dropdown-item">Another action</a>
             <a class="dropdown-item">Another action</a>
@@ -57,12 +46,23 @@
 
     <!-- Body -->
     <div class="text-center mb-5">
+      <!-- Heading -->
       <h2 class="card-title">
         <a class="item-name">Dianna Smiley</a>
       </h2>
-      <span class="item-score badge badge-soft-success"
-      >1/10</span
-      >
+
+      <!-- Text -->
+      <p class="small text-muted mb-3">
+        <span class="item-title">Normal user</span>
+      </p>
+
+      <!-- Buttons -->
+      <a class="btn btn-sm btn-white mr-1">
+        <i class="fe fe-thumbs-up mr-1"></i> Approve
+      </a>
+      <a class="btn btn-sm btn-white">
+        <i class="fe fe-thumbs-down mr-1"></i> Disapprove
+      </a>
     </div>
 
     <!-- Divider -->
@@ -73,60 +73,22 @@
       <div class="list-group-item">
         <div class="row">
           <div class="col">
-            <!-- Text -->
             <small>Reported for</small>
           </div>
           <div class="col-auto">
-            <a href="#"><small>Fake profile</small></a>
+            <small>Fake profile/spam</small>
           </div>
         </div>
-        <!-- / .row -->
       </div>
-    </div>
-  </div>
-
-  <div class="card-footer card-footer-boxed">
-    <div class="row align-items-center">
-      <div class="col">
-        <!-- Text -->
-        <small class="text-muted">
-          <i class="fe fe-flag"></i> By
-          <strong>Mike</strong> and 5 +
-        </small>
-      </div>
-      <div class="col-auto">
-        <!-- Avatar group -->
-        <div class="avatar-group">
-          <a class="avatar avatar-xs">
-            <img
-              src="../assets/img/avatars/profiles/avatar-2.jpg"
-              class="avatar-img rounded-circle"
-              alt="..."
-            />
-          </a>
-          <a class="avatar avatar-xs">
-            <img
-              src="../assets/img/avatars/profiles/avatar-3.jpg"
-              class="avatar-img rounded-circle"
-              alt="..."
-            />
-          </a>
-          <a class="avatar avatar-xs">
-            <img
-              src="../assets/img/avatars/profiles/avatar-4.jpg"
-              class="avatar-img rounded-circle"
-              alt="..."
-            />
-          </a>
-          <a class="avatar avatar-xs">
-            <img
-              src="../assets/img/avatars/profiles/avatar-5.jpg"
-              class="avatar-img rounded-circle"
-              alt="..."
-            />
-          </a>
-          <div class="avatar avatar-xs">
-            <div class="avatar-title rounded-circle">+5</div>
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col">
+            <small>Times being reported</small>
+          </div>
+          <div class="col-auto">
+            <span class="item-score badge badge-soft-danger"
+              ><i class="fe fe-alert-circle"></i> 9/10</span
+            >
           </div>
         </div>
       </div>

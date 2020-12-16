@@ -82,6 +82,18 @@ export class UserService {
     );
   }
 
+  getTotalUsersPerMonth(year) {
+    return this.http.get<number[]>(
+      `${environment.apiUrl}/admin/users/users-per-month/${year}`
+    );
+  }
+
+  getPercentageUsersByAge(year) {
+    return this.http.get<number[]>(
+      `${environment.apiUrl}/admin/users/users-by-age/${year}`
+    );
+  }
+
   // Helper methods
   requestParams(pageNumber?, pageSize?, userParams?) {
     let params = new HttpParams();

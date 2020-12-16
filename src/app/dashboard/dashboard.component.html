@@ -36,7 +36,7 @@
                 <h6 class="text-uppercase text-muted mb-2">Users</h6>
 
                 <!-- Heading -->
-                <span class="h2 mb-0">{{ numberOfUsers }}</span>
+                <span class="h2 mb-0">{{ totalUsers }}</span>
 
                 <!-- Badge -->
                 <span
@@ -142,22 +142,17 @@
         </div>
       </div>
     </div>
-    <!-- / .row -->
+
     <div class="row">
+      <!-- New users per month-->
       <div class="col-12 col-xl-8">
-        <!-- New users -->
         <div class="card">
           <div class="card-header">
-            <!-- Title -->
             <h4 class="card-header-title">New Users Per Month</h4>
-
-            <!-- Caption -->
             <span class="text-muted mr-3"> Last year comparison: </span>
-
-            <!-- Switch -->
             <app-switch (changed)="compareLastYear($event)"></app-switch>
           </div>
-          <!-- New ysers chart -->
+          <!-- New users chart -->
           <div class="card-body">
             <div class="chart">
               <canvas
@@ -166,18 +161,18 @@
                 chartType="bar"
                 [datasets]="newUsersChartData"
                 [labels]="newUsersChartLabels"
-              >
-              </canvas>
+              ></canvas>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Traffic -->
       <div class="col-12 col-xl-4">
-        <!-- Traffic -->
         <div class="card">
           <div class="card-header">
             <!-- Title -->
-            <h4 class="card-header-title">Traffic Channels</h4>
+            <h4 class="card-header-title">Users By Age</h4>
 
             <!-- Tabs -->
             <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
@@ -210,9 +205,9 @@
                 id="22"
                 baseChart
                 chartType="doughnut"
-                [data]="trafficChartData"
-                [labels]="trafficChartLabels"
-                [colors]="trafficChartColors"
+                [data]="usersByAgeChartData"
+                [labels]="usersByAgeChartLabels"
+                [colors]="usersByAgeChartColors"
               >
               </canvas>
             </div>
@@ -224,19 +219,19 @@
                   class="chart-legend-indicator"
                   style="background-color: #2c7be5"
                 ></i
-                >Direct</span
+                >18-29</span
               ><span class="chart-legend-item"
                 ><i
                   class="chart-legend-indicator"
                   style="background-color: #a6c5f7"
                 ></i
-                >Organic</span
+                >30-49</span
               ><span class="chart-legend-item"
                 ><i
                   class="chart-legend-indicator"
                   style="background-color: #d2ddec"
                 ></i
-                >Referral</span
+                >50+</span
               >
             </div>
           </div>
@@ -445,11 +440,11 @@
         </div>
       </div>
       <div class="col-12 col-xl-8">
-        <!-- Sales -->
+        <!-- Total users -->
         <div class="card">
           <div class="card-header">
             <!-- Title -->
-            <h4 class="card-header-title">Sales</h4>
+            <h4 class="card-header-title">Total Users</h4>
 
             <!-- Nav -->
             <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
@@ -491,8 +486,8 @@
               <canvas
                 baseChart
                 chartType="line"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
+                [datasets]="totalUsersPerMonthChartData"
+                [labels]="totalUsersPerMonthChartLabels"
               >
               </canvas>
             </div>

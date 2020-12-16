@@ -5,6 +5,21 @@ import { Chart } from 'chart.js';
   providedIn: 'root',
 })
 export class ChartService {
+  public months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
   constructor() {}
 
   styleCharts() {
@@ -20,15 +35,15 @@ export class ChartService {
     Chart.defaults.global.legend.labels.usePointStyle = true;
     Chart.defaults.global.legend.labels.padding = 16;
     Chart.defaults.global.elements.point.radius = 0;
-    Chart.defaults.global.elements.point.backgroundColor = '#2C7BE5';
+    Chart.defaults.global.elements.point.backgroundColor = '#f82891';
     Chart.defaults.global.elements.line.tension = 0.4;
     Chart.defaults.global.elements.line.borderWidth = 3;
-    Chart.defaults.global.elements.line.borderColor = '#2C7BE5';
+    Chart.defaults.global.elements.line.borderColor = '#f82891';
     Chart.defaults.global.elements.line.backgroundColor = 'transparent';
     Chart.defaults.global.elements.line.borderCapStyle = 'rounded';
-    Chart.defaults.global.elements.rectangle.backgroundColor = '#2C7BE5';
+    Chart.defaults.global.elements.rectangle.backgroundColor = '#f82891';
     // Chart.defaults.global.elements.rectangle.maxBarThickness = 10;
-    Chart.defaults.global.elements.arc.backgroundColor = '#2C7BE5';
+    Chart.defaults.global.elements.arc.backgroundColor = '#f82891';
     Chart.defaults.global.elements.arc.borderColor = '#FFFFFF';
     Chart.defaults.global.elements.arc.borderWidth = 4;
     // Chart.defaults.global.elements.arc.hoverBorderColor = '#FFFFFF';
