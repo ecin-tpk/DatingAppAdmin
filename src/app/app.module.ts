@@ -18,10 +18,11 @@ import { SwitchComponent } from './_components/switch/switch.component';
 import { ReportsComponent } from './reports/reports.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MessagesComponent } from './messages/messages.component';
-import {NgSelectModule} from '@ng-select/ng-select';
-import {FormsModule} from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 import { ReportCardComponent } from './reports/report-card/report-card.component';
-import {PaginationModule} from "ngx-bootstrap/pagination";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {PaginationModule} from "ngx-bootstrap/pagination";
     ReportsComponent,
     MessagesComponent,
     ReportCardComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

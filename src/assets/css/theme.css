@@ -2693,15 +2693,15 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #d11a9e;
-  border-color: #c618a0;
+  background-color: #e44180;
+  border-color: #bb3d6e;
 }
 
 .btn-primary.focus,
 .btn-primary:focus {
   color: #fff;
-  background-color: #d11a9e;
-  border-color: #c618a0;
+  background-color: #e44180;
+  border-color: #bb3d6e;
   box-shadow: 0 0 0 0.15rem rgba(253, 57, 127, 0.5);
 }
 
@@ -2716,8 +2716,8 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #c618a0;
-  border-color: #ba17a0;
+  background-color: #bb3d6e;
+  border-color: #b23968;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -5487,7 +5487,7 @@ a.badge:hover {
 a.badge-primary:focus,
 a.badge-primary:hover {
   color: #fff;
-  background-color: #c618a0;
+  background-color: #bb3d6e;
 }
 
 a.badge-primary.focus,
@@ -7151,7 +7151,7 @@ a.bg-primary:focus,
 a.bg-primary:hover,
 button.bg-primary:focus,
 button.bg-primary:hover {
-  background-color: #c618a0 !important;
+  background-color: #bb3d6e !important;
 }
 
 .bg-secondary {
@@ -16994,8 +16994,8 @@ button:focus {
 .ql-tooltip .ql-action::before:hover,
 .ql-tooltip.ql-editing .ql-action::before:hover {
   color: #fff;
-  background-color: #d11a9e;
-  border-color: #c618a0;
+  background-color: #e44180;
+  border-color: #bb3d6e;
 }
 
 .ql-tooltip .ql-action::before.focus,
@@ -17003,8 +17003,8 @@ button:focus {
 .ql-tooltip.ql-editing .ql-action::before.focus,
 .ql-tooltip.ql-editing .ql-action::before:focus {
   color: #fff;
-  background-color: #d11a9e;
-  border-color: #c618a0;
+  background-color: #e44180;
+  border-color: #bb3d6e;
   box-shadow: 0 0 0 0.15rem rgba(253, 57, 127, 0.5);
 }
 
@@ -17024,8 +17024,8 @@ button:focus {
 .show > .ql-tooltip .ql-action::before.dropdown-toggle,
 .show > .ql-tooltip.ql-editing .ql-action::before.dropdown-toggle {
   color: #fff;
-  background-color: #c618a0;
-  border-color: #ba17a0;
+  background-color: #bb3d6e;
+  border-color: #b23968;
 }
 
 .ql-tooltip .ql-action::before:not(:disabled):not(.disabled).active:focus,

@@ -1,10 +1,10 @@
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
 import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
@@ -94,6 +94,21 @@ export class AccountService {
           return account;
         })
       );
+  }
+
+  validateResetToken(token: string) {
+    return this.http.post(
+      `${environment.apiUrl}/account/validate-reset-token`,
+      { token }
+    );
+  }
+
+  resetPassword(token: string, password: string, confirmPassword: string) {
+    return this.http.post(`${environment.apiUrl}/account/reset-password`, {
+      token,
+      password,
+      confirmPassword,
+    });
   }
 
   // Helper methods

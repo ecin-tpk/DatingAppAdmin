@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_helpers';
 import { ReportsComponent } from './reports/reports.component';
 import { MessagesComponent } from './messages/messages.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const accountModule = () =>
   import('./account/account.module').then((x) => x.AccountModule);
@@ -17,6 +18,9 @@ const usersModule = () =>
 
 const userDetailsModule = () =>
   import('./user-details/user-details.module').then((x) => x.UserDetailsModule);
+
+const clientModule = () =>
+  import('./client/client.module').then((x) => x.ClientModule);
 
 const routes: Routes = [
   {
@@ -44,6 +48,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'client',
+    loadChildren: clientModule,
+  },
+  {
     path: 'reports',
     component: ReportsComponent,
     canActivate: [AuthGuard],
@@ -57,6 +65,10 @@ const routes: Routes = [
     path: 'staff',
     loadChildren: usersModule,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'not-found',
+    component: PageNotFoundComponent,
   },
 ];
 
