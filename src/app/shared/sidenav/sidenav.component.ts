@@ -1,13 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import { ActivityModalComponent } from '../modals/activity-modal/activity-modal.component';
 import { SearchModalComponent } from '../modals/search-modal/search-modal.component';
 import { AccountService, UserService } from '../../_services';
 import { User } from '../../_models';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',

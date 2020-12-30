@@ -38,9 +38,9 @@
     <!-- Image -->
     <a class="avatar avatar-xl card-avatar">
       <img
-        src="../assets/img/avatars/profiles/avatar-1.jpg"
         class="avatar-img rounded-circle"
-        alt="..."
+        [src]="report.photoUrl"
+        [alt]="report.userName"
       />
     </a>
 
@@ -48,21 +48,27 @@
     <div class="text-center mb-5">
       <!-- Heading -->
       <h2 class="card-title">
-        <a class="item-name">Dianna Smiley</a>
+        <a class="item-name">{{ report.userName }}</a>
       </h2>
 
       <!-- Text -->
       <p class="small text-muted mb-3">
-        <span class="item-title">Nudity, Fake profile/spam</span>
+        <span class="item-title">{{ report.reportedFor }}</span>
       </p>
 
       <!-- Buttons -->
-      <a class="btn btn-sm btn-white mr-1">
+      <button
+        class="btn btn-sm btn-white mr-1"
+        (click)="onUpdateStatus('Approved')"
+      >
         <i class="fe fe-thumbs-up mr-1"></i> Approve
-      </a>
-      <a class="btn btn-sm btn-white">
+      </button>
+      <button
+        class="btn btn-sm btn-white"
+        (click)="onUpdateStatus('Disapproved')"
+      >
         <i class="fe fe-thumbs-down mr-1"></i> Disapprove
-      </a>
+      </button>
     </div>
 
     <!-- Divider -->

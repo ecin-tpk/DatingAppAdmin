@@ -114,10 +114,10 @@
             data-toggle="collapse"
             role="button"
             aria-controls="users"
+            [attr.aria-expanded]="!collapses.users"
             (click)="toggleCollapse($event.target)"
           >
-            <i class="fe fe-users"></i>
-            Users
+            <i class="fe fe-users"></i> Users
           </a>
           <div
             class="collapse"
@@ -125,37 +125,38 @@
             [isAnimated]="true"
           >
             <ul class="nav nav-sm flex-column">
-              <!-- Active -->
               <li class="nav-item">
                 <a
                   class="nav-link"
                   role="button"
-                  routerLink="/users/active"
+                  routerLink="/users/list"
                   routerLinkActive="active"
+                  [queryParams]="{ view: 'active' }"
+                  [routerLinkActiveOptions]="{exact: true}"
                 >
                   Active
                 </a>
               </li>
-
-              <!-- Disabled -->
               <li class="nav-item">
                 <a
                   class="nav-link"
                   role="button"
-                  routerLink="/users/disabled"
+                  routerLink="/users/list"
                   routerLinkActive="active"
+                  [queryParams]="{ view: 'disabled' }"
+                  [routerLinkActiveOptions]="{exact: true}"
                 >
                   Disabled
                 </a>
               </li>
-
-              <!-- Deleted -->
               <li class="nav-item">
                 <a
                   class="nav-link"
                   role="button"
-                  routerLink="/users/deleted"
+                  routerLink="/users/list/"
                   routerLinkActive="active"
+                  [queryParams]="{ view: 'deleted' }"
+                  [routerLinkActiveOptions]="{exact: true}"
                 >
                   Deleted
                 </a>
@@ -171,6 +172,7 @@
             data-toggle="collapse"
             role="button"
             aria-controls="reports"
+            [attr.aria-expanded]="!collapses.reports"
             (click)="toggleCollapse($event.target)"
           >
             <i class="fe fe-flag"></i> Reports
@@ -182,38 +184,36 @@
             [isAnimated]="true"
           >
             <ul class="nav nav-sm flex-column">
-              <!-- Active -->
               <li class="nav-item">
                 <a
                   class="nav-link"
                   role="button"
-                  routerLink="/reports"
+                  routerLink="/reports/list"
                   routerLinkActive="active"
+                  [queryParams]="{ view: 'pending' }"
                 >
                   Pending
                   <span class="badge badge-primary ml-auto">69</span>
                 </a>
               </li>
-
-              <!-- Disabled -->
               <li class="nav-item">
                 <a
                   class="nav-link"
                   role="button"
-                  routerLink="/reports/approved"
+                  routerLink="/reports/list"
                   routerLinkActive="active"
+                  [queryParams]="{ view: 'approved' }"
                 >
                   Approved
                 </a>
               </li>
-
-              <!-- Deleted -->
               <li class="nav-item">
                 <a
                   class="nav-link"
                   role="button"
-                  routerLink="/reports/disapproved"
+                  routerLink="/reports/list/"
                   routerLinkActive="active"
+                  [queryParams]="{ view: 'disapproved' }"
                 >
                   Disapproved
                 </a>

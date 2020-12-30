@@ -55,12 +55,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
-
+    this.submitted = true;
     this.loading = true;
     this.authService
       .login(this.f.email.value, this.f.password.value)
@@ -70,8 +68,7 @@ export class LoginComponent implements OnInit {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigateByUrl(returnUrl);
         },
-        error: (error) => {
-          console.log(error);
+        error: () => {
           this.loading = false;
         },
       });

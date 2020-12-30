@@ -1,378 +1,460 @@
-<!-- Users list -->
-<div class="tab-pane fade show active">
-  <div class="card">
-    <!-- Search and filter -->
-    <div class="card-header">
-      <div class="row align-items-center">
-        <!-- Search -->
-        <div class="col">
-          <form>
-            <div class="input-group input-group-flush">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fe fe-search"></i>
-                </span>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <!-- Header -->
+        <div class="header">
+          <div class="header-body">
+            <!-- Title -->
+            <div class="row align-items-center">
+              <div class="col">
+                <h6 class="header-pretitle">Overview</h6>
+                <h1 class="header-title text-truncate">Users</h1>
               </div>
-              <input
-                class="list-search form-control"
-                type="search"
-                placeholder="Search"
-                name="name"
-                (keyup)="search()"
-                [(ngModel)]="name"
-              />
             </div>
-          </form>
+
+            <!-- Nav -->
+            <div class="row align-items-center">
+              <div class="col">
+                <ul class="nav nav-tabs nav-overflow header-tabs">
+                  <li
+                    class="nav-item active"
+                    *ngFor="let heading of tabs.headings; let i = index"
+                  >
+                    <a
+                      class="nav-link text-nowrap"
+                      routerLink="/users/list"
+                      routerLinkActive="active"
+                      [queryParams]="{ view: heading }"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                      {{ heading | titlecase }}
+                      <span class="badge badge-pill badge-soft-secondary">{{
+                        tabs.counts[i]
+                      }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Items per page -->
-        <div class="col-auto mr-n3 pl-0">
-          <ng-select
-            class="custom custom-flush"
-            bindValue="itemsPerPage"
-            bindLabel="text"
-            [searchable]="false"
-            [clearable]="false"
-            [items]="pageSizes"
-            (change)="getUsers()"
-            [(ngModel)]="pagination.itemsPerPage"
-          >
-          </ng-select>
-        </div>
-
-        <!-- Filter -->
-        <div class="col-auto">
-          <div
-            class="dropdown"
-            dropdown
-            [insideClick]="true"
-            (onHidden)="onHidden()"
-            #dropdown="bs-dropdown"
-          >
-            <!-- Toggle -->
-            <button
-              class="btn btn-sm btn-white"
-              type="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              dropdownToggle
-            >
-              <i class="fe fe-filter mr-1"></i> Filter
-              <span class="badge badge-primary ml-1" *ngIf="filtersCount > 0">{{
-                filtersCount
-              }}</span>
-            </button>
-
-            <!-- Filter form -->
-            <form
-              class="dropdown-menu dropdown-menu-right dropdown-menu-card"
-              *dropdownMenu
-            >
+        <!-- Table -->
+        <div class="tab-content">
+          <div class="tab-pane fade show active">
+            <div class="card">
+              <!-- Search and filter -->
               <div class="card-header">
-                <h4 class="card-header-title">Filters</h4>
-
-                <!-- Clear filter -->
-                <button
-                  class="btn btn-sm btn-link text-reset d-none"
-                  role="button"
-                  [ngClass]="{ 'd-block': filtersCount > 0 }"
-                  (click)="clearFilters()"
-                >
-                  <small>Clear filters</small>
-                </button>
-              </div>
-              <div class="card-body">
-                <div class="list-group list-group-flush mt-n4 mb-4">
-                  <!-- Gender filter -->
-                  <div class="list-group-item">
-                    <div class="row">
-                      <div class="col">
-                        <small>Gender</small>
+                <div class="row align-items-center">
+                  <!-- Search -->
+                  <div class="col">
+                    <form>
+                      <div class="input-group input-group-flush">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fe fe-search"></i>
+                          </span>
+                        </div>
+                        <input
+                          class="list-search form-control"
+                          type="search"
+                          placeholder="Search"
+                          name="name"
+                          [disabled]="isLoading"
+                          (keyup)="search()"
+                          [(ngModel)]="nameFilter"
+                        />
                       </div>
-                      <div class="col-auto">
-                        <ng-select
-                          class="custom"
-                          name="gender"
-                          bindLabel="text"
-                          bindValue="gender"
-                          [items]="genders"
-                          [searchable]="false"
-                          [closeOnSelect]="false"
-                          [clearable]="false"
-                          (change)="onFilterChanged()"
-                          [(ngModel)]="this.userParams.gender"
-                        >
-                        </ng-select>
-                      </div>
-                    </div>
+                    </form>
                   </div>
 
-                  <!-- Verified filter -->
-                  <div class="list-group-item">
-                    <div class="row">
-                      <div class="col">
-                        <small>Verified</small>
-                      </div>
-                      <div class="col-auto">
-                        <ng-select
-                          class="custom"
-                          name="verified"
-                          bindLabel="text"
-                          bindValue="verified"
-                          [items]="verification"
-                          [searchable]="false"
-                          [closeOnSelect]="false"
-                          [clearable]="false"
-                          (change)="onFilterChanged()"
-                          [(ngModel)]="this.userParams.verification"
+                  <!-- Items per page -->
+                  <div class="col-auto mr-n3 pl-0">
+                    <ng-select
+                      class="custom custom-flush"
+                      bindValue="itemsPerPage"
+                      bindLabel="text"
+                      [searchable]="false"
+                      [clearable]="false"
+                      [items]="pageSizes"
+                      (change)="getUsers()"
+                      [(ngModel)]="userParams.pageSize"
+                    >
+                    </ng-select>
+                  </div>
+
+                  <!-- Filter -->
+                  <div class="col-auto">
+                    <div
+                      class="dropdown"
+                      dropdown
+                      [insideClick]="true"
+                      (onHidden)="onHidden()"
+                      #dropdown="bs-dropdown"
+                    >
+                      <!-- Toggle -->
+                      <button
+                        class="btn btn-sm btn-white"
+                        type="button"
+                        dropdownToggle
+                      >
+                        <i class="fe fe-filter mr-1"></i> Filter
+                        <span
+                          class="badge badge-primary ml-1"
+                          *ngIf="filtersCount > 0"
+                          >{{ filtersCount }}</span
                         >
-                        </ng-select>
-                      </div>
+                      </button>
+
+                      <!-- Filter form -->
+                      <form
+                        class="dropdown-menu dropdown-menu-right dropdown-menu-card"
+                        *dropdownMenu
+                      >
+                        <div class="card-header">
+                          <h4 class="card-header-title">Filters</h4>
+
+                          <!-- Clear filter -->
+                          <button
+                            class="btn btn-sm btn-link text-reset d-none"
+                            role="button"
+                            [ngClass]="{ 'd-block': filtersCount > 0 }"
+                            (click)="clearFilters()"
+                          >
+                            <small>Clear filters</small>
+                          </button>
+                        </div>
+                        <div class="card-body">
+                          <div class="list-group list-group-flush mt-n4 mb-4">
+                            <!-- Gender filter -->
+                            <div class="list-group-item">
+                              <div class="row">
+                                <div class="col">
+                                  <small>Gender</small>
+                                </div>
+                                <div class="col-auto">
+                                  <ng-select
+                                    class="custom"
+                                    name="gender"
+                                    bindLabel="text"
+                                    bindValue="gender"
+                                    [items]="genders"
+                                    [searchable]="false"
+                                    [closeOnSelect]="false"
+                                    [clearable]="false"
+                                    (change)="onFilterChanged()"
+                                    [(ngModel)]="userParams.gender"
+                                    style="min-width: 86px"
+                                  >
+                                  </ng-select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Verified filter -->
+                            <div class="list-group-item">
+                              <div class="row">
+                                <div class="col">
+                                  <small>Verified</small>
+                                </div>
+                                <div class="col-auto">
+                                  <ng-select
+                                    class="custom"
+                                    name="verified"
+                                    bindLabel="text"
+                                    bindValue="verified"
+                                    [items]="verification"
+                                    [searchable]="false"
+                                    [closeOnSelect]="false"
+                                    [clearable]="false"
+                                    (change)="onFilterChanged()"
+                                    [(ngModel)]="userParams.verification"
+                                    style="min-width: 86px"
+                                  >
+                                  </ng-select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            class="btn btn-block btn-primary"
+                            type="submit"
+                            (click)="onSubmit(dropdown)"
+                          >
+                            Apply filter
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <button
-                  class="btn btn-block btn-primary"
-                  type="submit"
-                  (click)="onSubmit(dropdown)"
+              <!-- Table -->
+              <div class="table-responsive">
+                <table
+                  class="table table-sm table-hover table-nowrap card-table"
                 >
-                  Apply filter
-                </button>
+                  <thead>
+                    <tr>
+                      <!-- Checkbox -->
+                      <th>
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            class="list-checkbox-all custom-control-input"
+                            type="checkbox"
+                            id="listCheckboxAll"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="listCheckboxAll"
+                          ></label>
+                        </div>
+                      </th>
+
+                      <!-- Name -->
+                      <th>
+                        <a class="sort text-muted" (click)="sortUsers('name')"
+                          >Name</a
+                        >
+                      </th>
+
+                      <!-- Gender -->
+                      <th>
+                        <a class="sort text-muted" (click)="sortUsers('gender')"
+                          >Gender</a
+                        >
+                      </th>
+
+                      <!-- Age -->
+                      <th>
+                        <a class="sort text-muted" (click)="sortUsers('age')"
+                          >Age</a
+                        >
+                      </th>
+
+                      <!-- Email -->
+                      <th>
+                        <a class="sort text-muted" (click)="sortUsers('email')"
+                          >Email</a
+                        >
+                      </th>
+
+                      <!-- Phone -->
+                      <th>
+                        <a class="sort text-muted" (click)="sortUsers('phone')"
+                          >Phone</a
+                        >
+                      </th>
+
+                      <!-- Verification -->
+                      <th>
+                        <a
+                          class="sort text-muted"
+                          (click)="sortUsers('verification')"
+                          >Verification</a
+                        >
+                      </th>
+
+                      <!-- Linked account-->
+                      <th colspan="2">
+                        <a class="sort text-muted">Account type</a>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody class="list font-size-base">
+                    <tr *ngFor="let user of users; trackBy: trackByUserId">
+                      <!-- Checkbox -->
+                      <td>
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            class="list-checkbox custom-control-input"
+                            id="{{ user.id }}"
+                            type="checkbox"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="{{ user.id }}"
+                          ></label>
+                        </div>
+                      </td>
+
+                      <!-- Name -->
+                      <td>
+                        <div class="avatar avatar-xs align-middle mr-2">
+                          <img
+                            class="avatar-img rounded-circle"
+                            src="{{ user.photoUrl }}"
+                            alt=""
+                          />
+                        </div>
+                        <a
+                          class="text-reset"
+                          routerLink="/users/{{ user.id }}/details"
+                          >{{ user.name }}</a
+                        >
+                      </td>
+
+                      <!-- Gender -->
+                      <td>
+                        <span style="text-transform: capitalize">{{
+                          user.gender
+                        }}</span>
+                      </td>
+
+                      <!-- Age -->
+                      <td>
+                        <span>{{ user.dateOfBirth | age }}</span>
+                      </td>
+
+                      <!-- Email -->
+                      <td>
+                        <a class="text-reset" href="mailto:">
+                          {{ user.email }}</a
+                        >
+                      </td>
+
+                      <!-- Phone -->
+                      <td>
+                        <a class="text-reset" href="tel:"> {{ user.phone }}</a>
+                      </td>
+
+                      <!-- Verified-->
+                      <td>
+                        <!-- Badge -->
+                        <span
+                          class="badge badge-soft-danger"
+                          *ngIf="!user.isVerified"
+                          >Unverified</span
+                        >
+                        <span
+                          class="badge badge-soft-success"
+                          *ngIf="user.isVerified"
+                          >Verified</span
+                        >
+                      </td>
+
+                      <!-- Linked account -->
+                      <td>
+                        <span> </span>
+                      </td>
+
+                      <!-- Dropdown -->
+                      <td class="text-right">
+                        <div
+                          class="dropdown"
+                          dropdown
+                          container="body"
+                          placement="bottom right"
+                        >
+                          <a
+                            class="dropdown-ellipses"
+                            role="button"
+                            dropdownToggle
+                          >
+                            <i class="fe fe-more-vertical"></i>
+                          </a>
+                          <div
+                            class="dropdown-menu dropdown-menu-right"
+                            *dropdownMenu
+                          >
+                            <a
+                              class="dropdown-item"
+                              (click)="updateStatus(user.id, action)"
+                              *ngFor="let action of actions"
+                              >{{ action }}</a
+                            >
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- Loading spinner -->
+                    <tr *ngIf="isLoading">
+                      <td class="text-center" colspan="9">
+                        <span class="spinner-border"></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Table -->
-    <div class="table-responsive">
-      <table class="table table-sm table-hover table-nowrap card-table">
-        <thead>
-          <tr>
-            <!-- Checkbox -->
-            <th>
-              <div class="custom-control custom-checkbox">
-                <input
-                  class="list-checkbox-all custom-control-input"
-                  type="checkbox"
-                  id="listCheckboxAll"
-                />
-                <label
-                  class="custom-control-label"
-                  for="listCheckboxAll"
-                ></label>
-              </div>
-            </th>
-
-            <!-- Name -->
-            <th>
-              <a class="sort text-muted" (click)="sortUsers('name')">Name</a>
-            </th>
-
-            <!-- Gender -->
-            <th>
-              <a class="sort text-muted" (click)="sortUsers('gender')"
-                >Gender</a
-              >
-            </th>
-
-            <!-- Age -->
-            <th>
-              <a class="sort text-muted" (click)="sortUsers('age')">Age</a>
-            </th>
-
-            <!-- Email -->
-            <th>
-              <a class="sort text-muted" (click)="sortUsers('email')">Email</a>
-            </th>
-
-            <!-- Phone -->
-            <th>
-              <a class="sort text-muted" (click)="sortUsers('phone')">Phone</a>
-            </th>
-
-            <!-- Verification -->
-            <th>
-              <a class="sort text-muted" (click)="sortUsers('verification')"
-                >Verification</a
-              >
-            </th>
-
-            <!-- Linked account-->
-            <th colspan="2">
-              <a class="sort text-muted">Linked account</a>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody class="list font-size-base">
-          <tr *ngFor="let user of users">
-            <!-- Checkbox -->
-            <td>
-              <div class="custom-control custom-checkbox">
-                <input
-                  class="list-checkbox custom-control-input"
-                  id="{{ user.id }}"
-                  type="checkbox"
-                />
-                <label class="custom-control-label" for="{{ user.id }}"></label>
-              </div>
-            </td>
-
-            <!-- Name -->
-            <td>
-              <div class="avatar avatar-xs align-middle mr-2">
-                <img
-                  class="avatar-img rounded-circle"
-                  src="{{ user.photoUrl }}"
-                  alt=""
-                />
-              </div>
-              <a
-                class="text-reset"
-                routerLink="/user-details/{{ user.id }}/overview"
-                >{{ user.name }}</a
-              >
-            </td>
-
-            <!-- Gender -->
-            <td>
-              <span style="text-transform: capitalize">{{ user.gender }}</span>
-            </td>
-
-            <!-- Age -->
-            <td>
-              <span>{{ user.dateOfBirth | age }}</span>
-            </td>
-
-            <!-- Email -->
-            <td>
-              <a class="text-reset" href="mailto:"> {{ user.email }}</a>
-            </td>
-
-            <!-- Phone -->
-            <td>
-              <a class="text-reset" href="tel:"> {{ user.phone }}</a>
-            </td>
-
-            <!-- Verified-->
-            <td>
-              <!-- Badge -->
-              <span class="badge badge-soft-danger" *ngIf="!user.isVerified"
-                >Unverified</span
-              >
-              <span class="badge badge-soft-success" *ngIf="user.isVerified"
-                >Verified</span
-              >
-            </td>
-
-            <!-- Linked account -->
-            <td>
-              <span> </span>
-            </td>
-
-            <!-- Dropdown -->
-            <td class="text-right">
+              <!-- Footer -->
               <div
-                class="dropdown"
-                dropdown
-                container="body"
-                placement="bottom right"
+                class="card-footer p-0"
+                *ngIf="!isLoading && users.length > 0"
               >
-                <a class="dropdown-ellipses" role="button" dropdownToggle>
-                  <i class="fe fe-more-vertical"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-                  <a
-                    class="dropdown-item"
-                    (click)="updateStatus(user.id, action)"
-                    *ngFor="let action of actions"
-                    >{{ action }}</a
+                <pagination
+                  class="bottom-active"
+                  [directionLinks]="false"
+                  [maxSize]="3"
+                  [totalItems]="pagination.totalItems"
+                  [itemsPerPage]="pagination.itemsPerPage"
+                  [(ngModel)]="pagination.currentPage"
+                >
+                </pagination>
+                <pager
+                  class="has-border"
+                  pageBtnClass="btn-pager"
+                  previousText=" Prev"
+                  nextText="Next "
+                  [totalItems]="pagination.totalItems"
+                  [itemsPerPage]="pagination.itemsPerPage"
+                  (pageChanged)="onPageChanged($event)"
+                  [(ngModel)]="pagination.currentPage"
+                >
+                </pager>
+
+                <!-- Alert -->
+                <div
+                  class="list-alert alert alert-dark alert-dismissible border fade"
+                  role="alert"
+                >
+                  <!-- Content -->
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <!-- Checkbox -->
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="listAlertCheckbox"
+                          checked
+                          disabled
+                        />
+                        <label
+                          class="custom-control-label text-white"
+                          for="listAlertCheckbox"
+                          ><span class="list-alert-count">0</span>
+                          deal(s)</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-auto mr-n3">
+                      <!-- Button -->
+                      <button class="btn btn-sm btn-white-20">Edit</button>
+
+                      <!-- Button -->
+                      <button class="btn btn-sm btn-white-20">Delete</button>
+                    </div>
+                  </div>
+
+                  <!-- Close -->
+                  <button
+                    type="button"
+                    class="list-alert-close close"
+                    aria-label="Close"
                   >
-                  <hr class="dropdown-divider" />
-                  <a
-                    class="dropdown-item"
-                    routerLink="/user-details/{{ user.id }}/overview"
-                    >View details</a
-                  >
+                    <span aria-hidden="true">×</span>
+                  </button>
                 </div>
               </div>
-            </td>
-          </tr>
-
-          <!-- Loading spinner -->
-          <tr *ngIf="!users">
-            <td class="text-center" colspan="9">
-              <span class="spinner-border"></span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Footer -->
-    <div class="card-footer p-0" *ngIf="users && users.length > 0">
-      <pagination
-        class="bottom-active"
-        [directionLinks]="false"
-        [maxSize]="3"
-        [totalItems]="pagination.totalItems"
-        [itemsPerPage]="pagination.itemsPerPage"
-        [(ngModel)]="pagination.currentPage"
-      >
-      </pagination>
-
-      <pager
-        class="has-border"
-        pageBtnClass="btn-pager"
-        previousText=" Prev"
-        nextText="Next "
-        [totalItems]="pagination.totalItems"
-        [itemsPerPage]="pagination.itemsPerPage"
-        (pageChanged)="onPageChanged($event)"
-        [(ngModel)]="pagination.currentPage"
-      >
-      </pager>
-
-      <!-- Alert -->
-      <div
-        class="list-alert alert alert-dark alert-dismissible border fade"
-        role="alert"
-      >
-        <!-- Content -->
-        <div class="row align-items-center">
-          <div class="col">
-            <!-- Checkbox -->
-            <div class="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="listAlertCheckbox"
-                checked
-                disabled
-              />
-              <label
-                class="custom-control-label text-white"
-                for="listAlertCheckbox"
-                ><span class="list-alert-count">0</span> deal(s)</label
-              >
             </div>
           </div>
-          <div class="col-auto mr-n3">
-            <!-- Button -->
-            <button class="btn btn-sm btn-white-20">Edit</button>
-
-            <!-- Button -->
-            <button class="btn btn-sm btn-white-20">Delete</button>
-          </div>
         </div>
-
-        <!-- Close -->
-        <button type="button" class="list-alert-close close" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
       </div>
     </div>
   </div>

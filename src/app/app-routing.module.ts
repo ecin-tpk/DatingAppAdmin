@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_helpers';
-import { ReportsComponent } from './reports/reports.component';
 import { MessagesComponent } from './messages/messages.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -16,8 +15,8 @@ const settingsModule = () =>
 const usersModule = () =>
   import('./users/users.module').then((x) => x.UsersModule);
 
-const userDetailsModule = () =>
-  import('./user-details/user-details.module').then((x) => x.UserDetailsModule);
+const reportsModule = () =>
+  import('./reports/reports.module').then((x) => x.ReportsModule);
 
 const clientModule = () =>
   import('./client/client.module').then((x) => x.ClientModule);
@@ -43,18 +42,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'user-details/:id',
-    loadChildren: userDetailsModule,
+    path: 'reports',
+    loadChildren: reportsModule,
     canActivate: [AuthGuard],
   },
   {
     path: 'client',
     loadChildren: clientModule,
-  },
-  {
-    path: 'reports',
-    component: ReportsComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'messages',
@@ -69,6 +63,10 @@ const routes: Routes = [
   {
     path: 'not-found',
     component: PageNotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];
 

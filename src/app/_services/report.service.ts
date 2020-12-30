@@ -1,17 +1,41 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReportService {
+  constructor(private http: HttpClient) {}
 
+  getPagination(pageNumber: number, pageSize: number, status: string) {
+    let params = new HttpParams();
+    params = params
+      .append('pageNumber', '1')
+      .append('pageSize', pageSize.toString())
+      .append('status', status);
 
-  constructor(private http: HttpClient) {
+    return this.http.get<
+      {
+        id: number;
+        reportSent: Date;
+        senderId: number;
+        status: number;
+        userId: number;
+      }[]
+    >(`${environment.apiUrl}/admin/reports/pagination`, {
+      observe: 'response',
+      params,
+    });
   }
 
-  getPagination(pageNumber: number, pageSize: number, type: 'approved' | 'disapproved') {
-    this.http.get(`${environment.apiUrl}/reports`);
+  updateStatus(id: number, status: string) {
+    return this.http.put(`${environment.apiUrl}/admin/reports/${id}`, {
+      status,
+    });
+  }
+
+  countByStatus() {
+    return this.http.get<number[]>(`${environment.apiUrl}/admin/reports/count`);
   }
 }

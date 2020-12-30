@@ -21,15 +21,6 @@ export class DashboardComponent implements OnInit {
   usersByAgeChartColors: Color[];
   usersByAgeChartData: MultiDataSet;
 
-  trafficChartLabels: Label[] = ['18-29', '30-49', '50+'];
-  trafficChartColors: Color[] = [
-    {
-      backgroundColor: ['#ea4c89', '#f7a6e0', '#ecd2e5'],
-      hoverBorderColor: ['#FFFFFF', '#FFFFFF', '#FFFFFF'],
-    },
-  ];
-  trafficChartData: MultiDataSet = [[60, 25, 15]];
-
   constructor(
     private chartService: ChartService,
     private userService: UserService
@@ -54,7 +45,7 @@ export class DashboardComponent implements OnInit {
         label: new Date().getFullYear().toString(),
         maxBarThickness: 10,
         backgroundColor: '#ea4c89',
-        hoverBackgroundColor: '#fa00b4',
+        hoverBackgroundColor: '#f082ac',
         hidden: true,
       },
       {
@@ -76,7 +67,7 @@ export class DashboardComponent implements OnInit {
         label: new Date().getFullYear().toString(),
         maxBarThickness: 10,
         backgroundColor: '#ea4c89',
-        hoverBackgroundColor: '#fa00b4',
+        hoverBackgroundColor: '#f082ac',
       });
     });
   }
@@ -90,8 +81,8 @@ export class DashboardComponent implements OnInit {
         borderColor: '#ea4c89',
         pointBackgroundColor: '#ea4c89',
         pointBorderColor: '#ea4c89',
-        pointHoverBorderColor: '#fa00b4',
-        pointHoverBackgroundColor: '#fa00b4',
+        pointHoverBorderColor: '#f082ac',
+        pointHoverBackgroundColor: '#f082ac',
       },
     ];
 
@@ -107,8 +98,8 @@ export class DashboardComponent implements OnInit {
         borderColor: '#ea4c89',
         pointBackgroundColor: '#ea4c89',
         pointBorderColor: '#ea4c89',
-        pointHoverBorderColor: '#fa00b4',
-        pointHoverBackgroundColor: '#fa00b4',
+        pointHoverBorderColor: '#f082ac',
+        pointHoverBackgroundColor: '#f082ac',
       });
 
       // Calculate user growth rate
@@ -130,7 +121,7 @@ export class DashboardComponent implements OnInit {
     this.usersByAgeChartData = [];
     this.usersByAgeChartColors = [
       {
-        backgroundColor: ['#ea4c89', '#f7a6e0', '#ecd2e5'],
+        backgroundColor: ['#ea4c89', '#ff90af', '#eaa4b8'],
         hoverBorderColor: ['#FFFFFF', '#FFFFFF', '#FFFFFF'],
       },
     ];
@@ -139,7 +130,6 @@ export class DashboardComponent implements OnInit {
       .getPercentageUsersByAge(this.thisYear)
       .subscribe((data) => {
         this.usersByAgeChartData = [...this.usersByAgeChartData, data];
-        console.log(this.usersByAgeChartData);
       });
   }
 

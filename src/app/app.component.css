@@ -1,6 +1,6 @@
-.test{
-  position: absolute;
-  z-index: 9999;
-  top: 10px;
-  left: 10px;
+.alert-container {
+  min-width: 350px;
+  position: fixed;
+  bottom: 0;
+  right: 1.5rem;
 }

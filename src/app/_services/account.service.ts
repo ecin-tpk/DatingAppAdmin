@@ -111,6 +111,21 @@ export class AccountService {
     });
   }
 
+  getDateOnly(date) {
+    return (
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    );
+  }
+
+  forgotPassword(email: string) {
+    return this.http.post<{ message: string }>(
+      `${environment.apiUrl}/account/forgot-password`,
+      {
+        email,
+      }
+    );
+  }
+
   // Helper methods
   private startRefreshTokenTimer() {
     // Parse json object from base64 encoded jwt token
@@ -127,11 +142,5 @@ export class AccountService {
 
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
-  }
-
-  getDateOnly(date) {
-    return (
-      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    );
   }
 }

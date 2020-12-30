@@ -1,133 +1,114 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-
-import { UserParams } from '../../_helpers';
-import { Genders, User, Verification } from '../../_models';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Genders, User, UserStatus, Verification } from '../../_models';
 import { UserService } from '../../_services';
+import { Pagination, UserParamsTest } from '../../_helpers';
 
 @Component({
-  selector: 'app-user-list',
+  selector: 'app-report-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent implements OnInit, OnDestroy {
-  users: User[];
-  pagination: any = {};
-  userParams: UserParams;
-  actions: any[];
-  name: string;
-  usersSub: Subscription;
-  paginationSub: Subscription;
-  filtersCount: number;
-  submitted = false;
+export class UserListComponent implements OnInit {
+  nameFilter: string;
+  actions: string[];
+  isLoading = false;
+  filtersSubmitted = false;
+  filtersCount = 0;
   genders = Genders;
   verification = Verification;
+  tabs = {
+    headings: UserStatus,
+    counts: [],
+  };
+  pagination: Pagination = {
+    currentPage: 1,
+    itemsPerPage: 10,
+    totalItems: 0,
+    totalPages: 0,
+  };
+  userParams: UserParamsTest = {
+    pageNumber: 1,
+    pageSize: 10,
+    orderBy: '',
+    verification: '',
+    name: '',
+    gender: '',
+    status: null,
+  };
+  users: User[] = [];
+
   pageSizes = [
     { itemsPerPage: 10, text: '10 per page' },
     { itemsPerPage: 5, text: '5 per page' },
   ];
 
   constructor(
-    private userService: UserService,
-    private route: ActivatedRoute
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.filtersCount = 0;
-      this.submitted = false;
-      this.name = '';
-
-      this.pagination.itemsPerPage = 10;
-      this.pagination.currentPage = 1;
-
-      this.actions = this.getActions(params.status);
-      this.userParams = this.defaultUserParams(params.status);
-
-      this.userService.getPagination(
-        this.pagination.currentPage,
-        this.pagination.itemsPerPage,
-        this.userParams
-      );
-
-      this.usersSub = this.userService.usersSubject.subscribe((users) => {
-        this.users = users;
-      });
-      this.paginationSub = this.userService.paginationSubject.subscribe(
-        (pagination) => {
-          this.pagination = pagination;
-        }
-      );
+    this.route.queryParams.subscribe((params) => {
+      if (params.view && UserStatus.includes(params.view)) {
+        this.userParams = this.defaultParams(params.view);
+        this.actions = this.getActions(params.view);
+        this.userService.countByStatus().subscribe((res) => {
+          this.tabs.counts = res;
+        });
+        this.isLoading = true;
+        this.users = [];
+        this.getUsers();
+      } else {
+        this.router.navigate(['/users/list'], {
+          queryParams: { view: 'active' },
+        });
+      }
     });
-  }
-
-  defaultUserParams(status: string) {
-    return new UserParams('', 18, 99, '', '', status, '', true);
-  }
-
-  onPageChanged(event: any) {
-    this.pagination.currentPage = event.page;
-    this.getUsers();
   }
 
   getUsers() {
-    this.userService.getPagination(
-      this.pagination.currentPage,
-      this.pagination.itemsPerPage,
-      this.userParams
+    this.userService.getPaginationTest(this.userParams).subscribe(
+      (res) => {
+        this.users = res.body;
+        this.pagination = JSON.parse(res.headers.get('Pagination'));
+        this.isLoading = false;
+      },
+      (err) => {
+        console.log(err);
+        this.isLoading = false;
+      }
     );
   }
 
-  sortUsers(orderBy: string) {
-    this.userParams.orderBy = orderBy;
+  onPageChanged(event: any) {
+    this.userParams.pageNumber = event.page;
     this.getUsers();
   }
 
-  updateStatus(id, action) {
-    let status;
-
-    switch (action) {
-      case 'Enable':
-        status = 'Active';
-        break;
-      case 'Disable':
-        status = 'Disabled';
-        break;
-      case 'Delete':
-        status = 'Deleted';
-        break;
-    }
-    this.userService.update(id, { status }).subscribe(() => {
-      this.getUsers();
-    });
+  sortUsers(criteria) {
+    this.userParams.orderBy = criteria;
+    this.getUsers();
   }
 
-  onFilterChanged() {
-    let count = 0;
+  updateStatus(id: string, action: string) {}
 
-    for (const [key, value] of Object.entries(this.userParams)) {
-      if (key === '_gender' || key === '_verification') {
-        if (value !== '') {
-          count++;
-        }
-      }
+  search() {
+    if (
+      /^\s+$/.test(this.nameFilter) ||
+      this.nameFilter === this.userParams.name
+    ) {
+      return;
     }
-
-    this.filtersCount = count;
+    this.userParams.name = this.nameFilter;
+    this.getUsers();
   }
 
-  onSubmit(dropdown) {
-    this.submitted = true;
-    dropdown.hide();
-
-    this.pagination.currentPage = 1;
-
-    this.userService.getPagination(
-      this.pagination.currentPage,
-      this.pagination.itemsPerPage,
-      this.userParams
-    );
+  onHidden() {
+    if (!this.filtersSubmitted) {
+      console.log('not submitted');
+    }
   }
 
   clearFilters() {
@@ -137,35 +118,58 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.getUsers();
   }
 
-  onHidden() {
-    if (!this.submitted) {
-      this.clearFilters();
+  onFilterChanged() {
+    let count = 0;
+    for (const [key, value] of Object.entries(this.userParams)) {
+      if (key === 'gender' || key === 'verification') {
+        if (value !== '') {
+          count++;
+        }
+      }
     }
+    this.filtersCount = count;
   }
 
-  search() {
-    if (/^\s+$/.test(this.name) || this.name === this.userParams.name) {
-      return;
-    }
-    this.userParams.name = this.name;
+  onSubmit(dropdown: any) {
+    this.filtersSubmitted = true;
+    dropdown.hide();
+
     this.getUsers();
+
+    // this.pagination.currentPage = 1;
+    //
+    // this.userService.getPagination(
+    //   this.pagination.currentPage,
+    //   this.pagination.itemsPerPage,
+    //   this.userParams
+    // );
   }
 
-  getActions(status) {
-    const stats = ['active', 'disabled', 'deleted'];
+  trackByUserId(index: number, user: User) {
+    return user.id;
+  }
+
+  private defaultParams(status) {
+    this.filtersCount = 0;
+    this.filtersSubmitted = false;
+    const params: UserParamsTest = {
+      pageNumber: 1,
+      pageSize: 10,
+      orderBy: '',
+      verification: '',
+      name: '',
+      gender: '',
+      status,
+    };
+    return params;
+  }
+
+  private getActions(status) {
     const actions = [
       ['Disable', 'Delete'],
       ['Enable', 'Delete'],
       ['Enable', 'Disable'],
     ];
-
-    const i = stats.findIndex((s) => s === status);
-
-    return actions[i];
-  }
-
-  ngOnDestroy() {
-    this.usersSub.unsubscribe();
-    this.paginationSub.unsubscribe();
+    return actions[UserStatus.indexOf(status)];
   }
 }

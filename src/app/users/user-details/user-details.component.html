@@ -1,0 +1,67 @@
+<div class="main-content">
+  <!-- HEADER -->
+  <div class="header">
+    <!-- Image -->
+    <img
+      src="assets/img/covers/profile-cover-1.jpg"
+      class="header-img-top"
+      alt="..."
+    />
+
+    <!-- Body -->
+    <div class="container-fluid">
+      <div class="header-body mt-n5 mt-md-n6">
+        <!-- Avatar, name, button -->
+        <div class="row align-items-end">
+          <div class="col-auto">
+            <div class="avatar avatar-xxl header-avatar-top">
+              <img
+                class="avatar-img rounded-circle border border-4 border-body"
+                [src]="user?.photoUrl"
+                [alt]="user?.name"
+              />
+            </div>
+          </div>
+          <div class="col mb-3 ml-n3 ml-md-n2">
+            <!-- Role -->
+            <h6 class="header-pretitle">{{ user?.role }}</h6>
+
+            <!-- Name -->
+            <h1 class="header-title">{{ user?.name }}</h1>
+          </div>
+          <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3">
+            <!-- Button -->
+            <a class="btn btn-primary d-block d-md-inline-block lift">
+              Subscribe
+            </a>
+          </div>
+        </div>
+
+        <!-- Nav -->
+        <div class="row align-items-center">
+          <div class="col">
+            <ul class="nav nav-tabs nav-overflow header-tabs">
+              <li class="nav-item" *ngFor="let heading of headings">
+                <a
+                  class="nav-link"
+                  routerLink="../details"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  [queryParams]="{ view: heading }"
+                >
+                  {{ heading | titlecase }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-user-overview
+    [user]="user"
+    *ngIf="selectedDetail === 'overview'"
+  ></app-user-overview>
+  <app-user-matches *ngIf="selectedDetail === 'matches'"></app-user-matches>
+  <app-user-messages *ngIf="selectedDetail === 'messages'"></app-user-messages>
+</div>

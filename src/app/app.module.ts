@@ -9,20 +9,19 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
-import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
 import { AccountService } from './_services';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from './shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
 import { SwitchComponent } from './_components/switch/switch.component';
-import { ReportsComponent } from './reports/reports.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MessagesComponent } from './messages/messages.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-import { ReportCardComponent } from './reports/report-card/report-card.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
+import {AlertModule} from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -30,9 +29,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DashboardComponent,
     SidenavComponent,
     SwitchComponent,
-    ReportsComponent,
     MessagesComponent,
-    ReportCardComponent,
     PageNotFoundComponent,
   ],
   imports: [
@@ -49,6 +46,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     NgSelectModule,
     FormsModule,
     PaginationModule,
+    AlertModule,
   ],
   providers: [
     {

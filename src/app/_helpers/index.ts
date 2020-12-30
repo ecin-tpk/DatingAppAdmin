@@ -5,3 +5,4 @@ export * from './jwt.interceptor';
 export * from './must-match.validator';
 export * from './user-params';
 export * from './message-thread-params';
+export * from './pagination-params';

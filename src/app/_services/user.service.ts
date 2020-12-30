@@ -3,10 +3,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Pagination } from '../shared/pagination';
 import { User } from '../_models';
 import { map } from 'rxjs/operators';
 import { AccountService } from './account.service';
+import { Pagination, UserParams, UserParamsTest } from '../_helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +27,20 @@ export class UserService {
     });
   }
 
+  getStatusCounts() {
+    return this.http
+      .get<number[]>(`${environment.apiUrl}/admin/users/status-count`)
+      .subscribe((statusCounts) => {
+        this.statusCountsSubject.next(statusCounts);
+      });
+  }
+
+  countByStatus() {
+    return this.http.get<number[]>(
+      `${environment.apiUrl}/admin/users/status-count`
+    );
+  }
+
   getPagination(pageNumber?, pageSize?, userParams?) {
     const params = this.requestParams(pageNumber, pageSize, userParams);
 
@@ -43,8 +57,25 @@ export class UserService {
       });
   }
 
+  getPaginationTest(userParams: UserParamsTest) {
+    let params = new HttpParams();
+    params = params
+      .append('pageNumber', userParams.pageNumber.toString())
+      .append('pageSize', userParams.pageSize.toString())
+      .append('gender', userParams.gender)
+      .append('name', userParams.name)
+      .append('orderBy', userParams.orderBy)
+      .append('verification', userParams.verification)
+      .append('status', userParams.status);
+
+    return this.http.get<User[]>(`${environment.apiUrl}/admin/users`, {
+      observe: 'response',
+      params,
+    });
+  }
+
   getById(id) {
-    return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+    return this.http.get<User>(`${environment.apiUrl}/admin/users/${id}`);
   }
 
   update(id, params) {
@@ -66,14 +97,6 @@ export class UserService {
         return user;
       })
     );
-  }
-
-  getStatusCounts() {
-    return this.http
-      .get<number[]>(`${environment.apiUrl}/admin/users/status-count`)
-      .subscribe((statusCounts) => {
-        this.statusCountsSubject.next(statusCounts);
-      });
   }
 
   getNewUsersPerMonth(year) {

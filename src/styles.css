@@ -370,7 +370,7 @@ tabset ul.nav-tabs::-webkit-scrollbar {
   border: 1px solid rgba(18, 38, 63, 0.1);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   left: 0;
-  width: auto !important;
+  /*width: auto !important;*/
 }
 
 .ng-dropdown-panel.ng-select-bottom {

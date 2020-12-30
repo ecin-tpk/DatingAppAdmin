@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { UsersComponent } from './users.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 const routes: Routes = [
   {
     path: '',
     component: UsersComponent,
-    children: [{ path: ':status', component: UserListComponent }],
+    children: [
+      { path: 'list', component: UserListComponent },
+      { path: ':id/details', component: UserDetailsComponent },
+    ],
   },
 ];
 

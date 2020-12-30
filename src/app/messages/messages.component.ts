@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import * as signalR from '@microsoft/signalr';
 import { IHttpConnectionOptions } from '@microsoft/signalr';
 
-import { Message } from '../_models/message';
+import { MessageBubble} from '../_models/message.model';
 import { AccountService, MessageService } from '../_services';
 import { User } from '../_models';
 
@@ -16,7 +16,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   account: User;
   accountSub: Subscription;
 
-  messages: Message[] = [];
+  messages: MessageBubble[] = [];
 
   private hubConnection: signalR.HubConnection;
 

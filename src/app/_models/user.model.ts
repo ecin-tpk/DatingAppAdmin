@@ -34,3 +34,7 @@ export const Verification = [
   { verified: 'true', text: 'Verified' },
   { verified: 'false', text: 'Unverified' },
 ];
+
+export const UserStatus = ['active', 'disabled', 'deleted'];
+
+export const UserDetails = ['overview', 'matches', 'messages', 'linked-accounts'];
