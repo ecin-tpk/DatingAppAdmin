@@ -7,6 +7,23 @@ a {
   cursor: pointer;
 }
 
+.alert {
+  position: fixed;
+  left: 50%;
+  z-index: 1030;
+  min-width: 350px;
+  margin-bottom: 0;
+  transform: translateX(-50%);
+}
+
+.top-alert {
+  top: 1.5rem;
+}
+
+.bot-alert {
+  bottom: 1.5rem;
+}
+
 @media (min-width: 768px) {
   .main-content {
     margin-left: 250px;
@@ -16,20 +33,14 @@ a {
     padding-left: 36px !important;
     padding-right: 36px !important;
   }
+
+  .alert {
+    left: calc(50% + 125px);
+  }
 }
 
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;
-}
-
-.bot-alert {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 50%;
-  z-index: 1030;
-  min-width: 350px;
-  margin-bottom: 0;
-  transform: translateX(-50%);
 }
 
 span.ng-arrow {
@@ -46,9 +57,7 @@ span.ng-arrow-wrapper:before {
   height: 10px;
 }
 
-.ng-select.ng-select-opened .ng-select-container {
-  z-index: 1051 !important;
-}
+
 
 a[role="tab"].nav-link span {
   text-transform: capitalize;
@@ -71,10 +80,22 @@ tabset ul.nav-tabs::-webkit-scrollbar {
   display: none;
 }
 
+.card-header-tabs .nav {
+  margin-top: -1.5rem;
+}
+
+.text-500 {
+  font-weight: 500 !important;
+}
+
 /*========================================*/
+.ng-select.ng-select-opened .ng-select-container {
+  z-index: 1051 !important;
+}
+
 .ng-select.ng-select-opened > .ng-select-container {
   background: #fff;
-  border-color: #2c7be5;
+  border-color: #ea4c89;
 }
 
 .ng-select.ng-select-opened > .ng-select-container:hover {
@@ -102,7 +123,7 @@ tabset ul.nav-tabs::-webkit-scrollbar {
 }
 
 .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
-  border-color: #2c7be5;
+  border-color: #ea4c89;
   outline: 0;
 }
 
@@ -122,10 +143,6 @@ tabset ul.nav-tabs::-webkit-scrollbar {
   align-items: center;
 }
 
-.ng-select .ng-select-container:hover {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-}
-
 .ng-select .ng-select-container .ng-value-container {
   align-items: center;
   padding-left: 10px;
@@ -140,8 +157,12 @@ tabset ul.nav-tabs::-webkit-scrollbar {
   color: #999;
 }
 
+.custom .ng-select-container {
+  height: calc(1.75em + 0.25rem + 2px) !important;
+}
+
 .ng-select.ng-select-single .ng-select-container {
-  height: calc(1.75em + 0.25rem + 2px);
+  height: calc(1.5em + 1rem + 2px);
 }
 
 .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
@@ -368,7 +389,6 @@ tabset ul.nav-tabs::-webkit-scrollbar {
 .ng-dropdown-panel {
   background-color: #fff;
   border: 1px solid rgba(18, 38, 63, 0.1);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   left: 0;
   /*width: auto !important;*/
 }

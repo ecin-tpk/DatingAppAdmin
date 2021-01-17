@@ -21,3 +21,10 @@ export interface UserParamsTest extends PaginationParams {
   gender: '' | 'male' | 'female';
   status: 'active' | 'disabled' | 'deleted';
 }
+
+export interface ReportParams extends PaginationParams {
+  approved?: number;
+  name?: string;
+  gender: '' | 'male' | 'female';
+  status: 'pending' | 'approved' | 'disapproved';
+}

@@ -18,9 +18,6 @@ const usersModule = () =>
 const reportsModule = () =>
   import('./reports/reports.module').then((x) => x.ReportsModule);
 
-const clientModule = () =>
-  import('./client/client.module').then((x) => x.ClientModule);
-
 const routes: Routes = [
   {
     path: '',
@@ -45,10 +42,6 @@ const routes: Routes = [
     path: 'reports',
     loadChildren: reportsModule,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'client',
-    loadChildren: clientModule,
   },
   {
     path: 'messages',

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Photo } from '../_models/photo';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+
+import { Photo } from '../_models';
 import { environment } from '../../environments/environment';
 import { AccountService } from './account.service';
-import { exhaustMap, map, mergeMap } from 'rxjs/operators';
 import { User } from '../_models';
 
 @Injectable({
@@ -63,5 +64,11 @@ export class PhotoService {
             );
         })
       );
+  }
+
+  countPhotos(milliseconds) {
+    return this.http.get<number>(
+      `${environment.apiUrl}/admin/photos/count-photos/${milliseconds}`
+    );
   }
 }

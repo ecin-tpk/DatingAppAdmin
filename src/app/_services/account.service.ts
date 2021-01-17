@@ -10,8 +10,8 @@ import { User } from '../_models';
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   accountSubject: BehaviorSubject<User>;
-  public account: Observable<User>;
   private refreshTokenTimeout;
+  public account: Observable<User>;
 
   constructor(private router: Router, private http: HttpClient) {
     this.accountSubject = new BehaviorSubject<User>(null);
@@ -68,7 +68,6 @@ export class AccountService {
     if (params.dateOfBirth) {
       params.dateOfBirth = this.getDateOnly(params.dateOfBirth);
     }
-
     return this.http.put(`${environment.apiUrl}/users/${id}`, params).pipe(
       map((account: User) => {
         account = { ...this.accountValue, ...account };
@@ -104,11 +103,12 @@ export class AccountService {
   }
 
   resetPassword(token: string, password: string, confirmPassword: string) {
-    return this.http.post(`${environment.apiUrl}/account/reset-password`, {
+    const body = {
       token,
       password,
       confirmPassword,
-    });
+    };
+    return this.http.post(`${environment.apiUrl}/account/reset-password`, body);
   }
 
   getDateOnly(date) {
@@ -126,7 +126,13 @@ export class AccountService {
     );
   }
 
-  // Helper methods
+  verifyEmail(token: string) {
+    // return this.http.post(`${environment.apiUrl}/account/verify-email`, {
+    //   token,
+    // });
+    return this.http.get(`${environment.apiUrl}/account/verify-email/?token=${token}`);
+  }
+
   private startRefreshTokenTimer() {
     // Parse json object from base64 encoded jwt token
     const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));

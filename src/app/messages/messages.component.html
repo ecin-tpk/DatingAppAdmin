@@ -1,11 +1,11 @@
-<div class="main-content d-flex flex-row" style="height: 100vh;">
+<div class="main-content d-flex flex-row" style="height: 100vh">
   <div
     class="chat-contacts"
-    style="border-right: 1px solid #e3ebf6; min-width: 375px; width: 375px;"
+    style="border-right: 1px solid #e3ebf6; min-width: 375px; width: 375px"
   >
     <div
       class="container-fluid d-flex flex-column"
-      style="height: 100%; max-height: 100%;"
+      style="height: 100%; max-height: 100%"
     >
       <div class="header">
         <div class="header-body">
@@ -30,7 +30,7 @@
       </form>
 
       <div class="hide-scrollbar chat-list">
-        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer;">
+        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer">
           <div class="card-body">
             <div class="row">
               <!-- Avatar -->
@@ -57,14 +57,12 @@
                     </div>
                   </div>
                 </div>
-                <small class="text-gray-700">
-                  Hello. How r u doin?
-                </small>
+                <small class="text-gray-700"> Hello. How r u doin? </small>
               </div>
             </div>
           </div>
         </div>
-        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer;">
+        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer">
           <div class="card-body">
             <div class="row">
               <!-- Avatar -->
@@ -98,7 +96,7 @@
             </div>
           </div>
         </div>
-        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer;">
+        <div class="card card-sm mb-3 shadow-none" style="cursor: pointer">
           <div class="card-body">
             <div class="row">
               <!-- Avatar -->
@@ -137,7 +135,6 @@
   </div>
   <div
     class="chat-body"
-    style="background: white; padding: 0.75rem 1.5rem; flex-grow: 1;"
   >
     <div class="chat-header">
       <div class="row align-items-center">
@@ -161,21 +158,21 @@
           <p class="small mb-0"><span class="text-success">●</span> Online</p>
         </div>
 
-<!--        <form>-->
-<!--          <div class="input-group input-group-lg input-group-merge">-->
-<!--            <input-->
-<!--              class="list-search form-control form-control-prepended"-->
-<!--              type="search"-->
-<!--              placeholder="Search"-->
-<!--              style="height: 48px;"-->
-<!--            />-->
-<!--            <div class="input-group-prepend">-->
-<!--              <div class="input-group-text">-->
-<!--                <span class="fe fe-search"></span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </form>-->
+        <!--        <form>-->
+        <!--          <div class="input-group input-group-lg input-group-merge">-->
+        <!--            <input-->
+        <!--              class="list-search form-control form-control-prepended"-->
+        <!--              type="search"-->
+        <!--              placeholder="Search"-->
+        <!--              style="height: 48px;"-->
+        <!--            />-->
+        <!--            <div class="input-group-prepend">-->
+        <!--              <div class="input-group-text">-->
+        <!--                <span class="fe fe-search"></span>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </form>-->
 
         <div class="col-auto">
           <a class="dropdown-ellipses dropdown-toggle">
@@ -191,7 +188,7 @@
       </div>
     </div>
 
-    <div class="chat-content" style="overflow-y: auto;">
+    <div class="chat-content" style="overflow-y: auto">
       <div>
         <div class="message message-right">
           <!-- Avatar -->
@@ -205,12 +202,10 @@
 
           <!-- Body -->
           <div class="messages-from">
-            <div class="comment-body d-block mt-1" style="width: fit-content;">
-              <p class="mb-0">
-                Lorem ipsum dolor sit amet, consectetur.
-              </p>
+            <div class="comment-body d-block mt-1" style="width: fit-content">
+              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur.</p>
             </div>
-            <div class="comment-body d-block mt-1" style="width: fit-content;">
+            <div class="comment-body d-block mt-1" style="width: fit-content">
               <p class="mb-0">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea
                 eius, veniam?
@@ -231,10 +226,8 @@
 
           <!-- Body -->
           <div class="messages-from">
-            <div class="comment-body d-block mt-1" style="width: fit-content;">
-              <p class="mb-0">
-                Lorem ipsum dolor sit.
-              </p>
+            <div class="comment-body d-block mt-1" style="width: fit-content">
+              <p class="mb-0">Lorem ipsum dolor sit.</p>
             </div>
           </div>
         </div>
@@ -251,10 +244,8 @@
 
           <!-- Body -->
           <div class="messages-from">
-            <div class="comment-body d-block mt-1" style="width: fit-content;">
-              <p class="mb-0">
-                Lorem ipsum dolor sit.
-              </p>
+            <div class="comment-body d-block mt-1" style="width: fit-content">
+              <p class="mb-0">Lorem ipsum dolor sit.</p>
             </div>
           </div>
         </div>
@@ -270,7 +261,7 @@
             class="form-control form-control-flush"
             rows="1"
             placeholder="Type a message..."
-            style="overflow: hidden; overflow-wrap: break-word; height: 40px;"
+            style="overflow: hidden; overflow-wrap: break-word; height: 40px"
           ></textarea>
         </form>
       </div>
@@ -287,7 +278,7 @@
           </a>
           <button
             class="btn btn-rounded-circle btn-primary"
-            style="width: 40px; height: 40px;"
+            style="width: 40px; height: 40px"
             (click)="send()"
           >
             <span class="fe fe-send"></span>
@@ -296,4 +287,7 @@
       </div>
     </div>
   </div>
+<!--  <div *ngIf="messages.length === 0">-->
+<!--    <p>Please select a thread to start</p>-->
+<!--  </div>-->
 </div>

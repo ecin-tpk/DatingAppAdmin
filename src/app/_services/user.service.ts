@@ -41,20 +41,10 @@ export class UserService {
     );
   }
 
-  getPagination(pageNumber?, pageSize?, userParams?) {
-    const params = this.requestParams(pageNumber, pageSize, userParams);
-
-    return this.http
-      .get<User[]>(`${environment.apiUrl}/admin/users`, {
-        observe: 'response',
-        params,
-      })
-      .subscribe((response) => {
-        this.usersSubject.next(response.body);
-        this.paginationSubject.next(
-          JSON.parse(response.headers.get('Pagination'))
-        );
-      });
+  countUsers(year: number) {
+    return this.http.get<number>(
+      `${environment.apiUrl}/admin/users/count-users/${year}`
+    );
   }
 
   getPaginationTest(userParams: UserParamsTest) {
@@ -99,16 +89,8 @@ export class UserService {
     );
   }
 
-  getNewUsersPerMonth(year) {
-    return this.http.get<number[]>(
-      `${environment.apiUrl}/admin/users/new-users-per-month/${year}`
-    );
-  }
-
-  getTotalUsersPerMonth(year) {
-    return this.http.get<number[]>(
-      `${environment.apiUrl}/admin/users/users-per-month/${year}`
-    );
+  updateStatus(id: string, status: string) {
+    return this.http.put(`${environment.apiUrl}/users/${id}`, { status });
   }
 
   getPercentageUsersByAge(year) {

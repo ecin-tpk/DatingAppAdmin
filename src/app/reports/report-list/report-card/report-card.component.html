@@ -2,18 +2,17 @@
   <div class="card-body">
     <!-- Header -->
     <div class="row align-items-center">
+      <!-- Checkbox -->
       <div class="col">
-        <!-- Checkbox -->
         <div class="custom-control custom-control-circle custom-checkbox">
           <input
+            id="{{ report.id }}"
             type="checkbox"
             class="list-checkbox custom-control-input"
-            id="cardsCheckboxOne"
           />
-          <label class="custom-control-label" for="cardsCheckboxOne"></label>
+          <label class="custom-control-label" for="{{ report.id }}"></label>
         </div>
       </div>
-
       <!-- Dropdown -->
       <div class="col-auto">
         <div
@@ -25,55 +24,65 @@
           <a class="dropdown-ellipses" role="button" dropdownToggle>
             <i class="fe fe-more-vertical"></i>
           </a>
-
           <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-            <a class="dropdown-item">Action</a>
-            <a class="dropdown-item">Another action</a>
-            <a class="dropdown-item">Another action</a>
+            <a
+              class="dropdown-item d-flex justify-content-between"
+              (click)="updateStatus(action)"
+              *ngFor="let action of actions"
+            >
+              {{ action }}
+              <i
+                class="fe"
+                [ngClass]="{
+                  'fe-thumbs-up': action === 'Approved',
+                  'fe-thumbs-down': action === 'Disapproved',
+                  'fe-trash-2': action === 'Delete'
+                }"
+              ></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Image -->
-    <a class="avatar avatar-xl card-avatar">
+    <a
+      class="avatar avatar-xl card-avatar"
+      routerLink="/users/{{ report.userId }}/details"
+    >
       <img
         class="avatar-img rounded-circle"
         [src]="report.photoUrl"
         [alt]="report.userName"
       />
     </a>
-
     <!-- Body -->
     <div class="text-center mb-5">
       <!-- Heading -->
       <h2 class="card-title">
-        <a class="item-name">{{ report.userName }}</a>
+        <a class="item-name" routerLink="/users/{{ report.userId }}/details">{{
+          report.userName
+        }}</a>
       </h2>
-
       <!-- Text -->
       <p class="small text-muted mb-3">
         <span class="item-title">{{ report.reportedFor }}</span>
       </p>
-
       <!-- Buttons -->
       <button
         class="btn btn-sm btn-white mr-1"
-        (click)="onUpdateStatus('Approved')"
+        (click)="updateStatus('Approved')"
       >
         <i class="fe fe-thumbs-up mr-1"></i> Approve
       </button>
       <button
         class="btn btn-sm btn-white"
-        (click)="onUpdateStatus('Disapproved')"
+        (click)="updateStatus('Disapproved')"
       >
         <i class="fe fe-thumbs-down mr-1"></i> Disapprove
       </button>
     </div>
-
     <!-- Divider -->
     <hr class="card-divider mb-0" />
-
     <!-- List group -->
     <div class="list-group list-group-flush mb-n3">
       <div class="list-group-item">
@@ -82,18 +91,36 @@
             <small>Reported by</small>
           </div>
           <div class="col-auto">
-            <small>John Doe, Jane Doe and 5+</small>
+            <small>
+              <a
+                class="text-body"
+                routerLink="/users/{{ report.senderId }}/details"
+                >{{ report.senderName }}</a
+              >
+            </small>
           </div>
         </div>
       </div>
       <div class="list-group-item">
         <div class="row">
           <div class="col">
-            <small>Times being reported</small>
+            <small>Reports approved</small>
           </div>
           <div class="col-auto">
-            <span class="item-score badge badge-soft-danger"
-              ><i class="fe fe-alert-circle"></i> 9/10</span
+            <span
+              class="item-score badge"
+              [ngClass]="{
+                'badge-soft-danger': report.approvedCount > 4,
+                'badge-soft-warning':
+                  report.approvedCount > 0 && report.approvedCount <= 4,
+                'badge-soft-success': report.approvedCount === 0
+              }"
+            >
+              <i
+                class="fe fe-alert-circle"
+                *ngIf="report.approvedCount > 4"
+              ></i>
+              {{ report.approvedCount }}/10</span
             >
           </div>
         </div>

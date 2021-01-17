@@ -4,37 +4,6 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {
-  --blue: #ea4c89;
-  --indigo: #727cf5;
-  --purple: #6b5eae;
-  --pink: #ff679b;
-  --red: #e63757;
-  --orange: #fd7e14;
-  --yellow: #f6c343;
-  --green: #00d97e;
-  --teal: #02a8b5;
-  --cyan: #39afd1;
-  --white: #ffffff;
-  --gray: #95aac9;
-  --gray-dark: #3b506c;
-  --primary: #ea4c89;
-  --secondary: #6e84a3;
-  --success: #00d97e;
-  --info: #39afd1;
-  --warning: #f6c343;
-  --danger: #e63757;
-  --light: #edf2f9;
-  --dark: #12263f;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Cerebri Sans", sans-serif;
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
 
 *,
 ::after,
@@ -4608,14 +4577,6 @@ input[type="submit"].btn-block {
   flex-basis: 0;
   flex-grow: 1;
   text-align: center;
-}
-
-.tab-content > .tab-pane {
-  display: none;
-}
-
-.tab-content > .active {
-  display: block;
 }
 
 .navbar {
@@ -12858,12 +12819,6 @@ a.text-white:hover {
   height: calc(100% - 1.5rem);
 }
 
-.card-fill .card-body {
-  flex-grow: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .card-fill-xs {
   height: calc(100% - 1.5rem);
 }
@@ -15790,7 +15745,7 @@ button:focus {
 }
 
 .bg-primary-soft {
-  background-color: #e6effc !important;
+  background-color: #ffe7f0 !important;
 }
 
 .bg-secondary-soft {

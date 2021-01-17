@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-header-title">Total Users Growth</h4>
+    <tabset class="nav-tabs-sm card-header-tabs">
+      <tab heading="monthly" (selectTab)="onSelect($event)"></tab>
+      <tab heading="quarterly" (selectTab)="onSelect($event)"></tab>
+      <tab heading="daily" (selectTab)="onSelect($event)"></tab>
+    </tabset>
+  </div>
+  <!-- Chart -->
+  <div class="card-body">
+    <div class="chart">
+      <canvas
+        baseChart
+        chartType="line"
+        [datasets]="totalUsersPerMonthChartData"
+        [labels]="totalUsersPerMonthChartLabels"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>

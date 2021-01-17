@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserDetails } from '../../_models';
 import { UserService } from '../../_services';
-import { TabDirective } from 'ngx-bootstrap/tabs';
 
 @Component({
   selector: 'app-user-details',
@@ -25,6 +24,7 @@ export class UserDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
       this.userService.getById(paramMap.get('id')).subscribe(
         (res) => {
+          console.log(res);
           this.user = res;
           this.route.queryParams.subscribe((params) => {
             if (params['view'] && this.headings.includes(params['view'])) {

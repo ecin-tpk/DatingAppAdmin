@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import * as signalR from '@microsoft/signalr';
-import { SignalRService } from '../../../_services/signal-r.service';
+import { Notification } from '../../../_models';
+import { TabDirective } from 'ngx-bootstrap/tabs';
+import { NotificationService } from '../../../_services';
 
 @Component({
   selector: 'app-modal-activity',
@@ -9,10 +9,17 @@ import { SignalRService } from '../../../_services/signal-r.service';
   styleUrls: ['./activity-modal.component.css'],
 })
 export class ActivityModalComponent implements OnInit {
-  title: string;
-  activities: { heading: string; text: string; time: string }[] = [];
+  activities: Notification[];
+  selectedTab = 'Action';
+  headings = ['action', 'user'];
 
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.activities = this.notificationService.getNewNotification();
+  }
+
+  onSelect(data: TabDirective) {
+    this.selectedTab = data.heading;
+  }
 }

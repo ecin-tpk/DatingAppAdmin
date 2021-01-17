@@ -1,13 +1,15 @@
 <!-- Alerts -->
-<div *ngFor="let alert of alerts">
-  <alert
-    [dismissOnTimeout]="alert.timeout"
-    [dismissible]="alert.dismissible"
-    [type]="alert.type"
-    (onClosed)="onClosed(alert)"
-    >{{ alert.msg }}</alert
-  >
-</div>
+<!--<div *ngFor="let alert of alerts">-->
+<!--  <alert-->
+<!--    [dismissOnTimeout]="alert.timeout"-->
+<!--    [dismissible]="alert.dismissible"-->
+<!--    [type]="alert.type"-->
+<!--    (onClosed)="onClosed(alert)"-->
+<!--    >{{ alert.msg }}</alert-->
+<!--  >-->
+<!--</div>-->
+
+<app-alert [dismissible]="true"></app-alert>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <!-- Avatar -->
@@ -50,17 +52,16 @@
       </button>
     </div>
   </div>
-
   <hr class="my-5" />
-
+  <!-- Form -->
   <div class="row">
     <!-- Name -->
-    <div class="col-12">
+    <div class="col-12 col-md-6">
       <div class="form-group">
-        <label for="name"> Name </label>
+        <label for="name">Name</label>
         <input
-          class="form-control"
           id="name"
+          class="form-control"
           type="text"
           formControlName="name"
           [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
@@ -72,20 +73,38 @@
         </div>
       </div>
     </div>
-
+    <!-- Gender -->
+    <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label>Gender</label>
+        <ng-select
+          bindLabel="label"
+          bindValue="gender"
+          formControlName="gender"
+          [searchable]="false"
+          [clearable]="false"
+          [items]="[
+            { gender: 'male', label: 'Male' },
+            { gender: 'female', label: 'Female' }
+          ]"
+        >
+        </ng-select>
+      </div>
+    </div>
     <!-- Email address -->
     <div class="col-12">
       <div class="form-group">
         <label class="mb-1" for="email"> Email address </label>
         <small class="form-text text-muted">
           This email will be used to receive important messages about
-          authentication, so choose it carefully.
+          authentication, and you can't change it.
         </small>
         <input
-          class="form-control"
           id="email"
+          class="form-control"
           type="email"
           formControlName="email"
+          readonly
           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
         />
         <div class="invalid-feedback" *ngIf="submitted && f.email.errors">
@@ -98,7 +117,6 @@
         </div>
       </div>
     </div>
-
     <!-- Phone -->
     <div class="col-12 col-md-6">
       <div class="form-group">
@@ -122,13 +140,10 @@
         </div>
       </div>
     </div>
-
     <!-- Birthday -->
     <div class="col-12 col-md-6">
       <div class="form-group">
-        <label for="dateOfBirth">
-          Birthday
-        </label>
+        <label for="dateOfBirth"> Birthday </label>
         <input
           class="form-control"
           id="dateOfBirth"
@@ -184,9 +199,7 @@
           </div>
           <div class="col ml-n2">
             <!-- Help text -->
-            <small class="text-muted">
-              You're currently invisible
-            </small>
+            <small class="text-muted"> You're currently invisible </small>
           </div>
         </div>
         <!-- / .row -->
@@ -219,9 +232,7 @@
           </div>
           <div class="col ml-n2">
             <!-- Help text -->
-            <small class="text-muted">
-              You're currently available
-            </small>
+            <small class="text-muted"> You're currently available </small>
           </div>
         </div>
         <!-- / .row -->

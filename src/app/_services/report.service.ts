@@ -1,38 +1,43 @@
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Report } from '../_models';
+import { ReportParams } from '../_helpers';
+import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
+  private reportsSource = new Subject<Report[]>();
+  reports$ = this.reportsSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
-  getPagination(pageNumber: number, pageSize: number, status: string) {
+  getPagination(reportParams: ReportParams) {
     let params = new HttpParams();
     params = params
-      .append('pageNumber', '1')
-      .append('pageSize', pageSize.toString())
-      .append('status', status);
+      .append('pageNumber', reportParams.pageNumber.toString())
+      .append('pageSize', reportParams.pageSize.toString())
+      .append('status', reportParams.status)
+      .append('gender', reportParams.gender);
 
-    return this.http.get<
-      {
-        id: number;
-        reportSent: Date;
-        senderId: number;
-        status: number;
-        userId: number;
-      }[]
-    >(`${environment.apiUrl}/admin/reports/pagination`, {
-      observe: 'response',
-      params,
-    });
+    return this.http
+      .get<Report[]>(`${environment.apiUrl}/admin/reports/pagination`, {
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        tap((response) => {
+          this.reportsSource.next(response.body);
+        })
+      );
   }
 
   updateStatus(id: number, status: string) {
-    return this.http.put(`${environment.apiUrl}/admin/reports/${id}`, {
-      status,
-    });
+    const body = { status };
+    return this.http.put(`${environment.apiUrl}/admin/reports/${id}`, body);
   }
 
   countByStatus() {

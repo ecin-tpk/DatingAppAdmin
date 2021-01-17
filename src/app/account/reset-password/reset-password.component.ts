@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from '../../_services';
 
 @Component({
   selector: 'app-reset-password',
@@ -8,10 +10,48 @@ import { NgForm } from '@angular/forms';
 })
 export class ResetPasswordComponent implements OnInit {
   isLoading = false;
+  private token: string;
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      if (params['token']) {
+        this.token = params['token'];
+        this.accountService.validateResetToken(this.token).subscribe(
+          () => {},
+          () => {
+            this.router.navigate(['/not-found']);
+          }
+        );
+      } else {
+        this.router.navigate(['/not-found']);
+      }
+    });
+  }
 
-  onResetPassword(form: NgForm) {}
+  onResetPassword(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.isLoading = true;
+    this.accountService
+      .resetPassword(
+        this.token,
+        form.value.password,
+        form.value.confirmPassword
+      )
+      .subscribe(
+        () => {
+          this.isLoading = false;
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
+  }
 }

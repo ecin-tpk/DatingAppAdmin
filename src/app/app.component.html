@@ -1,8 +1,8 @@
-<app-sidenav *ngIf="user" [user]="user"></app-sidenav>
+<app-sidenav *ngIf="user && showNavbar" [user]="user"></app-sidenav>
 <router-outlet></router-outlet>
-<div class="alert-container">
-  <div *ngFor="let alert of alerts">
-    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-  </div>
-</div>
+<!--<div class="alert-container">-->
+<!--  <div *ngFor="let alert of alerts">-->
+<!--    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>-->
+<!--  </div>-->
+<!--</div>-->
 

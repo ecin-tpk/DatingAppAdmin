@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   animate,
   state,
@@ -13,8 +8,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AccountService } from '../../_services/account.service';
+import { AccountService } from '../../_services';
 import { first } from 'rxjs/operators';
+import { AlertService } from '../../_services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -34,14 +30,20 @@ export class LoginComponent implements OnInit {
   submitted = false;
   showPassword = false;
   isErrorOpen = false;
-  errorMessage: string = null;
 
   constructor(
     private route: ActivatedRoute,
     private authService: AccountService,
     private router: Router,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private alertService: AlertService,
+    private accountService: AccountService
+  ) {
+    // redirect to home if already logged in
+    if (this.accountService.accountValue) {
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -68,8 +70,9 @@ export class LoginComponent implements OnInit {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigateByUrl(returnUrl);
         },
-        error: () => {
+        error: (err) => {
           this.loading = false;
+          this.alertService.showAlert('danger', err);
         },
       });
   }

@@ -18,11 +18,11 @@
 }
 
 .message-right .comment-body {
-  background: #2c7be5;
+  background: #ea4c89;
   color: #ffffff;
 }
 
-.message-right .messages-from{
+.message-right .messages-from {
   align-items: flex-end;
 }
 
@@ -34,6 +34,9 @@
 .chat-body {
   display: flex;
   flex-flow: column;
+  background: white;
+  padding: 0.75rem 1.5rem;
+  flex-grow: 1
 }
 
 .chat-footer {

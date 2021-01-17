@@ -1,9 +1,14 @@
 export interface Report {
   id: number;
+  senderId: number;
+  senderName: string;
   userId: number;
-  name: string;
+  userName: string;
   photoUrl: string;
-  count: number;
+  status: string;
+  reportedFor: string;
+  approvedCount: number;
+  reportSent: Date;
 }
 
 export const ReportStatus = ['pending', 'approved', 'disapproved'];

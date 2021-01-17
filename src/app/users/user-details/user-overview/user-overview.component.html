@@ -3,26 +3,83 @@
     <div class="col-12 col-xl-8">
       <!-- Photos -->
       <div class="card">
+        <div class="card-header">
+          <h4 class="card-header-title">Photos</h4>
+
+          <!-- Nav -->
+          <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Deleted</a>
+            </li>
+          </ul>
+        </div>
         <div class="card-body">
-          <!-- Heading -->
-          <h3 class="card-title">Photos</h3>
+          <div class="photo-container">
+            <div class="avatar avatar-xxl">
+              <img [src]="user?.photoUrl" alt="..." class="avatar-img rounded">
+            </div>
+          </div>
         </div>
       </div>
-
       <!-- Videos -->
       <div class="card">
-        <div class="card-body">
-          <!-- Heading -->
-          <h3 class="card-title">Videos</h3>
+        <div class="card-header">
+          <h4 class="card-header-title">Videos</h4>
+
+          <!-- Nav -->
+          <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Deleted</a>
+            </li>
+          </ul>
         </div>
+        <div class="card-body"></div>
       </div>
     </div>
     <div class="col-12 col-xl-4">
-      <!-- Card -->
+      <!-- List group -->
       <div class="card">
         <div class="card-body">
-          <!-- List group -->
           <div class="list-group list-group-flush my-n3">
+            <!-- Id -->
+            <div class="list-group-item">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="mb-0">User id</h5>
+                </div>
+                <div class="col-auto">
+                  <small class="text-muted">#{{ user?.id }}</small>
+                </div>
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="list-group-item">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="mb-0">Email</h5>
+                </div>
+                <div class="col-auto">
+                  <small class="text-muted">{{ user?.email }}</small>
+                </div>
+              </div>
+            </div>
+            <!-- Phone -->
+            <div class="list-group-item">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="mb-0">Phone</h5>
+                </div>
+                <div class="col-auto">
+                  <small class="text-muted">{{ user?.phone }}</small>
+                </div>
+              </div>
+            </div>
             <!-- Birthday -->
             <div class="list-group-item">
               <div class="row align-items-center">
@@ -86,12 +143,10 @@
                   <a class="small"> Facebook </a>
                 </div>
               </div>
-              <!-- / .row -->
             </div>
           </div>
         </div>
       </div>
-
       <!-- Weekly Hours -->
       <div class="card">
         <div class="card-header">

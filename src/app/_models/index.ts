@@ -1,4 +1,6 @@
 export * from './user.model';
 export * from './role';
 export * from './photo';
-export * from './report.model';
+export * from './report';
+export * from './months';
+export * from './notification';

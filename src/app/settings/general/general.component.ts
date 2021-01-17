@@ -9,6 +9,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { UploadImageModalComponent } from './upload-image-modal/upload-image-modal.component';
 import { User } from '../../_models';
 import { AlertComponent } from 'ngx-bootstrap/alert';
+import { AlertService } from '../../_services/alert.service';
 
 @Component({
   selector: 'app-general',
@@ -36,7 +37,8 @@ export class GeneralComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private modalService: BsModalService,
-    private userService: UserService
+    private userService: UserService,
+    private alertService: AlertService
   ) {}
 
   get f() {
@@ -54,21 +56,19 @@ export class GeneralComponent implements OnInit {
   initForm() {
     this.form = this.formBuilder.group({
       name: [this.account.name, Validators.required],
+      gender: [this.account.gender, Validators.required],
       email: [this.account.email, [Validators.required, Validators.email]],
-      phone: [this.account.phone, Validators.required],
+      phone: [this.account.phone],
       dateOfBirth: [new Date(this.account.dateOfBirth), Validators.required],
     });
   }
 
   onSubmit() {
     this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
-
     this.loading = true;
-
     this.accountService
       .updateInfo(this.account.id, this.form.value)
       .pipe(first())
@@ -82,6 +82,8 @@ export class GeneralComponent implements OnInit {
             timeout: 5000,
           });
           this.loading = false;
+
+          this.alertService.showAlert('success', 'Updated successfully');
         },
         (err) => {
           this.alerts.push({
@@ -90,6 +92,7 @@ export class GeneralComponent implements OnInit {
             dismissible: true,
           });
           this.loading = false;
+          this.alertService.showAlert('danger', 'Failed to update');
         }
       );
   }

@@ -5,6 +5,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
+import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -20,8 +21,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { appInitializer, ErrorInterceptor, JwtInterceptor } from './_helpers';
-import {AlertModule} from 'ngx-bootstrap/alert';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { AlertComponent } from './_components/alert/alert.component';
+import { NewReportsComponent } from './dashboard/new-reports/new-reports.component';
+import { UsersGrowthComponent } from './dashboard/users-growth/users-growth.component';
+import { GlobalValuesComponent } from './dashboard/global-values/global-values.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import {AlertModule} from 'ngx-bootstrap/alert';
     SwitchComponent,
     MessagesComponent,
     PageNotFoundComponent,
+    NewReportsComponent,
+    UsersGrowthComponent,
+    GlobalValuesComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +74,6 @@ import {AlertModule} from 'ngx-bootstrap/alert';
     },
   ],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [AlertComponent],
 })
 export class AppModule {}

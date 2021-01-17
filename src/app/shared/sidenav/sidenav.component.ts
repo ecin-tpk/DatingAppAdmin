@@ -6,6 +6,7 @@ import { ActivityModalComponent } from '../modals/activity-modal/activity-modal.
 import { SearchModalComponent } from '../modals/search-modal/search-modal.component';
 import { AccountService, UserService } from '../../_services';
 import { User } from '../../_models';
+import { ReportService } from '../../_services/report.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,6 +15,7 @@ import { User } from '../../_models';
 })
 export class SidenavComponent implements OnInit {
   bsModalRef: BsModalRef;
+  pendingCount = '';
   collapses = {
     nav: true,
     users: true,
@@ -25,11 +27,16 @@ export class SidenavComponent implements OnInit {
   constructor(
     private authService: AccountService,
     private userService: UserService,
+    private reportService: ReportService,
     private router: Router,
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.reportService.countByStatus().subscribe((res) => {
+      this.pendingCount = res[0] !== 0 ? res[0].toString() : '';
+    });
+  }
 
   logout() {
     this.authService.logout();
@@ -41,91 +48,10 @@ export class SidenavComponent implements OnInit {
   }
 
   openModal(opener: any) {
-    const initialState = {
-      activities: [
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'New feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-        {
-          heading: 'last feature',
-          text: 'Added private message system!',
-          time: '2m ago',
-        },
-      ],
-      title: 'Notifications',
-    };
     const modal = opener.getAttribute('data-toggle');
     switch (modal) {
       case 'activity':
         this.bsModalRef = this.modalService.show(ActivityModalComponent, {
-          initialState,
           class: 'modal-dialog-vertical',
         });
         break;

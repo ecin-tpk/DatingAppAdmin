@@ -10,6 +10,7 @@ import { AccountService } from '../../_services';
 export class ForgotPasswordComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
+  isLoading = false;
 
   constructor(private accountService: AccountService) {}
 
@@ -19,12 +20,15 @@ export class ForgotPasswordComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
     this.accountService.forgotPassword(form.value.email).subscribe(
       (res) => {
-        this.successMessage = res.message;
+        this.successMessage = 'E-mail sent';
+        this.isLoading = false;
       },
       (err) => {
         this.errorMessage = err;
+        this.isLoading = false;
       }
     );
   }

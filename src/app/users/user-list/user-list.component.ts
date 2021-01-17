@@ -37,7 +37,6 @@ export class UserListComponent implements OnInit {
     status: null,
   };
   users: User[] = [];
-
   pageSizes = [
     { itemsPerPage: 10, text: '10 per page' },
     { itemsPerPage: 5, text: '5 per page' },
@@ -53,10 +52,8 @@ export class UserListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params.view && UserStatus.includes(params.view)) {
         this.userParams = this.defaultParams(params.view);
-        this.actions = this.getActions(params.view);
-        this.userService.countByStatus().subscribe((res) => {
-          this.tabs.counts = res;
-        });
+        this.getActions(params.view);
+        this.getUserStatusCounts();
         this.isLoading = true;
         this.users = [];
         this.getUsers();
@@ -82,7 +79,7 @@ export class UserListComponent implements OnInit {
     );
   }
 
-  onPageChanged(event: any) {
+  onPageChanged(event) {
     this.userParams.pageNumber = event.page;
     this.getUsers();
   }
@@ -92,7 +89,29 @@ export class UserListComponent implements OnInit {
     this.getUsers();
   }
 
-  updateStatus(id: string, action: string) {}
+  updateStatus(id: string, action: string) {
+    let status;
+    switch (action) {
+      case 'Enable':
+        status = 'Active';
+        break;
+      case 'Disable':
+        status = 'Disabled';
+        break;
+      case 'Delete':
+        status = 'Deleted';
+        break;
+    }
+    this.userService.updateStatus(id, status).subscribe(
+      () => {
+        this.getUsers();
+        this.getUserStatusCounts();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   search() {
     if (
@@ -149,6 +168,12 @@ export class UserListComponent implements OnInit {
     return user.id;
   }
 
+  private getUserStatusCounts() {
+    this.userService.countByStatus().subscribe((res) => {
+      this.tabs.counts = res;
+    });
+  }
+
   private defaultParams(status) {
     this.filtersCount = 0;
     this.filtersSubmitted = false;
@@ -170,6 +195,6 @@ export class UserListComponent implements OnInit {
       ['Enable', 'Delete'],
       ['Enable', 'Disable'],
     ];
-    return actions[UserStatus.indexOf(status)];
+    this.actions = actions[UserStatus.indexOf(status)];
   }
 }

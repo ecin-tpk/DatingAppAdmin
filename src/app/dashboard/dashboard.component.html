@@ -2,13 +2,11 @@
   <!-- HEADER -->
   <div class="header">
     <div class="container-fluid">
-      <!-- Body -->
       <div class="header-body">
         <div class="row align-items-end">
           <div class="col">
             <!-- Pretitle -->
             <h6 class="header-pretitle">Overview</h6>
-
             <!-- Title -->
             <h1 class="header-title">Dashboard</h1>
           </div>
@@ -17,131 +15,12 @@
             <a class="btn btn-primary lift"> Create Report </a>
           </div>
         </div>
-        <!-- / .row -->
       </div>
-      <!-- / .header-body -->
     </div>
   </div>
-
   <!-- CARDS -->
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 col-lg-6 col-xl">
-        <!-- Value  -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">Users</h6>
-
-                <!-- Heading -->
-                <span class="h2 mb-0">{{ totalUsers }}</span>
-
-                <!-- Badge -->
-                <span
-                  class="badge badge-soft-success mt-n1 ml-2"
-                  *ngIf="usersGrowth > 0"
-                >
-                  +{{ usersGrowth }}%
-                </span>
-
-                <span
-                  class="badge badge-soft-danger mt-n1 ml-2"
-                  *ngIf="usersGrowth < 0"
-                >
-                  {{ usersGrowth }}%
-                </span>
-              </div>
-              <div class="col-auto">
-                <!-- Icon -->
-                <span class="h2 fe fe-users text-muted mb-0"></span>
-              </div>
-            </div>
-            <!-- / .row -->
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-        <!-- Hours -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">Total hours</h6>
-
-                <!-- Heading -->
-                <span class="h2 mb-0"> 763.5 </span>
-              </div>
-              <div class="col-auto">
-                <!-- Icon -->
-                <span class="h2 fe fe-briefcase text-muted mb-0"></span>
-              </div>
-            </div>
-            <!-- / .row -->
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-        <!-- Exit -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">Exit %</h6>
-
-                <!-- Heading -->
-                <span class="h2 mb-0"> 35.5% </span>
-              </div>
-              <div class="col-auto">
-                <!-- Chart -->
-                <div class="chart chart-sparkline">
-                  <div class="chartjs-size-monitor">
-                    <div class="chartjs-size-monitor-expand">
-                      <div class=""></div>
-                    </div>
-                    <div class="chartjs-size-monitor-shrink">
-                      <div class=""></div>
-                    </div>
-                  </div>
-                  <canvas
-                    class="chart-canvas chartjs-render-monitor"
-                    id="sparklineChart"
-                    width="75"
-                    height="35"
-                    style="display: block; width: 75px; height: 35px"
-                  ></canvas>
-                </div>
-              </div>
-            </div>
-            <!-- / .row -->
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6 col-xl">
-        <!-- Time -->
-        <div class="card">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col">
-                <!-- Title -->
-                <h6 class="text-uppercase text-muted mb-2">Avg. Time</h6>
-
-                <!-- Heading -->
-                <span class="h2 mb-0"> 2:37 </span>
-              </div>
-              <div class="col-auto">
-                <!-- Icon -->
-                <span class="h2 fe fe-clock text-muted mb-0"></span>
-              </div>
-            </div>
-            <!-- / .row -->
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-global-values></app-global-values>
 
     <div class="row">
       <!-- New users per month-->
@@ -156,7 +35,6 @@
           <div class="card-body">
             <div class="chart">
               <canvas
-                id="11"
                 baseChart
                 chartType="bar"
                 [datasets]="newUsersChartData"
@@ -166,7 +44,6 @@
           </div>
         </div>
       </div>
-
       <!-- Traffic -->
       <div class="col-12 col-xl-4">
         <div class="card">
@@ -211,7 +88,6 @@
               >
               </canvas>
             </div>
-
             <!-- Legend -->
             <div id="trafficChartLegend" class="chart-legend">
               <span class="chart-legend-item"
@@ -240,262 +116,15 @@
     </div>
 
     <div class="row">
+      <!-- New User Reports -->
       <div class="col-12 col-xl-4">
-        <!-- Projects -->
-        <div class="card card-fill">
-          <div class="card-header">
-            <!-- Title -->
-            <h4 class="card-header-title">Projects</h4>
-
-            <!-- Link -->
-            <a class="small">View all</a>
-          </div>
-          <div class="card-body">
-            <!-- List group -->
-            <div class="list-group list-group-flush my-n3">
-              <div class="list-group-item">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <a class="avatar avatar-4by3">
-                      <img
-                        src="assets/img/avatars/projects/project-1.jpg"
-                        alt="..."
-                        class="avatar-img rounded"
-                      />
-                    </a>
-                  </div>
-                  <div class="col ml-n2">
-                    <!-- Title -->
-                    <h4 class="mb-1">
-                      <a href="project-overview.html">Homepage Redesign</a>
-                    </h4>
-
-                    <!-- Time -->
-                    <p class="card-text small text-muted">
-                      <time datetime="2018-05-24">Updated 4hr ago</time>
-                    </p>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Dropdown -->
-                    <div class="dropdown">
-                      <a
-                        href="#"
-                        class="dropdown-ellipses dropdown-toggle"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fe fe-more-vertical"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item"> Action </a>
-                        <a class="dropdown-item"> Another action </a>
-                        <a class="dropdown-item"> Something else here </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- / .row -->
-              </div>
-              <div class="list-group-item">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <a class="avatar avatar-4by3">
-                      <img
-                        src="assets/img/avatars/projects/project-2.jpg"
-                        alt="..."
-                        class="avatar-img rounded"
-                      />
-                    </a>
-                  </div>
-                  <div class="col ml-n2">
-                    <!-- Title -->
-                    <h4 class="mb-1">
-                      <a>Travels &amp; Time</a>
-                    </h4>
-
-                    <!-- Time -->
-                    <p class="card-text small text-muted">
-                      <time datetime="2018-05-24">Updated 4hr ago</time>
-                    </p>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Dropdown -->
-                    <div class="dropdown">
-                      <a
-                        class="dropdown-ellipses dropdown-toggle"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fe fe-more-vertical"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item"> Action </a>
-                        <a class="dropdown-item"> Another action </a>
-                        <a class="dropdown-item"> Something else here </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- / .row -->
-              </div>
-              <div class="list-group-item">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <a class="avatar avatar-4by3">
-                      <img
-                        src="assets/img/avatars/projects/project-3.jpg"
-                        alt="..."
-                        class="avatar-img rounded"
-                      />
-                    </a>
-                  </div>
-                  <div class="col ml-n2">
-                    <!-- Title -->
-                    <h4 class="mb-1">
-                      <a>Safari Exploration</a>
-                    </h4>
-
-                    <!-- Time -->
-                    <p class="card-text small text-muted">
-                      <time datetime="2018-05-24">Updated 4hr ago</time>
-                    </p>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Dropdown -->
-                    <div class="dropdown">
-                      <a
-                        href="#"
-                        class="dropdown-ellipses dropdown-toggle"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fe fe-more-vertical"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item"> Action </a>
-                        <a class="dropdown-item"> Another action </a>
-                        <a class="dropdown-item"> Something else here </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- / .row -->
-              </div>
-              <div class="list-group-item">
-                <div class="row align-items-center">
-                  <div class="col-auto">
-                    <!-- Avatar -->
-                    <a class="avatar avatar-4by3">
-                      <img
-                        src="assets/img/avatars/projects/project-5.jpg"
-                        alt="..."
-                        class="avatar-img rounded"
-                      />
-                    </a>
-                  </div>
-                  <div class="col ml-n2">
-                    <!-- Title -->
-                    <h4 class="mb-1">
-                      <a>Personal Site</a>
-                    </h4>
-
-                    <!-- Time -->
-                    <p class="card-text small text-muted">
-                      <time datetime="2018-05-24">Updated 4hr ago</time>
-                    </p>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Dropdown -->
-                    <div class="dropdown">
-                      <a
-                        href="#"
-                        class="dropdown-ellipses dropdown-toggle"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i class="fe fe-more-vertical"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item"> Action </a>
-                        <a class="dropdown-item"> Another action </a>
-                        <a class="dropdown-item"> Something else here </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-new-reports></app-new-reports>
       </div>
+      <!-- Total users -->
       <div class="col-12 col-xl-8">
-        <!-- Total users -->
-        <div class="card">
-          <div class="card-header">
-            <!-- Title -->
-            <h4 class="card-header-title">Total Users Growth</h4>
-
-            <!-- Nav -->
-            <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-              <li
-                class="nav-item"
-                data-toggle="chart"
-                data-target="#salesChart"
-                data-trigger="click"
-                data-action="toggle"
-                data-dataset="0"
-              >
-                <a class="nav-link active" href="#" data-toggle="tab"> All </a>
-              </li>
-              <li
-                class="nav-item"
-                data-toggle="chart"
-                data-target="#salesChart"
-                data-trigger="click"
-                data-action="toggle"
-                data-dataset="1"
-              >
-                <a class="nav-link" href="#" data-toggle="tab"> Direct </a>
-              </li>
-              <li
-                class="nav-item"
-                data-toggle="chart"
-                data-target="#salesChart"
-                data-trigger="click"
-                data-action="toggle"
-                data-dataset="2"
-              >
-                <a class="nav-link" href="#" data-toggle="tab"> Organic </a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <!-- Chart -->
-            <div class="chart">
-              <canvas
-                baseChart
-                chartType="line"
-                [datasets]="totalUsersPerMonthChartData"
-                [labels]="totalUsersPerMonthChartLabels"
-              >
-              </canvas>
-            </div>
-          </div>
-        </div>
+        <app-users-growth></app-users-growth>
       </div>
     </div>
-    <!-- / .row -->
     <div class="row">
       <div class="col-12">
         <!-- Goals -->
@@ -950,7 +579,6 @@
         </div>
       </div>
     </div>
-    <!-- / .row -->
     <div class="row">
       <div class="col-12 col-xl-5">
         <!-- Activity -->
@@ -1181,6 +809,5 @@
         </div>
       </div>
     </div>
-    <!-- / .row -->
   </div>
 </div>

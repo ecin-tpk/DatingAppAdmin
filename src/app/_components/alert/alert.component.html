@@ -1,0 +1,9 @@
+<alert
+  type="{{ type }} top-alert"
+  [isOpen]="isOpen"
+  [dismissible]="dismissible"
+  [@openClose]="isOpen ? 'open' : 'closed'"
+  (onClose)="onClose()"
+>
+  {{ message }}
+</alert>

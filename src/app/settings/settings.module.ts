@@ -14,6 +14,8 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SecurityComponent } from './security/security.component';
 import { UploadImageModalComponent } from './general/upload-image-modal/upload-image-modal.component';
 import { PreviewDirective } from '../_helpers/preview.directive';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { PreviewDirective } from '../_helpers/preview.directive';
     TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
+    NgSelectModule,
+    SharedModule,
   ],
 })
 export class SettingsModule {}

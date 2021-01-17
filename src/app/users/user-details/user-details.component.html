@@ -1,13 +1,13 @@
 <div class="main-content">
-  <!-- HEADER -->
   <div class="header">
     <!-- Image -->
-    <img
-      src="assets/img/covers/profile-cover-1.jpg"
-      class="header-img-top"
-      alt="..."
-    />
-
+    <div class="blurred-cover">
+      <img
+        class="header-img-top"
+        src="assets/img/covers/profile-cover-1.jpg"
+        alt="..."
+      />
+    </div>
     <!-- Body -->
     <div class="container-fluid">
       <div class="header-body mt-n5 mt-md-n6">
@@ -18,7 +18,7 @@
               <img
                 class="avatar-img rounded-circle border border-4 border-body"
                 [src]="user?.photoUrl"
-                [alt]="user?.name"
+                *ngIf="user?.photoUrl"
               />
             </div>
           </div>
@@ -36,7 +36,6 @@
             </a>
           </div>
         </div>
-
         <!-- Nav -->
         <div class="row align-items-center">
           <div class="col">

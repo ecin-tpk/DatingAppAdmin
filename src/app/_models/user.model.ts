@@ -14,8 +14,7 @@ export interface User {
   jwtToken?: string;
   created: Date;
   lastActive: Date;
-  city: string;
-  country: string;
+  location: string;
   interests?: string;
   introduction?: string;
   lookingFor?: string;
@@ -37,4 +36,4 @@ export const Verification = [
 
 export const UserStatus = ['active', 'disabled', 'deleted'];
 
-export const UserDetails = ['overview', 'matches', 'messages', 'linked-accounts'];
+export const UserDetails = ['overview', 'matches', 'messages'];
