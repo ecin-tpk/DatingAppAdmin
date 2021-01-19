@@ -50,9 +50,10 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       });
 
-    if (localStorage.getItem('access_token')) {
-      this.signalRService.connectToNotificationHub();
-    }
+    // if (localStorage.getItem('access_token')) {
+    //   this.signalRService.connectToNotificationHub();
+    // }
+    this.signalRService.connectToNotificationHub();
     this.signalRService.addNotificationListener();
 
     this.alertSub = this.errorService.errorOccurred.subscribe(

@@ -10,6 +10,7 @@ import { AccountService } from '../../_services';
 })
 export class ResetPasswordComponent implements OnInit {
   isLoading = false;
+  success = false;
   private token: string;
 
   constructor(
@@ -48,6 +49,7 @@ export class ResetPasswordComponent implements OnInit {
       .subscribe(
         () => {
           this.isLoading = false;
+          this.success = true;
         },
         () => {
           this.isLoading = false;
