@@ -20,11 +20,14 @@
           <div class="avatar">
             <img
               class="avatar-img rounded-circle"
-              src="{{ account.photoUrl }}"
+              src="{{ account.avatarUrl }}"
               alt=""
-              *ngIf="account.photoUrl"
+              *ngIf="account.avatarUrl"
             />
-            <span class="avatar-title rounded-circle" *ngIf="!account.photoUrl">
+            <span
+              class="avatar-title rounded-circle"
+              *ngIf="!account.avatarUrl"
+            >
               {{ account.name.charAt(0) }}
             </span>
           </div>
@@ -47,8 +50,8 @@
         type="button"
         (click)="openAvatarModal()"
       >
-        <i class="fe fe-edit mr-1"></i>
-        Update avatar
+        <!--        <i class="fe fe-edit mr-1"></i>-->
+        Upload
       </button>
     </div>
   </div>
@@ -84,8 +87,8 @@
           [searchable]="false"
           [clearable]="false"
           [items]="[
-            { gender: 'male', label: 'Male' },
-            { gender: 'female', label: 'Female' }
+            { gender: 'Male', label: 'Male' },
+            { gender: 'Female', label: 'Female' }
           ]"
         >
         </ng-select>
@@ -235,7 +238,6 @@
             <small class="text-muted"> You're currently available </small>
           </div>
         </div>
-        <!-- / .row -->
       </div>
     </div>
   </div>

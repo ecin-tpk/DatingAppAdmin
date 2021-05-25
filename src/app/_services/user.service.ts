@@ -43,7 +43,7 @@ export class UserService {
 
   countUsers(year: number) {
     return this.http.get<number>(
-      `${environment.apiUrl}/admin/users/count-users/${year}`
+      `${environment.apiUrl}/admin/users/count/${year}`
     );
   }
 
@@ -95,7 +95,7 @@ export class UserService {
 
   getPercentageUsersByAge(year) {
     return this.http.get<number[]>(
-      `${environment.apiUrl}/admin/users/users-by-age/${year}`
+      `${environment.apiUrl}/admin/users/charts/age/${year}`
     );
   }
 

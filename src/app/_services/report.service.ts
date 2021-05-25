@@ -24,7 +24,7 @@ export class ReportService {
       .append('gender', reportParams.gender);
 
     return this.http
-      .get<Report[]>(`${environment.apiUrl}/admin/reports/pagination`, {
+      .get<Report[]>(`${environment.apiUrl}/admin/reports`, {
         observe: 'response',
         params,
       })
@@ -41,6 +41,8 @@ export class ReportService {
   }
 
   countByStatus() {
-    return this.http.get<number[]>(`${environment.apiUrl}/admin/reports/count`);
+    return this.http.get<number[]>(
+      `${environment.apiUrl}/admin/reports/status-count`
+    );
   }
 }

@@ -68,7 +68,7 @@ export class PhotoService {
 
   countPhotos(milliseconds) {
     return this.http.get<number>(
-      `${environment.apiUrl}/admin/photos/count-photos/${milliseconds}`
+      `${environment.apiUrl}/admin/photos/count/${milliseconds}`
     );
   }
 }

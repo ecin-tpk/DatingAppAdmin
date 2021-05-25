@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ChartService, PhotoService, UserService} from '../../_services';
-import {Label} from 'ng2-charts';
-import {ChartDataSets, ChartOptions} from 'chart.js';
+import { Component, OnInit } from '@angular/core';
+import { ChartService, PhotoService, UserService } from '../../_services';
+import { Label } from 'ng2-charts';
+import { ChartDataSets, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-global-values',
@@ -21,8 +21,7 @@ export class GlobalValuesComponent implements OnInit {
     private userService: UserService,
     private photoService: PhotoService,
     private chartService: ChartService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.getTotalUsers();
@@ -36,8 +35,8 @@ export class GlobalValuesComponent implements OnInit {
 
     this.chartOptions = {
       scales: {
-        xAxes: [{display: false}],
-        yAxes: [{display: false}],
+        xAxes: [{ display: false }],
+        yAxes: [{ display: false }],
       },
       elements: {
         line: {
@@ -80,7 +79,7 @@ export class GlobalValuesComponent implements OnInit {
       this.activePercentageChartData.push({
         data: res.values,
         backgroundColor: 'transparent',
-        borderColor: '#ea4c89',
+        borderColor: '#2c7be5',
       });
     });
   }

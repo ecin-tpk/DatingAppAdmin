@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
 import { AccountService, UserService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -58,7 +57,7 @@ export class GeneralComponent implements OnInit {
       name: [this.account.name, Validators.required],
       gender: [this.account.gender, Validators.required],
       email: [this.account.email, [Validators.required, Validators.email]],
-      phone: [this.account.phone],
+      phone: [this.account.phoneNumber],
       dateOfBirth: [new Date(this.account.dateOfBirth), Validators.required],
     });
   }
@@ -70,8 +69,9 @@ export class GeneralComponent implements OnInit {
     }
     this.loading = true;
     this.accountService
-      .updateInfo(this.account.id, this.form.value)
-      .pipe(first())
+      .updateMyData(this.form.value)
+      // .pipe(first())
+      .pipe()
       .subscribe(
         () => {
           this.alerts = [];

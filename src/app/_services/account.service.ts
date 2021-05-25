@@ -2,15 +2,15 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../_models';
+import '../_extensions/date-extension';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   accountSubject: BehaviorSubject<User>;
-  private refreshTokenTimeout;
+  // private refreshTokenTimeout;
   public account: Observable<User>;
 
   constructor(private router: Router, private http: HttpClient) {
@@ -25,14 +25,16 @@ export class AccountService {
   login(email: string, password: string) {
     return this.http
       .post<any>(
-        `${environment.apiUrl}/admin/account/login`,
+        `${environment.apiUrl}/admin/auth/login`,
         { email, password },
         { withCredentials: true }
       )
       .pipe(
         map((user) => {
           this.accountSubject.next(user);
-          this.startRefreshTokenTimer();
+          console.log(user);
+          localStorage.setItem('jwt_token', user.jwtToken);
+          // this.startRefreshTokenTimer();
           return user;
         })
       );
@@ -40,13 +42,11 @@ export class AccountService {
 
   logout() {
     this.http
-      .post(
-        `${environment.apiUrl}/account/revoke-token`,
-        {},
-        { withCredentials: true }
-      )
+      .get(`${environment.apiUrl}/admin/auth/revoke-token`, {
+        withCredentials: true,
+      })
       .subscribe();
-    this.stopRefreshTokenTimer();
+    // this.stopRefreshTokenTimer();
     this.accountSubject.next(null);
     this.router.navigate(['/account/login']);
   }
@@ -64,32 +64,33 @@ export class AccountService {
       );
   }
 
-  updateInfo(id, params) {
-    if (params.dateOfBirth) {
-      params.dateOfBirth = this.getDateOnly(params.dateOfBirth);
+  updateMyData(data) {
+    if (data.dateOfBirth) {
+      data.dateOfBirth = data.dateOfBirth.getDateOnly();
     }
-    return this.http.put(`${environment.apiUrl}/users/${id}`, params).pipe(
-      map((account: User) => {
-        account = { ...this.accountValue, ...account };
-        this.accountSubject.next(account);
-
-        return account;
+    return this.http.patch(`${environment.apiUrl}/user`, data).pipe(
+      map((user: User) => {
+        user = { ...this.accountValue, ...user };
+        this.accountSubject.next(user);
+        return user;
       })
     );
   }
 
   refreshToken() {
     return this.http
-      .post<any>(
-        `${environment.apiUrl}/account/refresh-token`,
-        {},
-        { withCredentials: true }
-      )
+      .get<any>(`${environment.apiUrl}/admin/auth/refresh-token`, {
+        withCredentials: true,
+      })
       .pipe(
+        catchError((err) => {
+          console.log('Handling error locally and rethrowing it...', err);
+          return throwError(err);
+        }),
         map((account) => {
           this.accountSubject.next(account);
-          localStorage.setItem('access_token', account.jwtToken);
-          this.startRefreshTokenTimer();
+          localStorage.setItem('jwt_token', account.jwtToken);
+          // this.startRefreshTokenTimer();
           return account;
         })
       );
@@ -111,12 +112,6 @@ export class AccountService {
     return this.http.post(`${environment.apiUrl}/account/reset-password`, body);
   }
 
-  getDateOnly(date) {
-    return (
-      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    );
-  }
-
   forgotPassword(email: string) {
     return this.http.post<{ message: string }>(
       `${environment.apiUrl}/account/forgot-password`,
@@ -130,23 +125,25 @@ export class AccountService {
     // return this.http.post(`${environment.apiUrl}/account/verify-email`, {
     //   token,
     // });
-    return this.http.get(`${environment.apiUrl}/account/verify-email/?token=${token}`);
-  }
-
-  private startRefreshTokenTimer() {
-    // Parse json object from base64 encoded jwt token
-    const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));
-
-    // Set a timeout to refresh the token a minute before it expires (14 minutes)
-    const expires = new Date(jwtToken.exp * 1000);
-    const timeout = expires.getTime() - Date.now() - 60 * 1000;
-    this.refreshTokenTimeout = setTimeout(
-      () => this.refreshToken().subscribe(),
-      timeout
+    return this.http.get(
+      `${environment.apiUrl}/account/verify-email/?token=${token}`
     );
   }
 
-  private stopRefreshTokenTimer() {
-    clearTimeout(this.refreshTokenTimeout);
-  }
+  // private startRefreshTokenTimer() {
+  //   // Parse json object from base64 encoded jwt token
+  //   const jwtToken = JSON.parse(atob(this.accountValue.jwtToken.split('.')[1]));
+  //
+  //   // Set a timeout to refresh the token a minute before it expires (14 minutes)
+  //   const expires = new Date(jwtToken.exp * 1000);
+  //   const timeout = expires.getTime() - Date.now() - 60 * 1000;
+  //   this.refreshTokenTimeout = setTimeout(
+  //     () => this.refreshToken().subscribe(),
+  //     timeout
+  //   );
+  // }
+
+  // private stopRefreshTokenTimer() {
+  //   clearTimeout(this.refreshTokenTimeout);
+  // }
 }

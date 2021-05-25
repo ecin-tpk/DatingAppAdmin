@@ -6,11 +6,11 @@ export interface User {
   email: string;
   isVerified: string;
   name: string;
-  phone?: string;
+  phoneNumber?: string;
   gender: string;
   dateOfBirth: Date;
   role: Role;
-  photoUrl: string;
+  avatarUrl: string;
   jwtToken?: string;
   created: Date;
   lastActive: Date;
@@ -25,8 +25,8 @@ export interface User {
 
 export const Genders = [
   { gender: '', text: 'Any' },
-  { gender: 'male', text: 'Male' },
-  { gender: 'female', text: 'Female' },
+  { gender: 'Male', text: 'Male' },
+  { gender: 'Female', text: 'Female' },
 ];
 export const Verification = [
   { verified: '', text: 'Any' },

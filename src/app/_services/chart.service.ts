@@ -30,7 +30,7 @@ export class ChartService {
 
   getNewUsersPerMonth(milliseconds) {
     return this.http.get<TimeValueData>(
-      `${environment.apiUrl}/admin/charts/users/new-users-per-month/${milliseconds}`
+      `${environment.apiUrl}/admin/users/charts/monthly-new/${milliseconds}`
     );
   }
 
@@ -39,13 +39,13 @@ export class ChartService {
     period: 'monthly' | 'quarterly' | 'daily'
   ) {
     return this.http.get<TimeValueData>(
-      `${environment.apiUrl}/admin/charts/users/total-users/${milliseconds}/${period}`
+      `${environment.apiUrl}/admin/users/charts/total/${milliseconds}/${period}`
     );
   }
 
   getActivePercentage(milliseconds) {
     return this.http.get<TimeValueData>(
-      `${environment.apiUrl}/admin/charts/users/active-percentage/${milliseconds}`
+      `${environment.apiUrl}/admin/users/charts/active/${milliseconds}`
     );
   }
 }

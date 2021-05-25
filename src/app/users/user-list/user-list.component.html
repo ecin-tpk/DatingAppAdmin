@@ -284,12 +284,12 @@
                     <div class="avatar avatar-xs align-middle mr-2">
                       <img
                         class="avatar-img rounded-circle"
-                        src="{{ user.photoUrl }}"
-                        *ngIf="user.photoUrl"
+                        src="{{ user.avatarUrl }}"
+                        *ngIf="user.avatarUrl"
                       />
                       <span
                         class="avatar-title rounded-circle"
-                        *ngIf="!user.photoUrl"
+                        *ngIf="!user.avatarUrl"
                       >
                         {{ user.name.charAt(0) }}
                       </span>

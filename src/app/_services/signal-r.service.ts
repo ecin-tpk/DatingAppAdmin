@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { IHttpConnectionOptions } from '@microsoft/signalr';
-
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -10,8 +9,8 @@ import { NotificationService } from './notification.service';
 export class SignalRService {
   private hubConnection: signalR.HubConnection;
   private accessTokenOption: IHttpConnectionOptions = {
-    accessTokenFactory(): string | Promise<string> {
-      return localStorage.getItem('access_token');
+    accessTokenFactory() {
+      return localStorage.getItem('jwt_token');
     },
   };
 
@@ -20,7 +19,7 @@ export class SignalRService {
   connectToNotificationHub() {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(
-        'http://192.168.0.108:5000/hubs/notification',
+        'http://192.168.0.13:5000/hubs/chart',
         this.accessTokenOption
       )
       .build();

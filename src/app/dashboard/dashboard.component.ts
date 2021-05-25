@@ -49,8 +49,8 @@ export class DashboardComponent implements OnInit {
         data: res.values,
         label: this.thisYear,
         maxBarThickness: 10,
-        backgroundColor: '#ea4c89',
-        hoverBackgroundColor: '#f082ac',
+        backgroundColor: '#2c7be5',
+        hoverBackgroundColor: '#006cfa',
       });
     });
   }
@@ -59,8 +59,8 @@ export class DashboardComponent implements OnInit {
     this.usersByAgeChartData = [];
     this.usersByAgeChartColors = [
       {
-        backgroundColor: ['#ea4c89', '#fab9d0', '#f8c8d6'],
-        hoverBorderColor: ['#FFFFFF', '#FFFFFF', '#FFFFFF'],
+        backgroundColor: ['#2c7be5', '#a6c5f7', '#d2ddec'],
+        hoverBorderColor: ['#ffffff', '#ffffff', '#ffffff'],
       },
     ];
     this.usersByAgeChartLabels = ['18-29', '30-49', '50+'];
